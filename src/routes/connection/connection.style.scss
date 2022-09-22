@@ -1,0 +1,27 @@
+@import '../../common/common.style.scss';
+
+.connection {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
+    .logo {
+        max-height: 5rem;
+        margin-bottom: 5rem;
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .separator {
+        border: 1px solid $border-color;
+        margin: -2rem 4rem 0 -1rem;
+        height: 130%;
+    }
+}

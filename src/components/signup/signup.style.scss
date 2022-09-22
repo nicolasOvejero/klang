@@ -1,0 +1,22 @@
+@import '../../common/common.style.scss';
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+
+    .title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        margin: 0 0 2rem 0;
+        text-transform: uppercase;
+    }
+
+    .form {
+        width: 80%;
+
+        label:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+    }
+}

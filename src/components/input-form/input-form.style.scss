@@ -29,19 +29,19 @@
         &:focus + .label-text {
             color: $text-color-dark;
             font-size: 0.75rem;
-            -moz-transform: translateY(-2.5rem);
-            -ms-transform: translateY(-2.5rem);
-            -webkit-transform: translateY(-2.5rem);
-            transform: translateY(-2.5rem);
+            -moz-transform: translateY(-2.75rem);
+            -ms-transform: translateY(-2.75rem);
+            -webkit-transform: translateY(-2.75rem);
+            transform: translateY(-2.75rem);
         }
 
         + .label-text.filled {
             color: $text-color-dark;
             font-size: 0.75rem;
-            -moz-transform: translateY(-2.5rem);
-            -ms-transform: translateY(-2.5rem);
-            -webkit-transform: translateY(-2.5rem);
-            transform: translateY(-2.5rem);
+            -moz-transform: translateY(-2.75rem);
+            -ms-transform: translateY(-2.75rem);
+            -webkit-transform: translateY(-2.75rem);
+            transform: translateY(-2.75rem);
         }
     }
 }

@@ -3,7 +3,7 @@ import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
 import './signup.style.scss';
 
-const defaultFormFields = {
+const defaultSignUpState = {
     username: '',
     email: '',
     password: '',
@@ -11,12 +11,12 @@ const defaultFormFields = {
 };
 
 function Signup() {
-    const [formFields, setFormFields] = useState(defaultFormFields);
-    const { username, email, password, confirmPassword } = formFields;
+    const [signUpState, setSignUpState] = useState(defaultSignUpState);
+    const { username, email, password, confirmPassword } = signUpState;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setFormFields({ ...formFields, [name]: value });
+        setSignUpState({ ...signUpState, [name]: value });
     }
 
     return (

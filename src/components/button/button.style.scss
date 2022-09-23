@@ -1,11 +1,23 @@
+@import '../../common/common.style.scss';
+
 button {
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid $border-color;
+    color: $text-color;
     font-size: 1.5rem;
     padding: 0.75rem 2rem;
 
     &:hover {
         cursor: pointer;
+    }
+
+    &:disabled {
+        color: lighten($text-color, 50);
+        border-color: lighten($border-color, 50);
+
+        &:hover {
+            cursor: progress;
+        }
     }
 }
 

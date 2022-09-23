@@ -6,23 +6,40 @@ import './signin.style.scss';
 import { useDispatch } from 'react-redux';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 
-const defaultFormFields = {
+const defaultSignInState = {
     username: '',
     password: '',
+    formHasError: false,
+    formError: '',
+    loading: false
 };
 
 function Signin() {
-    const [formFields, setFormFields] = useState(defaultFormFields);
-    const { username, password } = formFields;
+    const [signInState, setSignInState] = useState(defaultSignInState);
+    const { username, password, formHasError, formError, loading } = signInState;
     const dispatch = useDispatch();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setFormFields({ ...formFields, [name]: value });
+        setSignInState({
+            ...signInState,
+            [name]: value,
+            formHasError: false,
+            formError: ''
+        });
     }
 
     async function signIn(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        if (loading || !username || !password) {
+            return;
+        }
+
+        setSignInState({
+            ...signInState,
+            loading: true
+        });
 
         try {
             const user = await Auth.signIn(username, password);
@@ -38,8 +55,13 @@ function Signin() {
                     }
                 }
             });
-        } catch (error) {
-            console.log('error signing in', error);
+        } catch (error: any) {
+            setSignInState({
+                ...signInState,
+                formHasError: true,
+                formError: "Mot de passe ou utilisateur incorrect", 
+                loading: false
+            });
         }
     }
 
@@ -51,6 +73,8 @@ function Signin() {
                     label="Nom d'utilisateur"
                     type='text'
                     required
+                    haserror={formHasError}
+                    errormessage={formError}
                     onChange={handleChange}
                     name='username'
                     value={username}
@@ -60,13 +84,15 @@ function Signin() {
                     label='Mot de passe'
                     type='password'
                     required
+                    haserror={formHasError}
+                    errormessage={formError}
                     onChange={handleChange}
                     name='password'
                     value={password}
                 />
 
                 <div className='button-container'>
-                   <Button label='Connexion' type='submit' />
+                   <Button label='Connexion' type='submit' disabled={loading} />
                 </div>
             </form>
         </section>

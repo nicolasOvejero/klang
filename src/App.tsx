@@ -7,7 +7,6 @@ import { selectAuthReducer } from './store/auth/auth.selector';
 
 function App() {
   const auth = useSelector(selectAuthReducer);
-  console.log(auth);
 
   return (
     <div className="App">

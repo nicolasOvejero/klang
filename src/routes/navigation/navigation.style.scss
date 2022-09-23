@@ -1,9 +1,26 @@
 @import '../../common/common.style.scss';
 
 .header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
     padding: 1rem;
 
     .logo {
         max-height: 3rem;
+    }
+
+    .identity {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        justify-content: flex-end;
+
+        &-name {
+            font-size: 1.25rem;
+            letter-spacing: 2px;
+            margin-right: 1rem;
+        }
     }
 }

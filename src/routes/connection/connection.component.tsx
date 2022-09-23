@@ -13,8 +13,12 @@ function Connection() {
             />
             <section className='forms'>
                 <Signin></Signin>
-                <hr className='separator' />
-                <Signup></Signup>
+                {
+/*
+                    <hr className='separator' />
+                    <Signup></Signup> 
+*/
+                }
             </section>
         </article>
     );

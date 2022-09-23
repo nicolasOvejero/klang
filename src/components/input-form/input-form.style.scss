@@ -130,5 +130,14 @@
                 transform: translateY(-2rem);
             }
         }
+
+        &.error {
+            .error-text {
+                -moz-transform: translateY(-1.10rem);
+                -ms-transform: translateY(-1.10rem);
+                -webkit-transform: translateY(-1.10rem);
+                transform: translateY(-1.10rem);
+            }
+        }
     }
 }

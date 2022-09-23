@@ -13,10 +13,54 @@
     }
 
     .form {
-        width: 80%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
 
         label:not(:last-child) {
             margin-bottom: 2rem;
         }
+
+        .button-container {
+            align-items: flex-end;
+            display: flex;
+            flex: 1 0 0;
+            justify-content: center;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .signin {
+        width: 35%;
+
+        .title {
+            font-size: 1.75rem;
+            margin: 0 0 2rem 0;
+        }
+
+        .form {
+            label:not(:last-child) {
+                margin-bottom: 1.75rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .signin {
+        width: 35%;
+
+        .title {
+            font-size: 1.5rem;
+            margin: 0 0 1.5rem 0;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .signin {
+        width: 80%;
     }
 }

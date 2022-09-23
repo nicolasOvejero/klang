@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
 import './signin.style.scss';
 
@@ -37,6 +38,10 @@ function Signin() {
                     name='password'
                     value={password}
                 />
+
+                <div className='button-container'>
+                   <Button label='Connexion' type='submit' />
+                </div>
             </form>
         </section>
     );

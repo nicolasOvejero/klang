@@ -20,8 +20,57 @@
     }
 
     .separator {
-        border: 1px solid $border-color;
-        margin: -2rem 4rem 0 -1rem;
-        height: 130%;
+        border: none;
+        border-left: 2px solid $border-color;
+        margin: -2rem 4rem 0 4rem;
+        height: 120%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .connection {
+        .logo {
+            margin-bottom: 4rem;
+        }
+
+        .separator {
+            margin: -1rem 3rem 0 3rem;
+            height: 115%;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .connection {
+        .logo {
+            max-height: 6rem;
+            margin-bottom: 4rem;
+        }
+
+        .separator {
+            margin: -2rem 2rem 0 2rem;
+            height: 120%;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .connection {
+        .logo {
+            max-height: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .forms {
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .separator {
+            border-top: 2px solid $border-color;
+            margin: 2rem 0;
+            height: auto;
+            width: 80%;
+        }
     }
 }

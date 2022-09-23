@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
 import './signup.style.scss';
 
@@ -57,6 +58,10 @@ function Signup() {
                     name='confirmPassword'
                     value={confirmPassword}
                 />
+
+                <div className='button-container'>
+                   <Button label="Inscription" type="submit" />
+                </div>
             </form>
         </section>
     );

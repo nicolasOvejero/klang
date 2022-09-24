@@ -1,9 +1,9 @@
 import './App.scss';
 import Connection from './routes/connection/connection.component';
-import Navigation from './routes/navigation/navigation.component';
 import '@aws-amplify/ui-react/styles.css';
 import { useSelector } from 'react-redux';
 import { selectAuthReducer } from './store/auth/auth.selector';
+import Home from './routes/home/home.component';
 
 function App() {
   const auth = useSelector(selectAuthReducer);
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       {
-        auth.isConnected ? (<Navigation />) : (<Connection />)
+        auth.isConnected ? (<Home/>) : (<Connection />)
       }
     </div>
   );

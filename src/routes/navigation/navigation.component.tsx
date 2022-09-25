@@ -1,5 +1,7 @@
 import { Auth } from 'aws-amplify';
+import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import Button from '../../components/button/button.component';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
@@ -26,23 +28,26 @@ function Navigation() {
     }
 
     return (
-        <header className='header'>
-            <img
-                className='logo'
-                alt="logo"
-                src={logo}
-            />
-            <div className='identity'>
-                <p className='identity-name'>
-                    Bonjour, { auth.user?.username }
-                </p>
-                <Button
-                    label='Déconnexion'
-                    type='button'
-                    clickHandler={signOut}
-                ></Button>
-            </div>
-        </header>
+        <Fragment>
+            <header className='header'>
+                <img
+                    className='logo'
+                    alt="logo"
+                    src={logo}
+                />
+                <div className='identity'>
+                    <p className='identity-name'>
+                        Bonjour, { auth.user?.username }
+                    </p>
+                    <Button
+                        label='Déconnexion'
+                        type='button'
+                        clickHandler={signOut}
+                    ></Button>
+                </div>
+            </header>
+            <Outlet />
+        </Fragment>
     );
 }
 

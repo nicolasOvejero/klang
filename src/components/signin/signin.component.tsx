@@ -5,6 +5,7 @@ import { Auth } from 'aws-amplify';
 import './signin.style.scss';
 import { useDispatch } from 'react-redux';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
+import { useNavigate } from 'react-router-dom';
 
 const defaultSignInState = {
     username: '',
@@ -18,6 +19,7 @@ function Signin() {
     const [signInState, setSignInState] = useState(defaultSignInState);
     const { username, password, formHasError, formError, loading } = signInState;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -55,6 +57,7 @@ function Signin() {
                     }
                 }
             });
+            navigate('/');
         } catch (error: any) {
             setSignInState({
                 ...signInState,

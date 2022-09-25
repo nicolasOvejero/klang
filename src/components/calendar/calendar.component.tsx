@@ -1,9 +1,12 @@
 import './calendar.style.scss';
 import moment from 'moment';
 import 'moment/locale/fr';
-import cake from '../../assets/cake.png';
 
-function Calendar() {
+type ClanedarPops = {
+    iconHover: string;
+}
+
+function Calendar(props: ClanedarPops) {
     moment.locale('fr');
     const month = moment().format('MMMM YYYY');
     const totalDaysInCurrentMonth = moment().daysInMonth();
@@ -54,7 +57,9 @@ function Calendar() {
                                 <span className={`${isDayMatch(day) ? 'selected' : ''}`} >
                                     <span>{day}</span>
                                     {
-                                        isDayMatch(day) && <img alt='birth cake' src={cake} className='cake-image' />
+                                        isDayMatch(day) && <img alt='birth cake'
+                                            src={props.iconHover}
+                                            className='cake-image' />
                                     }
                                 </span>
                             )

@@ -3,8 +3,9 @@
 .header {
     align-items: center;
     display: flex;
+    height: $header-height;
     flex-direction: row;
-    padding: 1rem;
+    padding: 0 1rem;
 
     .logo {
         max-height: 3rem;

@@ -9,6 +9,7 @@ import awsconfig from './aws-exports';
 import { Provider } from 'react-redux';
 import store, { persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { BrowserRouter } from "react-router-dom";
 
 Amplify.configure(awsconfig);
 
@@ -17,11 +18,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

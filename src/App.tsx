@@ -7,6 +7,7 @@ import Home from './routes/home/home.component';
 import { Route, Routes } from 'react-router-dom';
 import GuardedRoute from './routes/guarded-route.component';
 import Navigation from './routes/navigation/navigation.component';
+import Birthday from './routes/birthday/birthday.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -19,7 +20,8 @@ function App() {
                         <Navigation />
                     </GuardedRoute>
                 }>
-                    <Route index element={<Home />}/>
+                    <Route index element={<Home />} />
+                    <Route path='birthdays' element={<Birthday />} />
                 </Route>
                 <Route path="login" element={<Connection />} />
             </Routes>

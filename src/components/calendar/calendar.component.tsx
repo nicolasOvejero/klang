@@ -1,19 +1,23 @@
 import './calendar.style.scss';
 import moment from 'moment';
 import 'moment/locale/fr';
+import { BirthdayModel } from '../../routes/birthday/birthday.component';
 
-type ClanedarPops = {
+type CalendarPops = {
     iconHover: string;
+    color: string;
+    selectedDay: BirthdayModel[];
+    daySelectedHandler: (day: any) => void;
 }
 
-function Calendar(props: ClanedarPops) {
+function Calendar(props: CalendarPops) {
     moment.locale('fr');
     const month = moment().format('MMMM YYYY');
     const totalDaysInCurrentMonth = moment().daysInMonth();
     const dayLabels = moment.weekdaysShort(true);
     const firstDay: number = +(moment()
                  .startOf("month")
-                 .format("d")) - 1; 
+                 .format("d")) - 1;
 
     const days = [];
     for (let i = 0; i < firstDay; i++) {
@@ -23,23 +27,15 @@ function Calendar(props: ClanedarPops) {
         days.push(i);
     }
 
-    const prop = [
-        moment().subtract(12, 'day').toDate(),
-        moment().subtract(10, 'day').toDate(),
-        moment().subtract(15, 'day').toDate(),
-        moment().subtract(1, 'day').toDate(),
-        moment().add(2, 'day').toDate(),
-    ];
-
-    const isDayMatch = (day: number): boolean => {
+    const isDayMatch = (day: number): BirthdayModel | undefined => {
         const date = moment().set("date", day);
-        return prop.find((v) => {
-            return moment(v).isSame(date, 'day');
-        }) !== undefined;
+        return props.selectedDay.find((v) => {
+            return moment(v.date).isSame(date, 'day');
+        });
     }
     
     return (
-        <div className='calendar'>
+        <div className={ `calendar ${props.color}` }>
             <div className='month-name'>
                 { month }
             </div>
@@ -49,23 +45,27 @@ function Calendar(props: ClanedarPops) {
                 )
             }
             {
-                days.map((day) =>
-                (
-                    <div key={day} className='days-tile'> 
-                        {
-                            day > 0 && (
-                                <span className={`${isDayMatch(day) ? 'selected' : ''}`} >
-                                    <span>{day}</span>
-                                    {
-                                        isDayMatch(day) && <img alt='birth cake'
-                                            src={props.iconHover}
-                                            className='cake-image' />
-                                    }
-                                </span>
-                            )
-                        }
-                    </div>
-                ))
+                days.map((day) => {
+                    const match = isDayMatch(day);
+                    return (
+                        <div key={day} className='days-tile'> 
+                            {
+                                day > 0 && (
+                                    <span
+                                        onClick={match ? () => props.daySelectedHandler(match) : undefined}
+                                        className={`${match ? 'selected' : ''}`} >
+                                        <span>{day}</span>
+                                        {
+                                            match && <img alt='birth cake'
+                                                src={props.iconHover}
+                                                className='cake-image' />
+                                        }
+                                    </span>
+                                )
+                            }
+                        </div>
+                    )
+                })
             }
         </div>
     )

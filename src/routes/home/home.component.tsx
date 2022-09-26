@@ -1,9 +1,11 @@
 import { useLayoutEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import manage from '../../assets/manage.png';
 import Button from '../../components/button/button.component';
 import './home.style.scss';
 
 function Home() {
+    const navigate = useNavigate();
     const myRef: any = useRef<HTMLSpanElement>();
     const dataText = [
         {
@@ -68,6 +70,10 @@ function Home() {
         }
     }
 
+    const goTo = (path: string) => {
+        navigate(path);
+    }
+
     useLayoutEffect(() => {
         StartTextAnimation(0);
     });
@@ -94,6 +100,7 @@ function Home() {
                     label='Anniversaires'
                     type='button'
                     color='primary'
+                    clickHandler={ () => goTo('birthdays') }
                 ></Button>
                 <Button
                     label='Événements'

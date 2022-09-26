@@ -4,7 +4,7 @@ type ButtonProps = {
     label: string;
     type: 'button' | 'submit' | 'reset' | undefined;
     disabled?: boolean;
-    clickHandler?: () => {};
+    clickHandler?: () => void;
     color?: 'primary' | 'secondary';  
 }
 

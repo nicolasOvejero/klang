@@ -40,7 +40,7 @@
 
         .selected {
             align-items: center;
-            border: 1px solid $primary;
+            border: 1px solid $border-color;
             border-radius: 0.2rem;
             display: flex;
             line-height: 3rem;
@@ -76,6 +76,14 @@
                 z-index: 0;
             }
         }
+    }
+
+    &.primary .days-tile .selected {
+        border-color: $primary;
+    }
+
+    &.secondary .days-tile .selected {
+        border-color: $secondary;
     }
 }
 

@@ -2,6 +2,7 @@
 
 .body {
     height: $body-height;
+    overflow: hidden;
 
     .title {
         color: $text-color;
@@ -44,13 +45,14 @@
             box-shadow: -2px 0px 7px 2px darken($grey-light, 10);
             display: flex;
             flex-direction: column;
-            height: 95%;
+            height: 90%;
             padding: 0.5rem;
             position: absolute;
             right: -100%;
             transition: all 1s ease-in-out;
-            top: 0;
+            top: 5%;
             width: 50%;
+            z-index: 10;
 
             &.open {
                 right: 0;
@@ -98,51 +100,163 @@
     }
 } 
 
-@media screen and (max-width: 1200px) {
-    .birthday {
-        &-container {
-            gap: 1.5rem;
-
-            .calendar {
-                padding: 0 3rem;
-            }
+@media screen and (max-width: $breakpoint-large) {
+    .body {
+        .title {
+            font-size: 2.5rem;
         }
 
-        &-image img {
-            width: 95%;
+        .birthday {
+            &-container {
+                gap: 0;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 1rem 0 1.5rem;
+
+                .calendar {
+                    padding: 0 1rem;
+                }
+            }
+
+            &-image img {
+                width: 95%;
+            }
+
+            &-informations {
+                height: 85%;
+                top: 10%;
+
+                .close {
+                    font-size: 2rem;
+                    margin: 0;
+                    padding: 0.5rem;
+                }
+
+                .background {
+                    margin-top: -3rem;
+                }
+
+                .date {
+                    font-size: 1.5rem;
+                    margin: 0.5rem 1.5rem 0.5rem 0;
+                }
+
+                .users {
+                    grid-template-columns: repeat(2, 1fr);
+                    padding: 0 1rem;
+                }
+            }
         }
     }
 }
 
-@media screen and (max-width: 768px) {
-    .birthday {
-        &-container {
-            gap: 1rem;
-
-            .calendar {
-                padding: 0 2rem;
-            }
+@media screen and (max-width: $breakpoint-medium) {
+    .body {
+        .title {
+            font-size: 1.75rem;
         }
 
-        &-image img {
-            width: 100%;
+        .birthday {
+            &-container {
+                gap: 0;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 1rem 0 1rem;
+    
+                .calendar {
+                    padding: 0 0.5rem;
+                    max-width: 90%;
+                }
+            }
+    
+            &-image img {
+                width: 90%;
+            }
+    
+            &-informations {
+                height: 80%;
+    
+                .date {
+                    font-size: 1.25rem;
+                }
+    
+                .users {
+                    grid-template-columns: 1fr;
+                    padding: 0 0.5rem;
+                }
+            }
         }
     }
 }
 
-@media screen and (max-width: 600px) {
-    .birthday {
-        &-container {
-            gap: 0;
-            grid-template-columns: 1fr;
+@media screen and (max-width: $breakpoint-small) {
+    .body {
+        overflow: hidden;
 
-            .calendar {
-                padding: 0.5rem;
-            }
+        .title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
         }
 
-        &-image img {
-            width: 100%;
+        .birthday {
+            &-container {
+                gap: 0;
+                grid-template-columns: 1fr;
+                padding: 0 0.5rem 0 0.5rem;
+    
+                .calendar {
+                    padding: 0;
+                    max-width: 100%;
+                }
+            }
+    
+            &-image img {
+                width: 100%;
+            }
+    
+            &-informations {
+                border-bottom-left-radius: 0;
+                border-top-right-radius: 2rem;
+                border-top-left-radius: 2rem;
+                height: 85%;
+                left: 0;
+                right: 0;
+                top: auto;
+                bottom: -85%;
+                width: 100%;
+
+                &.open {
+                    right: auto;
+                    bottom: 0%;
+                }
+    
+                .close {
+                    font-size: 1.5rem;
+                    margin: {
+                        left: -0.5rem;
+                        top: -0.5rem;
+                    };
+                    padding: 1rem;
+                }
+    
+                .background {
+                    margin-top: -3rem;
+                }
+    
+                .date {
+                    font-size: 1rem;
+                    margin: 0.5rem 0.5rem 0.5rem 0;
+                }
+    
+                .users {
+                    grid-template-columns: 1fr;
+                    padding: 0 1rem;
+    
+                    .user:not(:last-child) {
+                        margin-bottom: 0.5rem;
+                    }
+                }
+            }
         }
     }
 }

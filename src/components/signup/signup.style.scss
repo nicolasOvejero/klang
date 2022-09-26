@@ -29,7 +29,7 @@
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: $breakpoint-large) {
     .signup {
         width: 35%;
 
@@ -46,7 +46,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $breakpoint-medium) {
     .signup {
         width: 35%;
 
@@ -57,7 +57,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $breakpoint-small) {
     .signup {
         width: 80%;
     }

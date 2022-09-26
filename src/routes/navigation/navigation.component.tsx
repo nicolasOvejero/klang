@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import Button from '../../components/button/button.component';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
@@ -11,6 +11,7 @@ import './navigation.style.scss';
 function Navigation() {
     const auth = useSelector(selectAuthReducer);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     async function signOut() {
         try {
@@ -31,6 +32,7 @@ function Navigation() {
         <Fragment>
             <header className='header'>
                 <img
+                    onClick={() => navigate('/')}
                     className='logo'
                     alt="logo"
                     src={logo}

@@ -65,7 +65,7 @@
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: $breakpoint-large) {
     .label {
         height: 1.25rem;
 
@@ -101,7 +101,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $breakpoint-medium) {
     .label {
         height: 1rem;
 

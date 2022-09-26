@@ -10,9 +10,9 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        height: 8rem;
+        height: 6rem;
         margin-right: 1.5rem;
-        width: 8rem;
+        width: 6rem;
     }
 
     &-name {
@@ -20,5 +20,32 @@
         font-size: 1.25rem;
         letter-spacing: 2px;
         margin: 0
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .user {
+        &-image {
+            height: 5rem;
+            margin-right: 1rem;
+            width: 5rem;
+        }
+
+        &-name {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .user {
+        &-image {
+            height: 4rem;
+            width: 4rem;
+        }
+
+        &-name {
+            font-size: 0.75rem;
+        }
     }
 }

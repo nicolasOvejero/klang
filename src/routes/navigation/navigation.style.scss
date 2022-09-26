@@ -9,6 +9,10 @@
 
     .logo {
         max-height: 3rem;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .identity {
@@ -22,6 +26,40 @@
             font-size: 1.25rem;
             letter-spacing: 2px;
             margin-right: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .header {
+        height: $header-height;
+        padding: 0 0.75rem;
+
+        .logo {
+            max-height: 2.5rem;
+        }
+
+        .identity {
+            &-name {
+                font-size: 1rem;
+                margin-right: 0.75rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .header {
+        height: $header-height;
+        flex-direction: row;
+        padding: 0 0.5rem;
+
+        .logo {
+            max-height: 2rem;
+        }
+
+        .identity {
+            display: none;
         }
     }
 }

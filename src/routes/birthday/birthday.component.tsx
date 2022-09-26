@@ -29,6 +29,36 @@ function Birthday() {
                     image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
                     firstname: 'Pierre',
                     lastname: 'Dupuit'
+                },
+                {
+                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
+                    firstname: 'Angelina',
+                    lastname: 'Dupond'
+                },
+                {
+                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
+                    firstname: 'Pierre',
+                    lastname: 'Dupuit'
+                },
+                {
+                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
+                    firstname: 'Angelina',
+                    lastname: 'Dupond'
+                },
+                {
+                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
+                    firstname: 'Pierre',
+                    lastname: 'Dupuit'
+                },
+                {
+                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
+                    firstname: 'Angelina',
+                    lastname: 'Dupond'
+                },
+                {
+                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
+                    firstname: 'Pierre',
+                    lastname: 'Dupuit'
                 }
             ]
         },

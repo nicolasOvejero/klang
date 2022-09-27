@@ -3,9 +3,12 @@ import partyImage from '../../assets/party.png';
 import cake from '../../assets/cake.png';
 import './birthday.style.scss';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as Background } from '../../assets/bg-party.svg';
 import User, { UserModel } from "../../components/user/user.component";
+import { API } from 'aws-amplify';
+import { ListBirthdaysQuery, listBithday } from "../../components/custom-queries";
+import { GraphQLResult } from "@aws-amplify/api";
 
 export type BirthdayModel = {
     date: Date;
@@ -15,66 +18,7 @@ export type BirthdayModel = {
 function Birthday() {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<BirthdayModel>();
-
-    const values: BirthdayModel[] = [
-        {
-            date: moment().subtract(12, 'day').toDate(),
-            users: [
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                }
-            ]
-        },
-        {
-            date: moment().subtract(10, 'day').toDate(),
-        },
-        {
-            date: moment().subtract(15, 'day').toDate(),
-        },
-        {
-            date: moment().subtract(1, 'day').toDate(),
-        },
-        {
-            date: moment().add(2, 'day').toDate(),
-        },
-    ]
+    const [birthdays, setBirthdays] = useState<BirthdayModel[]>([]);
 
     const showEventDescription = (selectedDay: BirthdayModel) => {
         console.log(selectedDay);
@@ -85,6 +29,31 @@ function Birthday() {
     const handleClose = () => {
         setIsInfoOpen(false);
     }
+
+    const getBirthdays = async () => {
+        const apiData = await API.graphql({
+            query: listBithday,
+        }) as GraphQLResult<ListBirthdaysQuery>;
+        const items = apiData.data?.listBirthdays?.items;
+        if (items) {
+            setBirthdays(items.map((item) => {
+                return {
+                    date: moment(item?.date).toDate(),
+                    users: item?.users?.items?.map((user) => {
+                        return {
+                            lastname: user?.lastname || '',
+                            firstname: user?.firstname || '',
+                            image: user?.image || ''
+                        }
+                    })
+                }
+            }));
+        }
+    } 
+
+    useEffect(() => {
+        getBirthdays();
+    }, []);
 
     return (
         <article className='body'>
@@ -98,7 +67,7 @@ function Birthday() {
                     iconHover={cake}
                     color='primary'
                     daySelectedHandler={showEventDescription}
-                    selectedDay={ values }
+                    selectedDay={ birthdays }
                 />
                 <div className='birthday-image'>
                     <img

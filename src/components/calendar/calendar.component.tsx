@@ -31,7 +31,9 @@ function Calendar(props: CalendarPops) {
     const isDayMatch = (day: number): BirthdayModel | EventModel | undefined => {
         const date = moment().set("date", day);
         return props.selectedDay.find((v: BirthdayModel | EventModel) => {
-            return moment(v.date).isSame(date, 'day');
+            const selectedDate = moment(v.date);
+            return selectedDate.date() === date.date() &&
+                selectedDate.month() === date.month();
         });
     }
     

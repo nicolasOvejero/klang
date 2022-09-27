@@ -2,11 +2,12 @@ import './calendar.style.scss';
 import moment from 'moment';
 import 'moment/locale/fr';
 import { BirthdayModel } from '../../routes/birthday/birthday.component';
+import { EventModel } from '../../routes/event/event.component';
 
 type CalendarPops = {
     iconHover: string;
     color: string;
-    selectedDay: BirthdayModel[];
+    selectedDay: any[]; 
     daySelectedHandler: (day: any) => void;
 }
 
@@ -27,9 +28,9 @@ function Calendar(props: CalendarPops) {
         days.push(i);
     }
 
-    const isDayMatch = (day: number): BirthdayModel | undefined => {
+    const isDayMatch = (day: number): BirthdayModel | EventModel | undefined => {
         const date = moment().set("date", day);
-        return props.selectedDay.find((v) => {
+        return props.selectedDay.find((v: BirthdayModel | EventModel) => {
             return moment(v.date).isSame(date, 'day');
         });
     }

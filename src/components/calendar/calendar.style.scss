@@ -56,7 +56,6 @@
 
             &:hover {
                 border: none;
-                color: $white;
                 cursor: pointer;
 
                 > span {
@@ -80,10 +79,18 @@
 
     &.primary .days-tile .selected {
         border-color: $primary;
+
+        &:hover {
+            color: $white;
+        }
     }
 
     &.secondary .days-tile .selected {
         border-color: $secondary;
+
+        &:hover {
+            color: $text-color;
+        }
     }
 }
 

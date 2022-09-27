@@ -4,16 +4,17 @@ export type UserModel = {
     image: string;
     firstname: string;
     lastname: string;
+    size?: string;
 }
 
 function User({ user }: { user: UserModel }) {
     return (
-        <div className="user">
+        <div className={ `user ${ user.size ? user.size : '' }` }>
             <div
-                className="user-image"
+                className='user-image'
                 style={{ backgroundImage: `url(${user.image})` }}>
             </div>
-            <div className="user-name">
+            <div className='user-name'>
                 <p>{user.firstname}</p>
                 <p>{user.lastname}</p>
             </div>

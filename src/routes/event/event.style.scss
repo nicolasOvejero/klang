@@ -18,7 +18,7 @@
         }
     }
 
-    .birthday {
+    .event {
         &-container {
             align-items: center;
             display: grid;
@@ -34,37 +34,56 @@
             }
         }
 
-        &-image img {
-            width: 85%;
+        &-image {
+            display: grid;
+            grid-template-rows: 1fr;
+
+            .image-1 {
+                justify-self: start;
+                height: 12rem;
+            }   
+
+            .image-2 {
+                justify-self: end;
+                height: 8rem;
+                margin: -6rem 6rem -2rem 0;
+            }
+
+            .image-3 {
+                height: 13rem;
+                justify-self: center;
+            }
         }
 
         &-informations {
             background-color: $grey-light;
-            border-bottom-left-radius: 2rem;
-            border-top-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            border-top-right-radius: 2rem;
             box-shadow: -2px 0px 7px 2px darken($grey-light, 10);
             display: flex;
             flex-direction: column;
             height: 90%;
             padding: 0.5rem;
             position: absolute;
-            right: -50%;
+            left: -50%;
             transition: all 1s ease-in-out;
             top: 5%;
             width: 50%;
             z-index: 10;
 
             &.open {
-                right: 0;
+                left: 0;
             }
 
             .close {
                 color: $text-color-dark;
                 font-size: 3rem;
                 margin: {
-                    left: 0.5rem;
+                    bottom: 0.5rem;
+                    right: 0.5rem;
                     top: 0.5rem;
                 };
+                text-align: end;
                 z-index: 2;
 
                 &:hover {
@@ -72,29 +91,59 @@
                 }
             }
 
-            .background {
-                margin-top: -4rem;
-                width: 100%;
-                z-index: 1;
-            }
-
             .date {
                 align-self: center;
                 color: $text-color;
                 font-size: 2.5rem;
-                margin: 1rem 0;
+                margin-top: -4rem;
                 text-transform: capitalize;
+            }
+
+            .image {
+                background: {
+                    position: center;
+                    repeat: no-repeat;
+                    size: cover;
+                };
+                border-radius: 1rem;
+                height: 30%;
+                margin-bottom: 1rem;
+                width: 100%;
+            }
+
+            .info-grid {
+                align-items: center;
+                display: grid;
+                gap: 0rem;
+                grid-template-columns: 1.5fr 3fr;
+                margin-bottom: 0.5rem;
+
+                .head {
+                    font-size: 1.15rem;
+                }
+
+                .address, .type, .schedule {
+                    font-size: 1rem;
+                }
             }
 
             .users {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                padding: 0 2rem;
+                grid-template-columns: repeat(3, 1fr);
+                max-height: 35%;
                 overflow: auto;
 
                 .user:not(:last-child) {
                     margin-bottom: 1rem;
                 }
+            }
+
+            .no-users {
+                align-items: center;
+                display: flex;
+                height: 25%;
+                justify-content: center;
+                width: 100%;
             }
         }
     }
@@ -106,7 +155,7 @@
             font-size: 2.5rem;
         }
 
-        .birthday {
+        .event {
             &-container {
                 gap: 0;
                 grid-template-columns: repeat(2, 1fr);
@@ -117,8 +166,19 @@
                 }
             }
 
-            &-image img {
-                width: 95%;
+            &-image {
+                .image-1 {
+                    height: 11rem;
+                }   
+
+                .image-2 {
+                    height: 7rem;
+                    margin: -4rem 2rem -2rem 0;
+                }
+
+                .image-3 {
+                    height: 12rem;
+                }
             }
 
             &-informations {
@@ -131,18 +191,29 @@
                     padding: 0.5rem;
                 }
 
-                .background {
-                    margin-top: -3rem;
-                }
-
                 .date {
                     font-size: 1.5rem;
-                    margin: 0.5rem 1.5rem 0.5rem 0;
+                    margin: -2.5rem 1.5rem 0.5rem 0;
+                }
+
+                .image {
+                    margin-bottom: 0.75rem;
+                }
+
+                .info-grid {
+                    .head {
+                        font-size: 1rem;
+                    }
+
+                    .address, .type, .schedule {
+                        font-size: 0.85rem;
+                    }
                 }
 
                 .users {
-                    grid-template-columns: repeat(2, 1fr);
-                    padding: 0 1rem;
+                    .user:not(:last-child) {
+                        margin-bottom: 0.75rem;
+                    }
                 }
             }
         }
@@ -155,7 +226,7 @@
             font-size: 1.75rem;
         }
 
-        .birthday {
+        .event {
             &-container {
                 gap: 0;
                 grid-template-columns: repeat(2, 1fr);
@@ -167,8 +238,18 @@
                 }
             }
     
-            &-image img {
-                width: 90%;
+            &-image {
+                .image-1 {
+                    height: 9rem;
+                }   
+
+                .image-2 {
+                    margin: -3rem 1rem -2rem 0;
+                }
+
+                .image-3 {
+                    height: 9rem;
+                }
             }
     
             &-informations {
@@ -177,10 +258,29 @@
                 .date {
                     font-size: 1.25rem;
                 }
-    
+
+                .image {
+                    height: 30%;
+                    margin-bottom: 0.5rem;
+                }
+
+                .info-grid {
+                    .head {
+                        font-size: 0.75rem;
+                    }
+
+                    .address, .type, .schedule {
+                        font-size: 0.75rem;
+                    }
+                }
+
                 .users {
-                    grid-template-columns: 1fr;
-                    padding: 0 0.5rem;
+                    grid-template-columns: repeat(2, 1fr);
+                    max-height: 40%;
+
+                    .user:not(:last-child) {
+                        margin-bottom: 0.5rem;
+                    }
                 }
             }
         }
@@ -198,7 +298,7 @@
             text-align: center;
         }
 
-        .birthday {
+        .event {
             &-container {
                 gap: 0;
                 grid-template-columns: 1fr;
@@ -207,11 +307,25 @@
                 .calendar {
                     padding: 0;
                     max-width: 100%;
+                    grid-row: 1;
                 }
             }
     
-            &-image img {
-                width: 100%;
+            &-image {
+                grid-row: 2;
+
+                .image-1 {
+                    height: 7rem;
+                }   
+
+                .image-2 {
+                    height: 6rem;
+                    margin: -5rem 1rem -3rem 0;
+                }
+
+                .image-3 {
+                    height: 7rem;
+                }
             }
     
             &-informations {
@@ -237,24 +351,12 @@
                         top: -0.5rem;
                     };
                     padding: 1rem;
-                }
-    
-                .background {
-                    margin-top: -3rem;
+                    text-align: start;
                 }
     
                 .date {
                     font-size: 1rem;
-                    margin: 0.5rem 0.5rem 0.5rem 0;
-                }
-    
-                .users {
-                    grid-template-columns: 1fr;
-                    padding: 0 1rem;
-    
-                    .user:not(:last-child) {
-                        margin-bottom: 0.5rem;
-                    }
+                    margin: -2.5rem 0.5rem 0.5rem 0;
                 }
             }
         }

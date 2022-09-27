@@ -82,7 +82,7 @@ function Home() {
         <article className='body'>
             <section className='headline-section'>
                 <h1 className='headline-text'>
-                    Sur Klang retrouver :<br />
+                    Sur Klang retrouvez :<br />
                     <span
                         ref={myRef}
                         className='word'
@@ -105,7 +105,9 @@ function Home() {
                 <Button
                     label='Événements'
                     type='button'
-                    color='secondary'></Button>
+                    color='secondary'
+                    clickHandler={ () => goTo('events') }
+                ></Button>
             </section>
         </article>
     );

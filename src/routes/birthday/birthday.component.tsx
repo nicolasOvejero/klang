@@ -9,6 +9,7 @@ import User, { UserModel } from "../../components/user/user.component";
 import { API } from 'aws-amplify';
 import { ListBirthdaysQuery, listBithday } from "../../components/custom-queries";
 import { GraphQLResult } from "@aws-amplify/api";
+import Loader from "../../components/loader/loader.component";
 
 export type BirthdayModel = {
     date: Date;
@@ -19,6 +20,7 @@ function Birthday() {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<BirthdayModel>();
     const [birthdays, setBirthdays] = useState<BirthdayModel[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const showEventDescription = (selectedDay: BirthdayModel) => {
         console.log(selectedDay);
@@ -48,11 +50,14 @@ function Birthday() {
                     })
                 }
             }));
+            setTimeout(() => {
+                setLoading(false);
+            }, 500);
         }
     } 
 
     useEffect(() => {
-        getBirthdays();
+       getBirthdays();
     }, []);
 
     return (
@@ -63,12 +68,19 @@ function Birthday() {
                 </h1>
             </section>
             <section className='birthday-container'>
-                <Calendar
-                    iconHover={cake}
-                    color='primary'
-                    daySelectedHandler={showEventDescription}
-                    selectedDay={ birthdays }
-                />
+                {
+                    !loading && (<Calendar
+                        iconHover={cake}
+                        color='primary'
+                        daySelectedHandler={showEventDescription}
+                        selectedDay={ birthdays }
+                    />)
+                }
+                {
+                    loading && (<div className='calendar-position'>
+                        <Loader></Loader>
+                    </div>)
+                }
                 <div className='birthday-image'>
                     <img
                         alt="party for birthday"

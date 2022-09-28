@@ -18,6 +18,10 @@
         }
     }
 
+    .calendar-position {
+        position: relative;
+    }
+
     .birthday {
         &-container {
             align-items: center;

@@ -10,6 +10,7 @@ import User, { UserModel } from '../../components/user/user.component';
 import { listEvents, ListEventsQuery } from '../../components/custom-queries';
 import { API } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api-graphql';
+import Loader from '../../components/loader/loader.component';
 
 export type EventModel = {
     date: Date;
@@ -27,6 +28,7 @@ function Event() {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EventModel>();
     const [events, setEvents] = useState<EventModel[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const showEventDescription = (selectedDay: EventModel) => {
         console.log(selectedDay);
@@ -63,6 +65,9 @@ function Event() {
                     })
                 }
             }));
+            setTimeout(() => {
+                setLoading(false);
+            }, 500);
         }
     } 
 
@@ -146,12 +151,19 @@ function Event() {
                         <p className='no-users'>Aucun participants pour le moment</p>
                     }
                 </aside>
-                <Calendar
-                    iconHover={calendar}
-                    color='secondary'
-                    daySelectedHandler={showEventDescription}
-                    selectedDay={ events }
-                />
+                {
+                    loading && (<div className='calendar-position'>
+                        <Loader></Loader>
+                    </div>)
+                }
+                {
+                    !loading && (<Calendar
+                        iconHover={calendar}
+                        color='secondary'
+                        daySelectedHandler={showEventDescription}
+                        selectedDay={ events }
+                    />)
+                }
             </section>
         </article>
     )

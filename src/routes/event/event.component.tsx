@@ -2,11 +2,14 @@ import Calendar from '../../components/calendar/calendar.component';
 import calendar from '../../assets/calendar.png';
 import './event.style.scss';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import wine from '../../assets/wine.png';
 import winter from '../../assets/winter.png';
 import halloween from '../../assets/halloween.png';
 import User, { UserModel } from '../../components/user/user.component';
+import { listEvents, ListEventsQuery } from '../../components/custom-queries';
+import { API } from 'aws-amplify';
+import { GraphQLResult } from '@aws-amplify/api-graphql';
 
 export type EventModel = {
     date: Date;
@@ -23,102 +26,7 @@ export type EventModel = {
 function Event() {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EventModel>();
-
-    const values: EventModel[] = [
-        {
-            date: moment().subtract(12, 'day').toDate(),
-            image: 'https://images.unsplash.com/photo-1597290282695-edc43d0e7129?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmFyfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
-            participants: [
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                },
-                {
-                    image: 'https://laviedesreines.com/wp-content/uploads/2022/02/Comment-devenir-une-personne-solaire-pour-obtenir-tout-ce-que-vous-voulez-720x540.jpg',
-                    firstname: 'Angelina',
-                    lastname: 'Dupond'
-                },
-                {
-                    image: 'https://mobile-img.lpcdn.ca/lpca/924x/r3996/f8b5b7e3-89e4-11e9-9f79-0e7266730414.jpg',
-                    firstname: 'Pierre',
-                    lastname: 'Dupuit'
-                }
-            ],
-            type: 'Sortie au bar Le Benelux',
-            address: {
-                city: 'Montréal',
-                street: '2190 rue sainte catherine ouest',
-            },
-            schedule: '17h - 19h'
-        },
-        {
-            date: moment().subtract(10, 'day').toDate(),
-            image: 'https://img.lemde.fr/2016/03/07/0/0/4256/2832/664/0/75/0/e4aa8ed_17040-1fko2ho.jpg',
-            participants: [],
-            type: 'Soirée escape game',
-            address: {
-                city: 'Montréal',
-                street: '2190 rue sainte catherine ouest',
-            },
-            schedule: '17h - 21h'
-        }
-    ]
+    const [events, setEvents] = useState<EventModel[]>([]);
 
     const showEventDescription = (selectedDay: EventModel) => {
         console.log(selectedDay);
@@ -129,6 +37,38 @@ function Event() {
     const handleClose = () => {
         setIsInfoOpen(false);
     }
+
+    const getEvents = async () => {
+        const apiData = await API.graphql({
+            query: listEvents,
+        }) as GraphQLResult<ListEventsQuery>;
+        const items = apiData.data?.listEvents?.items;
+        if (items) {
+            setEvents(items.map((item) => {
+                return {
+                    date: moment(item?.date).toDate(),
+                    image: item?.image || '',
+                    type: item?.type || '',
+                    address: {
+                        city: item?.address?.city || '',
+                        street: item?.address?.street || '',
+                    },
+                    schedule: item?.schedule || '', 
+                    participants: item?.participants?.items?.map((user) => {
+                        return {
+                            lastname: user?.user.lastname || '',
+                            firstname: user?.user.firstname || '',
+                            image: user?.user.image || ''
+                        }
+                    })
+                }
+            }));
+        }
+    } 
+
+    useEffect(() => {
+        getEvents();
+    }, []);
 
     return (
         <article className='body'>
@@ -196,7 +136,7 @@ function Event() {
                             {
                                 selectedDate?.participants?.map((user) => {
                                     user.size = 'small';
-                                    return <User user={user}></User>
+                                    return <User key={user.lastname+user.firstname} user={user}></User>
                                 })
                             }
                         </div>
@@ -210,7 +150,7 @@ function Event() {
                     iconHover={calendar}
                     color='secondary'
                     daySelectedHandler={showEventDescription}
-                    selectedDay={ values }
+                    selectedDay={ events }
                 />
             </section>
         </article>

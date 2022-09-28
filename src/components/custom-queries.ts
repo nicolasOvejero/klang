@@ -52,11 +52,81 @@ export type ListBirthdaysQuery = {
                     lastname?: string | null,
                     firstname: string,
                     image?: string | null,
-                    nextToken?: string | null,
                 } | null>,
+                nextToken?: string | null,
             } | null,
             createdAt: string,
             updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+    } | null,
+};
+
+export const listEvents = /* GraphQL */ `
+    query ListEvents(
+        $id: ID
+        $filter: ModelEventFilterInput
+        $limit: Int
+        $nextToken: String
+        $sortDirection: ModelSortDirection
+    ) {
+        listEvents(
+            id: $id
+            filter: $filter
+            limit: $limit
+            nextToken: $nextToken
+            sortDirection: $sortDirection
+        ) {
+            items {
+                date
+                image
+                participants {
+                    items {
+                        user {
+                            image
+                            lastname
+                            firstname
+                        }
+                    }
+                }
+                type
+                address {
+                    city
+                    street
+                }
+                schedule
+            }
+            nextToken
+        }
+    }
+`;
+
+export type ListEventsQuery = {
+    listEvents?:  {
+        __typename: "ModelEventConnection",
+        items:  Array< {
+            __typename: "Event",
+            id: string,
+            date: string,
+            image?: string | null,
+            participants?:  {
+                __typename: "ModelUsersEventsConnection",
+                items: Array<{
+                    user: {
+                        lastname?: string | null,
+                        firstname: string,
+                        image?: string | null,
+                    }
+                } | null>
+                nextToken?: string | null,
+            } | null,
+            type?: string | null,
+            address?:  {
+                __typename: "Address",
+                city?: string | null,
+                street?: string | null,
+            } | null,
+            schedule?: string | null,
         } | null >,
         nextToken?: string | null,
     } | null,

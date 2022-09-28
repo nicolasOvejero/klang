@@ -17,9 +17,11 @@ export const createBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -43,9 +45,11 @@ export const updateBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -69,9 +73,11 @@ export const deleteBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -235,6 +241,7 @@ export const createUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -248,6 +255,7 @@ export const createUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
     }
   }
 `;
@@ -262,6 +270,7 @@ export const updateUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -275,6 +284,7 @@ export const updateUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
     }
   }
 `;
@@ -289,6 +299,7 @@ export const deleteUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -302,6 +313,91 @@ export const deleteUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
+    }
+  }
+`;
+export const createNewArrivals = /* GraphQL */ `
+  mutation CreateNewArrivals(
+    $input: CreateNewArrivalsInput!
+    $condition: ModelNewArrivalsConditionInput
+  ) {
+    createNewArrivals(input: $input, condition: $condition) {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateNewArrivals = /* GraphQL */ `
+  mutation UpdateNewArrivals(
+    $input: UpdateNewArrivalsInput!
+    $condition: ModelNewArrivalsConditionInput
+  ) {
+    updateNewArrivals(input: $input, condition: $condition) {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteNewArrivals = /* GraphQL */ `
+  mutation DeleteNewArrivals(
+    $input: DeleteNewArrivalsInput!
+    $condition: ModelNewArrivalsConditionInput
+  ) {
+    deleteNewArrivals(input: $input, condition: $condition) {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -340,12 +436,14 @@ export const createUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt
@@ -387,12 +485,14 @@ export const updateUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt
@@ -434,12 +534,14 @@ export const deleteUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt

@@ -131,3 +131,57 @@ export type ListEventsQuery = {
         nextToken?: string | null,
     } | null,
 };
+
+export const listNewArrivals = /* GraphQL */ `
+  query ListNewArrivals(
+    $id: ID
+    $filter: ModelNewArrivalsFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listNewArrivals(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        date
+        users {
+            items {
+                image
+                lastname
+                firstname
+                job
+            }
+        }
+      }
+      nextToken
+    }
+  }
+`;
+
+export type ListNewArrivalsQuery = {
+  listNewArrivals?:  {
+    __typename: "ModelNewArrivalsConnection",
+    items:  Array< {
+      __typename: "NewArrivals",
+      date: string,
+      users?:  {
+        __typename: "ModelUserConnection",
+        items: Array<{
+            lastname?: string | null,
+            firstname: string,
+            image?: string | null,
+            job?: string | null,
+        } | null>
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};

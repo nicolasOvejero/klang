@@ -76,10 +76,12 @@ export type User = {
   lastname?: string | null,
   firstname: string,
   image?: string | null,
+  job?: string | null,
   events?: ModelUsersEventsConnection | null,
   createdAt: string,
   updatedAt: string,
   birthdayUsersId?: string | null,
+  newArrivalsUsersId?: string | null,
 };
 
 export type ModelUsersEventsConnection = {
@@ -210,7 +212,9 @@ export type CreateUserInput = {
   lastname?: string | null,
   firstname: string,
   image?: string | null,
+  job?: string | null,
   birthdayUsersId?: string | null,
+  newArrivalsUsersId?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -218,10 +222,12 @@ export type ModelUserConditionInput = {
   lastname?: ModelStringInput | null,
   firstname?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  job?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
   birthdayUsersId?: ModelIDInput | null,
+  newArrivalsUsersId?: ModelIDInput | null,
 };
 
 export type UpdateUserInput = {
@@ -230,10 +236,42 @@ export type UpdateUserInput = {
   lastname?: string | null,
   firstname?: string | null,
   image?: string | null,
+  job?: string | null,
   birthdayUsersId?: string | null,
+  newArrivalsUsersId?: string | null,
 };
 
 export type DeleteUserInput = {
+  id: string,
+};
+
+export type CreateNewArrivalsInput = {
+  id?: string | null,
+  date: string,
+};
+
+export type ModelNewArrivalsConditionInput = {
+  date?: ModelStringInput | null,
+  and?: Array< ModelNewArrivalsConditionInput | null > | null,
+  or?: Array< ModelNewArrivalsConditionInput | null > | null,
+  not?: ModelNewArrivalsConditionInput | null,
+};
+
+export type NewArrivals = {
+  __typename: "NewArrivals",
+  id: string,
+  date: string,
+  users?: ModelUserConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateNewArrivalsInput = {
+  id: string,
+  date?: string | null,
+};
+
+export type DeleteNewArrivalsInput = {
   id: string,
 };
 
@@ -320,10 +358,26 @@ export type ModelUserFilterInput = {
   lastname?: ModelStringInput | null,
   firstname?: ModelStringInput | null,
   image?: ModelStringInput | null,
+  job?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
   birthdayUsersId?: ModelIDInput | null,
+  newArrivalsUsersId?: ModelIDInput | null,
+};
+
+export type ModelNewArrivalsFilterInput = {
+  id?: ModelIDInput | null,
+  date?: ModelStringInput | null,
+  and?: Array< ModelNewArrivalsFilterInput | null > | null,
+  or?: Array< ModelNewArrivalsFilterInput | null > | null,
+  not?: ModelNewArrivalsFilterInput | null,
+};
+
+export type ModelNewArrivalsConnection = {
+  __typename: "ModelNewArrivalsConnection",
+  items:  Array<NewArrivals | null >,
+  nextToken?: string | null,
 };
 
 export type ModelUsersEventsFilterInput = {
@@ -354,9 +408,11 @@ export type CreateBirthdayMutation = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -384,9 +440,11 @@ export type UpdateBirthdayMutation = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -414,9 +472,11 @@ export type DeleteBirthdayMutation = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -603,6 +663,7 @@ export type CreateUserMutation = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -618,6 +679,7 @@ export type CreateUserMutation = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
   } | null,
 };
 
@@ -634,6 +696,7 @@ export type UpdateUserMutation = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -649,6 +712,7 @@ export type UpdateUserMutation = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
   } | null,
 };
 
@@ -665,6 +729,7 @@ export type DeleteUserMutation = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -680,6 +745,103 @@ export type DeleteUserMutation = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
+  } | null,
+};
+
+export type CreateNewArrivalsMutationVariables = {
+  input: CreateNewArrivalsInput,
+  condition?: ModelNewArrivalsConditionInput | null,
+};
+
+export type CreateNewArrivalsMutation = {
+  createNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateNewArrivalsMutationVariables = {
+  input: UpdateNewArrivalsInput,
+  condition?: ModelNewArrivalsConditionInput | null,
+};
+
+export type UpdateNewArrivalsMutation = {
+  updateNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteNewArrivalsMutationVariables = {
+  input: DeleteNewArrivalsInput,
+  condition?: ModelNewArrivalsConditionInput | null,
+};
+
+export type DeleteNewArrivalsMutation = {
+  deleteNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -724,6 +886,7 @@ export type CreateUsersEventsMutation = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -731,6 +894,7 @@ export type CreateUsersEventsMutation = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -778,6 +942,7 @@ export type UpdateUsersEventsMutation = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -785,6 +950,7 @@ export type UpdateUsersEventsMutation = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -832,6 +998,7 @@ export type DeleteUsersEventsMutation = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -839,6 +1006,7 @@ export type DeleteUsersEventsMutation = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -863,9 +1031,11 @@ export type GetBirthdayQuery = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1024,6 +1194,7 @@ export type GetUserQuery = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -1039,6 +1210,7 @@ export type GetUserQuery = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
   } | null,
 };
 
@@ -1060,6 +1232,7 @@ export type ListUsersQuery = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -1067,6 +1240,64 @@ export type ListUsersQuery = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetNewArrivalsQueryVariables = {
+  id: string,
+};
+
+export type GetNewArrivalsQuery = {
+  getNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListNewArrivalsQueryVariables = {
+  id?: string | null,
+  filter?: ModelNewArrivalsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListNewArrivalsQuery = {
+  listNewArrivals?:  {
+    __typename: "ModelNewArrivalsConnection",
+    items:  Array< {
+      __typename: "NewArrivals",
+      id: string,
+      date: string,
+      users?:  {
+        __typename: "ModelUserConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1112,6 +1343,7 @@ export type GetUsersEventsQuery = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -1119,6 +1351,7 @@ export type GetUsersEventsQuery = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1157,9 +1390,11 @@ export type ListUsersEventsQuery = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       },
       createdAt: string,
       updatedAt: string,
@@ -1182,9 +1417,11 @@ export type OnCreateBirthdaySubscription = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1207,9 +1444,11 @@ export type OnUpdateBirthdaySubscription = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1232,9 +1471,11 @@ export type OnDeleteBirthdaySubscription = {
         lastname?: string | null,
         firstname: string,
         image?: string | null,
+        job?: string | null,
         createdAt: string,
         updatedAt: string,
         birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1386,6 +1627,7 @@ export type OnCreateUserSubscription = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -1401,6 +1643,7 @@ export type OnCreateUserSubscription = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
   } | null,
 };
 
@@ -1412,6 +1655,7 @@ export type OnUpdateUserSubscription = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -1427,6 +1671,7 @@ export type OnUpdateUserSubscription = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
   } | null,
 };
 
@@ -1438,6 +1683,7 @@ export type OnDeleteUserSubscription = {
     lastname?: string | null,
     firstname: string,
     image?: string | null,
+    job?: string | null,
     events?:  {
       __typename: "ModelUsersEventsConnection",
       items:  Array< {
@@ -1453,6 +1699,88 @@ export type OnDeleteUserSubscription = {
     createdAt: string,
     updatedAt: string,
     birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
+  } | null,
+};
+
+export type OnCreateNewArrivalsSubscription = {
+  onCreateNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateNewArrivalsSubscription = {
+  onUpdateNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteNewArrivalsSubscription = {
+  onDeleteNewArrivals?:  {
+    __typename: "NewArrivals",
+    id: string,
+    date: string,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        mail: string,
+        lastname?: string | null,
+        firstname: string,
+        image?: string | null,
+        job?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        birthdayUsersId?: string | null,
+        newArrivalsUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -1492,6 +1820,7 @@ export type OnCreateUsersEventsSubscription = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -1499,6 +1828,7 @@ export type OnCreateUsersEventsSubscription = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1541,6 +1871,7 @@ export type OnUpdateUsersEventsSubscription = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -1548,6 +1879,7 @@ export type OnUpdateUsersEventsSubscription = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1590,6 +1922,7 @@ export type OnDeleteUsersEventsSubscription = {
       lastname?: string | null,
       firstname: string,
       image?: string | null,
+      job?: string | null,
       events?:  {
         __typename: "ModelUsersEventsConnection",
         nextToken?: string | null,
@@ -1597,6 +1930,7 @@ export type OnDeleteUsersEventsSubscription = {
       createdAt: string,
       updatedAt: string,
       birthdayUsersId?: string | null,
+      newArrivalsUsersId?: string | null,
     },
     createdAt: string,
     updatedAt: string,

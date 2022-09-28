@@ -14,9 +14,11 @@ export const getBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -160,6 +162,7 @@ export const getUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -173,6 +176,7 @@ export const getUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
     }
   }
 `;
@@ -197,12 +201,67 @@ export const listUsers = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
+      }
+      nextToken
+    }
+  }
+`;
+export const getNewArrivals = /* GraphQL */ `
+  query GetNewArrivals($id: ID!) {
+    getNewArrivals(id: $id) {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNewArrivals = /* GraphQL */ `
+  query ListNewArrivals(
+    $id: ID
+    $filter: ModelNewArrivalsFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listNewArrivals(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        id
+        date
+        users {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -240,12 +299,14 @@ export const getUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt
@@ -279,9 +340,11 @@ export const listUsersEvents = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         createdAt
         updatedAt

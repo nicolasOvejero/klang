@@ -31,5 +31,12 @@ type User @model {
   lastname: String
   firstname: String!
   image: String
+  job: String
   events: [Event] @manyToMany(relationName: "UsersEvents")
+}
+
+type NewArrivals @model {
+  id: ID! @primaryKey
+  date: AWSDate!
+  users: [User] @hasMany
 }

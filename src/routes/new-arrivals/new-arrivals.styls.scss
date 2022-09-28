@@ -1,6 +1,12 @@
 @import '../../common/common.style.scss';
 
 .body.new-arrivals {
+    .calendar-position {
+        height: 75%;
+        padding: 9rem;
+        position: relative;
+    }
+
     .new-arrivals {
         &-container {
             display: grid;

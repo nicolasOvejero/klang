@@ -14,9 +14,11 @@ export const onCreateBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -37,9 +39,11 @@ export const onUpdateBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -60,9 +64,11 @@ export const onDeleteBirthday = /* GraphQL */ `
           lastname
           firstname
           image
+          job
           createdAt
           updatedAt
           birthdayUsersId
+          newArrivalsUsersId
         }
         nextToken
       }
@@ -205,6 +211,7 @@ export const onCreateUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -218,6 +225,7 @@ export const onCreateUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
     }
   }
 `;
@@ -229,6 +237,7 @@ export const onUpdateUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -242,6 +251,7 @@ export const onUpdateUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
     }
   }
 `;
@@ -253,6 +263,7 @@ export const onDeleteUser = /* GraphQL */ `
       lastname
       firstname
       image
+      job
       events {
         items {
           id
@@ -266,6 +277,82 @@ export const onDeleteUser = /* GraphQL */ `
       createdAt
       updatedAt
       birthdayUsersId
+      newArrivalsUsersId
+    }
+  }
+`;
+export const onCreateNewArrivals = /* GraphQL */ `
+  subscription OnCreateNewArrivals {
+    onCreateNewArrivals {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateNewArrivals = /* GraphQL */ `
+  subscription OnUpdateNewArrivals {
+    onUpdateNewArrivals {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteNewArrivals = /* GraphQL */ `
+  subscription OnDeleteNewArrivals {
+    onDeleteNewArrivals {
+      id
+      date
+      users {
+        items {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -301,12 +388,14 @@ export const onCreateUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt
@@ -345,12 +434,14 @@ export const onUpdateUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt
@@ -389,12 +480,14 @@ export const onDeleteUsersEvents = /* GraphQL */ `
         lastname
         firstname
         image
+        job
         events {
           nextToken
         }
         createdAt
         updatedAt
         birthdayUsersId
+        newArrivalsUsersId
       }
       createdAt
       updatedAt

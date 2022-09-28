@@ -45,6 +45,22 @@ function Signin() {
 
         try {
             const user = await Auth.signIn(username, password);
+            if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
+                dispatch({
+                    type: AUTH_ACTION_TYPES.SET_TEMP_AUTH,
+                    payload: {
+                        isConnected: false,
+                        user: {
+                            username: user.username,
+                            mail: user.challengeParam.userAttributes.email,
+                            emailVerified: user.challengeParam.userAttributes.email_verified,
+                        },
+                        tempUser: user
+                    }
+                });
+                navigate('/change-password');
+                return;
+            }
             dispatch({
                 type: AUTH_ACTION_TYPES.SET_AUTH,
                 payload: {

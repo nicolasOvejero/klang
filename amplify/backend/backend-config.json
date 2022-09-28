@@ -1,6 +1,6 @@
 {
   "auth": {
-    "klang4ed3b6a8": {
+    "klang051e245e": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

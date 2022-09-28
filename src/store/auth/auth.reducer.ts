@@ -11,11 +11,13 @@ export type AuthUserState = {
 export type AuthState = {
     isConnected: boolean;
     user: AuthUserState | null;
+    tempUser: any | null;
 }
 
 export const AUTH_INITIAL_STATE = {
     isConnected: false,
-    user: null
+    user: null,
+    tempUser: null
 }
 
 export const authReducer = (
@@ -23,6 +25,13 @@ export const authReducer = (
     action = {} as AnyAction
 ): AuthState => {
     if (action.type === AUTH_ACTION_TYPES.SET_AUTH) {
+        return {
+            ...action.payload,
+            tempUser: null,
+        };
+    }
+
+    if (action.type === AUTH_ACTION_TYPES.SET_TEMP_AUTH) {
         return {
             ...action.payload,
         };

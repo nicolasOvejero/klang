@@ -1,6 +1,6 @@
 @import '../../common/common.style.scss';
 
-.body {
+.body.home {
     height: $body-height;
 
     .headline {
@@ -64,7 +64,7 @@
 }
 
 @media screen and (max-width: $breakpoint-large) {
-    .body {
+    .body.home {
         .headline {
             &-section {
                 padding: 0 1.5rem;
@@ -86,7 +86,7 @@
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .body {
+    .body.home {
         .headline {
             &-section {
                 padding: 0 1rem;
@@ -108,7 +108,9 @@
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .body {
+    .body.home {
+        overflow: auto;
+        
         .headline {
             &-section {
                 justify-content: flex-start;

@@ -35,6 +35,20 @@
             }
         }
     }
+
+    &.medium {
+        .user {
+            &-image {
+                height: 5rem;
+                margin-right: 1rem;
+                width: 5rem;
+            }
+
+            &-name {
+                font-size: 1rem;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: $breakpoint-large) {
@@ -61,6 +75,19 @@
                 }
             }
         }
+
+        &.medium {
+            .user {
+                &-image {
+                    height: 4rem;
+                    width: 4rem;
+                }
+
+                &-name {
+                    font-size: 0.85rem;
+                }
+            }
+        }
     }
 }
 
@@ -80,6 +107,19 @@
                 &-image {
                     height: 3rem;
                     width: 3rem;
+                }
+
+                &-name {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        &.medium {
+            .user {
+                &-image {
+                    height: 3.5rem;
+                    width: 3.5rem;
                 }
 
                 &-name {

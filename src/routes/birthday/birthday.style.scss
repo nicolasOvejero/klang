@@ -1,23 +1,6 @@
 @import '../../common/common.style.scss';
 
-.body {
-    height: $body-height;
-    overflow: hidden;
-
-    .title {
-        color: $text-color;
-        font-size: 3rem;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-
-        &-container {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            height: 10%;
-        }
-    }
-
+.body.birthdays {
     .calendar-position {
         position: relative;
     }
@@ -105,11 +88,7 @@
 } 
 
 @media screen and (max-width: $breakpoint-large) {
-    .body {
-        .title {
-            font-size: 2.5rem;
-        }
-
+    .body.birthdays {
         .birthday {
             &-container {
                 gap: 0;
@@ -154,11 +133,7 @@
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .body {
-        .title {
-            font-size: 1.75rem;
-        }
-
+    .body.birthdays {
         .birthday {
             &-container {
                 gap: 0;
@@ -192,16 +167,7 @@
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .body {
-        overflow: hidden;
-
-        .title {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
+    .body.birthdays {
         .birthday {
             &-container {
                 gap: 0;

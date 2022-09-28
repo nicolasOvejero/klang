@@ -4,7 +4,6 @@ button {
     background-color: transparent;
     border: none;
     color: $text-color;
-    font-size: 1.5rem;
     padding: 0.75rem 2rem;
     position: relative;
 
@@ -75,7 +74,6 @@ button {
 
 @media screen and (max-width: $breakpoint-medium) {
     button {
-        font-size: 1rem;
         padding: 0.65rem 1.75rem;
     }
 }

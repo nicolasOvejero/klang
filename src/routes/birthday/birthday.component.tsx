@@ -61,7 +61,7 @@ function Birthday() {
     }, []);
 
     return (
-        <article className='body'>
+        <article className='body birthdays'>
             <section className="title-container">
                 <h1 className="title">
                     Les anniversaires du mois

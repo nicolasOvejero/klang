@@ -4,7 +4,8 @@ export type UserModel = {
     image: string;
     firstname: string;
     lastname: string;
-    size?: string;
+    job?: string;
+    size?: 'small' | 'medium';
 }
 
 function User({ user }: { user: UserModel }) {
@@ -17,6 +18,9 @@ function User({ user }: { user: UserModel }) {
             <div className='user-name'>
                 <p>{user.firstname}</p>
                 <p>{user.lastname}</p>
+                {
+                    user.job && <p>{user.job}</p>
+                }
             </div>
         </div>
     );

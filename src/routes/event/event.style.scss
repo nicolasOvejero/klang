@@ -1,23 +1,6 @@
 @import '../../common/common.style.scss';
 
-.body {
-    height: $body-height;
-    overflow: hidden;
-
-    .title {
-        color: $text-color;
-        font-size: 3rem;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-
-        &-container {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            height: 10%;
-        }
-    }
-
+.body.events {
     .event {
         &-container {
             align-items: center;
@@ -150,11 +133,7 @@
 } 
 
 @media screen and (max-width: $breakpoint-large) {
-    .body {
-        .title {
-            font-size: 2.5rem;
-        }
-
+    .body.events {
         .event {
             &-container {
                 gap: 0;
@@ -221,11 +200,7 @@
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .body {
-        .title {
-            font-size: 1.75rem;
-        }
-
+    .body.events {
         .event {
             &-container {
                 gap: 0;
@@ -288,16 +263,7 @@
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .body {
-        overflow: hidden;
-
-        .title {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
+    .body.events {
         .event {
             &-container {
                 gap: 0;

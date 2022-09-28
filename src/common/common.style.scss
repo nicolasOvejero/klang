@@ -22,3 +22,51 @@ $border-color: #383838;
 
 $header-height: 10vh;
 $body-height: 90vh;
+
+.body {
+    height: $body-height;
+    overflow: hidden;
+
+    .title {
+        color: $text-color;
+        font-size: 3rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+
+        &-container {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 10%;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .body {
+        .title {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .body {
+        .title {
+            font-size: 1.75rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .body {
+        overflow: hidden;
+
+        .title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}

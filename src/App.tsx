@@ -9,6 +9,9 @@ import GuardedRoute from './routes/guarded-route.component';
 import Navigation from './routes/navigation/navigation.component';
 import Birthday from './routes/birthday/birthday.component';
 import Event from './routes/event/event.component';
+import NewArrivals from './routes/new-arrivals/new-arrivals.component';
+import ChangePassword from './components/change-password/change-password.component';
+import Signin from './components/signin/signin.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -24,8 +27,12 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path='birthdays' element={<Birthday />} />
                     <Route path='events' element={<Event />} />
+                    <Route path='new-arrivals' element={<NewArrivals />} />
                 </Route>
-                <Route path="login" element={<Connection />} />
+                <Route element={<Connection />}>
+                    <Route path="login" element={<Signin />} />
+                    <Route path='change-password' element={<ChangePassword />} />
+                </Route>
             </Routes>
         </div>
     );

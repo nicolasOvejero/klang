@@ -15,6 +15,10 @@ function Home() {
         {
             text: 'les événements',
             color: 'secondary'
+        },
+        {
+            text: 'les nouveaux arrivants',
+            color: 'primary'
         }
     ];
 
@@ -79,7 +83,7 @@ function Home() {
     });
 
     return (
-        <article className='body'>
+        <article className='body home'>
             <section className='headline-section'>
                 <h1 className='headline-text'>
                     Sur Klang retrouvez :<br />
@@ -107,6 +111,12 @@ function Home() {
                     type='button'
                     color='secondary'
                     clickHandler={ () => goTo('events') }
+                ></Button>
+                <Button
+                    label='Nouveaux arrivants'
+                    type='button'
+                    color='primary'
+                    clickHandler={ () => goTo('new-arrivals') }
                 ></Button>
             </section>
         </article>

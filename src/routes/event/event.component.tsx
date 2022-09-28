@@ -31,7 +31,6 @@ function Event() {
     const [loading, setLoading] = useState(true);
 
     const showEventDescription = (selectedDay: EventModel) => {
-        console.log(selectedDay);
         setIsInfoOpen(true);
         setSelectedDate(selectedDay);
     }
@@ -76,7 +75,7 @@ function Event() {
     }, []);
 
     return (
-        <article className='body'>
+        <article className='body events'>
             <section className='title-container'>
                 <h1 className='title'>
                     Les événements du mois

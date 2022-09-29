@@ -60,15 +60,17 @@ function ChangePassword() {
                 payload: {
                     isConnected: true,
                     user: {
-                        username: user.username,
-                        mail: user.challengeParam.userAttributes.email,
-                        emailVerified: user.challengeParam.userAttributes.email_verified,
-                        token: user.signInUserSession.accessToken.jwtToken
+                        username: user.signInUserSession.idToken.payload['cognito:username'],
+                        mail: user.signInUserSession.idToken.payload.email,
+                        emailVerified: user.signInUserSession.idToken.payload.email_verified,
+                        token: user.signInUserSession.idToken.jwtToken,
+                        groups: user.signInUserSession.idToken.payload['cognito:groups']
                     }
                 }
             });
             navigate('/');
         } catch (error) {
+            // TODO
             console.log(error);
         }
     }

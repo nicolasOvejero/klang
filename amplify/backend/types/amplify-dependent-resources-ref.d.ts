@@ -1,8 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
         "klang051e245e": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",

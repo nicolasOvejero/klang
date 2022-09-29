@@ -46,7 +46,7 @@ function Signin() {
         try {
             const user = await Auth.signIn(username, password);
             if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-                dispatch({
+                 dispatch({
                     type: AUTH_ACTION_TYPES.SET_TEMP_AUTH,
                     payload: {
                         isConnected: false,
@@ -66,10 +66,11 @@ function Signin() {
                 payload: {
                     isConnected: true,
                     user: {
-                        username: user.username,
-                        mail: user.attributes.email,
-                        emailVerified: user.attributes.email_verified,
-                        token: user.signInUserSession.accessToken.jwtToken
+                        username: user.signInUserSession.idToken.payload['cognito:username'],
+                        mail: user.signInUserSession.idToken.payload.email,
+                        emailVerified: user.signInUserSession.idToken.payload.email_verified,
+                        token: user.signInUserSession.idToken.jwtToken,
+                        groups: user.signInUserSession.idToken.payload['cognito:groups']
                     }
                 }
             });

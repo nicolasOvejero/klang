@@ -6,6 +6,7 @@ export type AuthUserState = {
     mail: string;
     emailVerified: boolean;
     token: string;
+    groups: string[];
 }
 
 export type AuthState = {

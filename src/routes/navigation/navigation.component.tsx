@@ -12,6 +12,7 @@ function Navigation() {
     const auth = useSelector(selectAuthReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isAdmin = auth.user?.groups?.includes('admin');
 
     async function signOut() {
         try {
@@ -41,6 +42,12 @@ function Navigation() {
                     <p className='identity-name'>
                         Bonjour, { auth.user?.username }
                     </p>
+                    {
+                        isAdmin && <Button
+                            label='Administration'
+                            type='button'
+                        ></Button>
+                    }
                     <Button
                         label='Déconnexion'
                         type='button'

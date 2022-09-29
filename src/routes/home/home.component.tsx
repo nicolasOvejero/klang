@@ -60,13 +60,13 @@ function Home() {
     }
 
     const StartTextAnimation = (i: number) => {
-        if (!dataText[i]){
+        if (!dataText[i]) {
             setTimeout(() => {
                 StartTextAnimation(0);
             }, 100);
         }
-        if (dataText[i] && i < dataText[i].text.length) {
-            typeWriter(dataText[i].text, dataText[i].color,  0, () => {
+        if (dataText[i] && i < dataText.length) {
+            typeWriter(dataText[i].text, dataText[i].color, 0, () => {
                 revertTypeWriter(dataText[i].text, dataText[i].text.length, () => {
                     StartTextAnimation(i + 1);
                 });

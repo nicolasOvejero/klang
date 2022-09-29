@@ -12,6 +12,8 @@ import Event from './routes/event/event.component';
 import NewArrivals from './routes/new-arrivals/new-arrivals.component';
 import ChangePassword from './components/change-password/change-password.component';
 import Signin from './components/signin/signin.component';
+import AdminGuardedRoute from './routes/admin-guarded-route.component';
+import Admin from './routes/admin/admin.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -28,6 +30,13 @@ function App() {
                     <Route path='birthdays' element={<Birthday />} />
                     <Route path='events' element={<Event />} />
                     <Route path='new-arrivals' element={<NewArrivals />} />
+                </Route>
+                <Route element={
+                    <AdminGuardedRoute groups={auth.user?.groups}>
+                        <Navigation />
+                    </AdminGuardedRoute>
+                }>
+                    <Route path='admin/*' element={<Admin />} />
                 </Route>
                 <Route element={<Connection />}>
                     <Route path="login" element={<Signin />} />

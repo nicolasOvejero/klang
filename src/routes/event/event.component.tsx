@@ -40,8 +40,19 @@ function Event() {
     }
 
     const getEvents = async () => {
+        const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+        const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+        
         const apiData = await API.graphql({
             query: listEvents,
+            variables: {
+                filter: {
+                    date: {
+                        ge: startOfMonth, 
+                        le: endOfMonth
+                    }
+                }
+            }
         }) as GraphQLResult<ListEventsQuery>;
         const items = apiData.data?.listEvents?.items;
         if (items) {

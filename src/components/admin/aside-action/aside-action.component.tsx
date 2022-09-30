@@ -4,7 +4,7 @@ import './aside-action.stye.scss';
 type AsideActionPros = {
     title: string;
     pathAdd: string;
-    pathDelete: string;
+    pathDelete?: string;
     color: 'primary' | 'secondary';
 }
 
@@ -15,9 +15,13 @@ function AsideAction(props: AsideActionPros) {
             <Link to={ props.pathAdd } className='link'>
                 Ajouter
             </Link>
-            <Link to={ props.pathDelete } className='link'>
-                Supprimer
-            </Link>
+            {
+                props.pathDelete && (
+                    <Link to={ props.pathDelete } className='link'>
+                        Supprimer
+                    </Link>
+                )
+            }
         </div>
     );
 }

@@ -1,15 +1,30 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import AsideAction from '../../components/admin/aside-action/aside-action.component';
+import defaultBackground from '../../assets/admin-bg.png';
 import './admin.style.scss';
 
 function Admin() {
+    const isMatchUsers = useMatch('/admin/users/*');
+    const isMatchBirthday = useMatch('/admin/birthdays/*');
+    const isMatchEvents = useMatch('/admin/events/*');
+    const isMatchNewArrivals = useMatch('/admin/new-arrivals/*');
+    const activeRoute = isMatchUsers || isMatchBirthday ||
+        isMatchEvents || isMatchNewArrivals;
+
     return (
         <article className='admin'>
             <aside className='menu'>
+{/*                 
+                <AsideAction
+                    title='Utilisateur'
+                    pathAdd='/admin/users/add'
+                    pathDelete='/admin/users/delete'
+                    color='secondary'
+                ></AsideAction>
+ */}
                 <AsideAction
                     title='Anniversaires'
                     pathAdd='/admin/birthdays/add'
-                    pathDelete='/admin/birthdays/delete'
                     color='primary'
                 ></AsideAction>
                 <AsideAction
@@ -25,7 +40,16 @@ function Admin() {
                     color='primary'
                 ></AsideAction>
             </aside>
-            <Outlet />
+            {
+                activeRoute && (<Outlet />)
+            }
+            {
+                !activeRoute && (
+                    <section className='default-background'>
+                        <img src={defaultBackground} alt='default background admin' />
+                    </section>
+                )
+            }
         </article>
     );
 }

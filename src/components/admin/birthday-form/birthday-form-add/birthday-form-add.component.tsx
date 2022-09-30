@@ -8,8 +8,9 @@ import 'moment/locale/fr';
 import Button from '../../../button/button.component';
 import { createBirthday, updateUser } from '../../../../graphql/mutations';
 import { CreateBirthdayMutation, UpdateUserMutation } from '../../../../API';
-import './birthday-form-add.style.scss';
 import Toaster from '../../../toaster/toaster.component';
+import './birthday-form-add.style.scss';
+import InputDate from '../../../input-date/input-date.component';
 
 const defaultBirthdayAddState = {
     user: '',
@@ -26,36 +27,6 @@ function BirthdayFormAdd() {
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [birthdayAddState, setBirthdayAddState] = useState(defaultBirthdayAddState);
     const { user, day, month, year, formHasError, formError, success } = birthdayAddState;
-
-    const arrayDays: DropdownOption[] =  [{
-        value: '',
-        label: ''
-    }];
-    setArrayValue(1, 31, arrayDays);
-    const arrayMonth: DropdownOption[] = [{
-        value: '',
-        label: ''
-    }];
-    moment.months().forEach((month, index) => {
-        arrayMonth.push({
-            value: (index + 1).toString(),
-            label: month
-        });
-    });
-    const arrayYear: DropdownOption[] = [{
-        value: '',
-        label: ''
-    }];
-    setArrayValue(1950, moment().year(), arrayYear);
-
-    function setArrayValue(start: number, end: number, array: DropdownOption[]) {
-        for (var i = start; i < end + 1; i++) {
-            array.push({
-                value: i.toString(),
-                label: i.toString()
-            });
-        }
-    }
 
     const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
@@ -177,35 +148,13 @@ function BirthdayFormAdd() {
                 onChange={handleSelecteChange}
                 options={users}
             />
-            <div className='date'>
-                <Dropdown
-                    label='Jour'
-                    value={day}
-                    name='day'
-                    required
-                    haserror={formHasError}
-                    onChange={handleSelecteChange}
-                    options={arrayDays}
-                />
-                <Dropdown
-                    label='Mois'
-                    value={month}
-                    name='month'
-                    required
-                    haserror={formHasError}
-                    onChange={handleSelecteChange}
-                    options={arrayMonth}
-                />
-                <Dropdown
-                    label='Année'
-                    value={year}
-                    name='year'
-                    required
-                    haserror={formHasError}
-                    onChange={handleSelecteChange}
-                    options={arrayYear}
-                />
-            </div>
+            <InputDate
+                day={{ value: day, formHasError, onChange: handleSelecteChange }}
+                month={{ value: month, formHasError, onChange: handleSelecteChange }}
+                year={{ value: year, formHasError, onChange: handleSelecteChange }}
+                startDateYear={1950}
+                endDateYear={moment().year()}
+            ></InputDate>
             <Button
                 label='Enregistrer'
                 type='submit'

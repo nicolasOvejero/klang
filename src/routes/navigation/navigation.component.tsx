@@ -46,6 +46,7 @@ function Navigation() {
                         isAdmin && <Button
                             label='Administration'
                             type='button'
+                            clickHandler={() => navigate('/admin')}
                         ></Button>
                     }
                     <Button

@@ -1,4 +1,4 @@
-@import '../../common/common.style.scss';
+@import '../common/common.style.scss';
 
 .label {
     display: block;
@@ -16,7 +16,7 @@
         transition: all 0.2s;
     }
 
-    input {
+    select, input {
         color: $text-color-dark;
         background-color: transparent;
         border: 0;
@@ -28,7 +28,7 @@
         transition: all 0.2s;
         width: 100%;
 
-        &:focus + .label-text {
+        &:focus+.label-text {
             color: $text-color-dark;
             font-size: 0.75rem;
             -moz-transform: translateY(-2.75rem);
@@ -37,7 +37,7 @@
             transform: translateY(-2.75rem);
         }
 
-        + .label-text.filled {
+        +.label-text.filled {
             color: $text-color-dark;
             font-size: 0.75rem;
             -moz-transform: translateY(-2.75rem);
@@ -48,7 +48,7 @@
     }
 
     &.error {
-        input {
+        select, input {
             border-color: red;
             color: red;
         }
@@ -77,7 +77,7 @@
             transform: translateY(-1.25rem);
         }
 
-        input {
+        select, input {
             font-size: 0.85rem;
 
             &:focus+.label-text {
@@ -109,7 +109,7 @@
             font-size: 0.75rem;
         }
 
-        input {
+        select, input {
             font-size: 0.75rem;
 
             &:focus+.label-text {

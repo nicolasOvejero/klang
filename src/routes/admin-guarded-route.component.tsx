@@ -10,8 +10,8 @@ const AdminGuardedRoute =
         if (groups === undefined) {
             return <Navigate to='/login' replace />;
         }
-        if (groups.includes('admin')) {
-            return <Navigate to='/home' replace />;
+        if (!groups.includes('admin')) {
+            return <Navigate to='/' replace />;
         }
         return children
     }

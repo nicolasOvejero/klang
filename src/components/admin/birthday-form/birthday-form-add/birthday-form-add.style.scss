@@ -1,0 +1,30 @@
+.form-birthday-add {
+    width: 50%;
+
+    .label {
+        margin-bottom: 3rem;
+    }
+
+    .date {
+        align-items: center;
+        display: flex;
+
+        .label {
+            flex: 1 0 0;
+        }
+
+        .label:first-child {
+            margin-right: 2rem;
+        }
+
+        .label:last-child {
+            margin-left: 2rem;
+        }
+    }
+
+    .button {
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+    }
+}

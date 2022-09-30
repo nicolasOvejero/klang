@@ -1,7 +1,7 @@
 import './user.style.scss';
 
 export type UserModel = {
-    image: string;
+    image?: string;
     firstname: string;
     lastname: string;
     job?: string;

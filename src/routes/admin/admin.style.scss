@@ -1,0 +1,14 @@
+@import '../../common/common.style.scss';
+
+.admin {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: $body-height;
+    padding: 1rem;
+
+    .menu {
+        background-color: darken($white, 10);
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+}

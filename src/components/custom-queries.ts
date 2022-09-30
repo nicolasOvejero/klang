@@ -10,12 +10,55 @@ export const listUsers = /* GraphQL */ `
             lastname
             firstname
             image
-            id
         }
         nextToken
         }
     }
 `;
+
+export type ListUsersQuery = {
+    listUsers?:  {
+        __typename: "ModelUserConnection",
+        items:  Array< {
+            __typename: "User",
+            mail: string,
+            lastname?: string | null,
+            firstname: string,
+            image?: string | null,
+        }>,
+        nextToken?: string | null,
+    } | null,
+};
+
+export const listUsersLight = /* GraphQL */ `
+    query ListUsers(
+        $filter: ModelUserFilterInput
+        $limit: Int
+        $nextToken: String
+    ) {
+        listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+        items {
+            id
+            lastname
+            firstname
+        }
+        nextToken
+        }
+    }
+`;
+
+export type ListUsersLightQuery = {
+    listUsers?:  {
+        __typename: "ModelUserConnection",
+        items:  Array< {
+            __typename: "User",
+            id: string,
+            lastname?: string | null,
+            firstname: string,
+        }>,
+        nextToken?: string | null,
+    } | null,
+};
 
 export const listBithday = /* GraphQL */ `
     query ListBirthday(
@@ -60,6 +103,34 @@ export type ListBirthdaysQuery = {
         } | null >,
         nextToken?: string | null,
     } | null,
+};
+
+export const listBithdayLight = /* GraphQL */ `
+    query ListBirthday(
+        $filter: ModelBirthdayFilterInput
+        $limit: Int
+        $nextToken: String
+    ) {
+        listBirthdays(filter: $filter, limit: $limit, nextToken: $nextToken) {
+        items {
+            id
+            date
+        }
+        nextToken
+        }
+    }
+`;
+
+export type ListBirthdaysLightQuery = {
+  listBirthdays?:  {
+    __typename: "ModelBirthdayConnection",
+    items:  Array< {
+      __typename: "Birthday",
+      id: string,
+      date: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
 };
 
 export const listEvents = /* GraphQL */ `

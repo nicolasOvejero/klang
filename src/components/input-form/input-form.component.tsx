@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react';
-import './input-form.style.scss';
+import '../../common/input.style.scss';
 
 type FormInputProps = {
     label: string;

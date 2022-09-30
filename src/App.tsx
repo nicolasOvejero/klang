@@ -14,6 +14,8 @@ import ChangePassword from './components/change-password/change-password.compone
 import Signin from './components/signin/signin.component';
 import AdminGuardedRoute from './routes/admin-guarded-route.component';
 import Admin from './routes/admin/admin.component';
+import BirthdayForm from './components/admin/birthday-form/birthday-form.component';
+import BirthdayFormAdd from './components/admin/birthday-form/birthday-form-add/birthday-form-add.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -36,7 +38,20 @@ function App() {
                         <Navigation />
                     </AdminGuardedRoute>
                 }>
-                    <Route path='admin/*' element={<Admin />} />
+                    <Route path='admin' element={<Admin />}>
+                        <Route path='birthdays' element={<BirthdayForm />}>
+                            <Route path='add' element={<BirthdayFormAdd />} />
+                            <Route path='delete' element={<BirthdayForm />} />
+                        </Route>
+                        <Route path='events' element={<BirthdayForm />}>
+                            <Route path='add' element={<BirthdayFormAdd />} />
+                            <Route path='delete' element={<BirthdayForm />} />
+                        </Route>
+                        <Route path='new-arrivals' element={<BirthdayForm />}>
+                            <Route path='add' element={<BirthdayFormAdd />} />
+                            <Route path='delete' element={<BirthdayForm />} />
+                        </Route>
+                    </Route>
                 </Route>
                 <Route element={<Connection />}>
                     <Route path="login" element={<Signin />} />

@@ -203,6 +203,60 @@ export type ListEventsQuery = {
     } | null,
 };
 
+export const listEventsLight = /* GraphQL */ `
+    query ListEvents(
+        $id: ID
+        $filter: ModelEventFilterInput
+        $limit: Int
+        $nextToken: String
+        $sortDirection: ModelSortDirection
+    ) {
+        listEvents(
+            id: $id
+            filter: $filter
+            limit: $limit
+            nextToken: $nextToken
+            sortDirection: $sortDirection
+        ) {
+            items {
+                id
+                date
+                type
+                participants {
+                    items {
+                        user {
+                            id
+                        }
+                    }
+                }
+            }
+            nextToken
+        }
+    }
+`;
+
+export type ListEventsLightQuery = {
+    listEvents?:  {
+        __typename: "ModelEventConnection",
+        items:  Array< {
+            __typename: "Event",
+            id: string,
+            date: string,
+            type?: string | null,
+            participants?:  {
+                __typename: "ModelUsersEventsConnection",
+                items: Array<{
+                    user: {
+                        id: string,
+                    }
+                } | null>
+                nextToken?: string | null,
+            } | null,
+        } | null >,
+        nextToken?: string | null,
+    } | null,
+};
+
 export const listNewArrivals = /* GraphQL */ `
   query ListNewArrivals(
     $id: ID

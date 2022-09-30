@@ -11,7 +11,7 @@ import InputForm from '../../../input-form/input-form.component';
 import Toaster from '../../../toaster/toaster.component';
 import './event-form-add.style.scss';
 
-const defaultBirthdayAddState = {
+const defaultEventAddState = {
     image: '',
     type: '',
     address_city: '',
@@ -27,7 +27,7 @@ const defaultBirthdayAddState = {
 
 function EventFormAdd() {
     moment.locale('fr');
-    const [eventAddState, setEventAddState] = useState(defaultBirthdayAddState);
+    const [eventAddState, setEventAddState] = useState(defaultEventAddState);
     const { image, type, schedule,
         address_city, address_street,
         day, month, year,
@@ -71,11 +71,11 @@ function EventFormAdd() {
         }
 
         setEventAddState({
-            ...defaultBirthdayAddState,
+            ...defaultEventAddState,
             success: true
         });
         setTimeout(() => {
-            setEventAddState(defaultBirthdayAddState);
+            setEventAddState(defaultEventAddState);
         }, 2000)
     }
 

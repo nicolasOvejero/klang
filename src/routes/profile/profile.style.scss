@@ -1,0 +1,53 @@
+@import '../../common/common.style.scss';
+
+.profile {
+    height: $body-height;
+    padding: 1.5rem;
+
+    .container {
+        display: grid;
+        grid-template-areas: 'h';
+        justify-items: center;
+
+        .title {
+            font-size: 3rem;
+            grid-area: 'h';
+            letter-spacing: 4px;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+    
+        .image {
+            border-radius: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0 0 7px 1px lighten($border-color, 60);
+            height: 7rem;
+            justify-self: center;
+            margin-bottom: 2rem;
+            width: 7rem;
+    
+            &.default {
+                border: 1px solid lighten($border-color, 60);
+                background-size: contain;
+            }
+        }
+
+        .form {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+
+            .label {
+                margin-bottom: 2.5rem;
+                width: 100%;
+            }
+
+            .button {
+                width: 40%;
+            }
+        }
+    }
+}

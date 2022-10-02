@@ -1,11 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
-import { Auth } from 'aws-amplify';
-import './signin.style.scss';
+import { API, Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { useNavigate } from 'react-router-dom';
+import { listUsers } from '../../graphql/queries';
+import { GraphQLResult } from "@aws-amplify/api";
+import './signin.style.scss';
+import { CreateUserMutation, ListUsersQuery } from '../../API';
+import { USER_ACTION_TYPES } from '../../store/user/user.types';
+import { createUser } from '../../graphql/mutations';
+import { UserModel } from '../user/user.component';
 
 const defaultSignInState = {
     username: '',
@@ -28,6 +34,67 @@ function Signin() {
             [name]: value,
             formHasError: false,
             formError: ''
+        });
+    }
+
+    const getUserProfile = async (
+        email: string,
+        lastname: string,
+        firstname: string
+    ) => {
+        const existingProfile = await API.graphql({
+            query: listUsers,
+            variables: {
+                filter: {
+                    mail: {
+                        eq: email
+                    }
+                }
+            }
+        }) as GraphQLResult<ListUsersQuery>;
+
+        const user = existingProfile.data?.listUsers?.items[0];
+
+        if (user) {
+            disptachUser({
+                id: user.id,
+                email: user.mail,
+                firstname: user.firstname,
+                lastname: user.lastname || '',
+                image: user.image || '',
+                job: user.job || ''
+            })
+            navigate('/');
+        } else {
+            const createdUser = await API.graphql({
+                query: createUser,
+                variables: {
+                    input: {
+                        mail: email, 
+                        firstname: firstname,
+                        lastname: lastname
+                    }
+                }
+            }) as GraphQLResult<CreateUserMutation>;
+            const user = createdUser.data?.createUser;
+            if (user) {
+                disptachUser({
+                    id: user.id,
+                    email: user.mail,
+                    firstname: user.firstname,
+                    lastname: user.lastname || '',
+                    image: user.image || '',
+                    job: user.job || ''
+                });
+                navigate('/profile');
+            }
+        }
+    }
+
+    function disptachUser(user: UserModel & { email: string | undefined }) {
+        dispatch({
+            type: USER_ACTION_TYPES.SET_USER,
+            payload: user
         });
     }
 
@@ -61,7 +128,6 @@ function Signin() {
                 navigate('/change-password');
                 return;
             }
-            console.log(user.signInUserSession.idToken);
             dispatch({
                 type: AUTH_ACTION_TYPES.SET_AUTH,
                 payload: {
@@ -76,7 +142,11 @@ function Signin() {
                     }
                 }
             });
-            navigate('/');
+            await getUserProfile(
+                user.signInUserSession.idToken.payload.email,
+                user.signInUserSession.idToken.payload.family_name,
+                user.signInUserSession.idToken.payload.given_name,
+            );
         } catch (error: any) {
             setSignInState({
                 ...signInState,

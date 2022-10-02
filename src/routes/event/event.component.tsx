@@ -68,6 +68,7 @@ function Event() {
                     schedule: item?.schedule || '', 
                     participants: item?.participants?.items?.map((user) => {
                         return {
+                            id: user?.user.id || '',
                             lastname: user?.user.lastname || '',
                             firstname: user?.user.firstname || '',
                             image: user?.user.image || ''
@@ -151,7 +152,7 @@ function Event() {
                             {
                                 selectedDate?.participants?.map((user) => {
                                     user.size = 'small';
-                                    return <User key={user.lastname+user.firstname} user={user}></User>
+                                    return <User key={user.id} user={user}></User>
                                 })
                             }
                         </div>

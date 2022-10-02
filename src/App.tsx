@@ -25,6 +25,7 @@ import EventFormAdd from './components/admin/event-form/event-form-add/event-for
 import NewArrivalForm from './components/admin/new-arrival-form/new-arrival-form.component';
 import NewArrivalFormAdd from './components/admin/new-arrival-form/new-arrival-form-add/new-arrival-form-add.component';
 import NewArrivalFormRemove from './components/admin/new-arrival-form/new-arrival-form-remove/new-arrival-form-remove.component';
+import Profile from './routes/profile/profile.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -41,6 +42,7 @@ function App() {
                     <Route path='birthdays' element={<Birthday />} />
                     <Route path='events' element={<Event />} />
                     <Route path='new-arrivals' element={<NewArrivals />} />
+                    <Route path='profile' element={<Profile />} />
                 </Route>
                 <Route element={
                     <AdminGuardedRoute groups={auth.user?.groups}>

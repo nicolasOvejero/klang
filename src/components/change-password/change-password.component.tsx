@@ -1,11 +1,17 @@
-import { Auth } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { CreateUserMutation, ListUsersQuery } from '../../API';
+import { createUser } from '../../graphql/mutations';
+import { listUsers } from '../../graphql/queries';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
+import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
+import { UserModel } from '../user/user.component';
+import { GraphQLResult } from "@aws-amplify/api";
 import './change-password.style.scss';
 
 const defaultResetState = {
@@ -30,6 +36,68 @@ function ChangePassword() {
             [name]: value,
             formHasError: false,
             formError: ''
+        });
+    }
+
+    const getUserProfile = async (
+        email: string,
+        lastname: string,
+        firstname: string
+    ) => {
+        const existingProfile = await API.graphql({
+            query: listUsers,
+            variables: {
+                filter: {
+                    mail: {
+                        eq: email
+                    }
+                }
+            }
+        }) as GraphQLResult<ListUsersQuery>;
+
+        const user = existingProfile.data?.listUsers?.items[0];
+
+        if (user) {
+            disptachUser({
+                id: user.id,
+                email: user.mail,
+                firstname: user.firstname,
+                lastname: user.lastname || '',
+                image: user.image || '',
+                job: user.job || ''
+            })
+            navigate('/');
+        } else {
+            const createdUser = await API.graphql({
+                query: createUser,
+                variables: {
+                    input: {
+                        mail: email, 
+                        firstname: firstname,
+                        lastname: lastname
+                    }
+                }
+            }) as GraphQLResult<CreateUserMutation>;
+
+            const user = createdUser.data?.createUser;
+            if (user) {
+                disptachUser({
+                    id: user.id,
+                    email: user.mail,
+                    firstname: user.firstname,
+                    lastname: user.lastname || '',
+                    image: user.image || '',
+                    job: user.job || ''
+                });
+                navigate('/profile');
+            }
+        }
+    }
+
+    function disptachUser(user: UserModel & { email: string | undefined }) {
+        dispatch({
+            type: USER_ACTION_TYPES.SET_USER,
+            payload: user
         });
     }
 
@@ -69,10 +137,18 @@ function ChangePassword() {
                     }
                 }
             });
-            navigate('/');
-        } catch (error) {
-            // TODO
-            console.log(error);
+            await getUserProfile(
+                user.signInUserSession.idToken.payload.email,
+                user.signInUserSession.idToken.payload.family_name,
+                user.signInUserSession.idToken.payload.given_name,
+            );
+       } catch (error) {
+            console.error(error);
+            setResetState({
+                ...resetState,
+                formHasError: true,
+                formError: 'Impossible de mettre à jour le mot de passe'
+            });
         }
     }
 

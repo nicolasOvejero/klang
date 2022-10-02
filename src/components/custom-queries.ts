@@ -71,9 +71,10 @@ export const listBithday = /* GraphQL */ `
             date
             users {
                 items {
-                image
-                lastname
-                firstname
+                    id
+                    image
+                    lastname
+                    firstname
                 }
             }
         }
@@ -92,6 +93,7 @@ export type ListBirthdaysQuery = {
             users?: {
                 __typename: "ModelUserConnection",
                 items: Array<{
+                    id: string,
                     lastname?: string | null,
                     firstname: string,
                     image?: string | null,
@@ -154,6 +156,7 @@ export const listEvents = /* GraphQL */ `
                 participants {
                     items {
                         user {
+                            id
                             image
                             lastname
                             firstname
@@ -184,6 +187,7 @@ export type ListEventsQuery = {
                 __typename: "ModelUsersEventsConnection",
                 items: Array<{
                     user: {
+                        id: string,
                         lastname?: string | null,
                         firstname: string,
                         image?: string | null,
@@ -278,6 +282,7 @@ export const listNewArrivals = /* GraphQL */ `
         date
         users {
             items {
+                id
                 image
                 lastname
                 firstname
@@ -299,6 +304,7 @@ export type ListNewArrivalsQuery = {
       users?:  {
         __typename: "ModelUserConnection",
         items: Array<{
+            id: string,
             lastname?: string | null,
             firstname: string,
             image?: string | null,

@@ -33,6 +33,7 @@ function NewArrivals() {
                     date: moment(item?.date).toDate(),
                     users: item?.users?.items?.map((user) => {
                         return {
+                            id: user?.id || '',
                             lastname: user?.lastname || '',
                             firstname: user?.firstname || '',
                             image: user?.image || '',
@@ -85,7 +86,7 @@ function NewArrivals() {
                                     </li>);
                                     listItems.push(...arrival.users.map((user) => {
                                         user.size = 'medium';
-                                        return (<li key={user.firstname + user.lastname}>
+                                        return (<li key={user.id}>
                                             <User user={user}></User>
                                         </li>)
                                     }));

@@ -43,6 +43,7 @@ function Birthday() {
                     date: moment(item?.date).toDate(),
                     users: item?.users?.items?.map((user) => {
                         return {
+                            id: user?.id || '',
                             lastname: user?.lastname || '',
                             firstname: user?.firstname || '',
                             image: user?.image || ''

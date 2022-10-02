@@ -61,6 +61,7 @@ function Signin() {
                 navigate('/change-password');
                 return;
             }
+            console.log(user.signInUserSession.idToken);
             dispatch({
                 type: AUTH_ACTION_TYPES.SET_AUTH,
                 payload: {
@@ -70,7 +71,8 @@ function Signin() {
                         mail: user.signInUserSession.idToken.payload.email,
                         emailVerified: user.signInUserSession.idToken.payload.email_verified,
                         token: user.signInUserSession.idToken.jwtToken,
-                        groups: user.signInUserSession.idToken.payload['cognito:groups']
+                        groups: user.signInUserSession.idToken.payload['cognito:groups'],
+                        sub: user.signInUserSession.idToken.payload.sub,
                     }
                 }
             });

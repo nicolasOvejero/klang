@@ -8,6 +8,7 @@ import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
 import { deleteEvent } from '../../../../graphql/mutations';
 import { DeleteEventMutation } from '../../../../API';
+import { graphqlOperation } from 'aws-amplify';
 
 const defaultEventDeleteState = {
     idEvent: '',
@@ -66,6 +67,30 @@ function EventFormRemove() {
         );
     }
 
+    const deleteSubscribers = async () => {
+        const eventValues = originalEvents?.listEvents?.items.find((event) => event?.id === idEvent);
+
+        const txnMutation: any = eventValues?.participants?.items.map((p, i) => {
+            return `mutation${i}: deleteUsersEvents(input: {id: "${p?.id}"}) { id }`;
+        });
+
+        const deleteReturn = await API.graphql(
+            graphqlOperation(`
+                mutation batchMutation {
+                    ${txnMutation}
+                }
+            `)
+        ) as GraphQLResult;
+
+        if (deleteReturn.errors) {
+            setEventRemoveState({
+                ...eventRemoveState,
+                formHasError: true,
+                formError: 'Impossible de supprimer les participants'
+            });
+        }
+    }
+
     const handlerSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -74,7 +99,7 @@ function EventFormRemove() {
         }
 
         if (subscribers > 0) {
-            // TODO
+            await deleteSubscribers();
         }
 
         const deleteReturn = await API.graphql({
@@ -87,7 +112,11 @@ function EventFormRemove() {
         }) as GraphQLResult<DeleteEventMutation>;
 
         if (deleteReturn.errors) {
-            // TODO
+            setEventRemoveState({
+                ...eventRemoveState,
+                formHasError: true,
+                formError: "Impossible de supprimer l'événement"
+            });
         }
 
         getEvents();

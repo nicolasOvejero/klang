@@ -224,6 +224,7 @@ export const listEventsLight = /* GraphQL */ `
                 type
                 participants {
                     items {
+                        id
                         user {
                             id
                         }
@@ -246,6 +247,7 @@ export type ListEventsLightQuery = {
             participants?:  {
                 __typename: "ModelUsersEventsConnection",
                 items: Array<{
+                    id: string,
                     user: {
                         id: string,
                     }

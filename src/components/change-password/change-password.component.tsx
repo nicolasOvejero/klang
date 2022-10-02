@@ -64,7 +64,8 @@ function ChangePassword() {
                         mail: user.signInUserSession.idToken.payload.email,
                         emailVerified: user.signInUserSession.idToken.payload.email_verified,
                         token: user.signInUserSession.idToken.jwtToken,
-                        groups: user.signInUserSession.idToken.payload['cognito:groups']
+                        groups: user.signInUserSession.idToken.payload['cognito:groups'],
+                        sub: user.signInUserSession.idToken.sub,
                     }
                 }
             });

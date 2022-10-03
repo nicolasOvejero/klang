@@ -24,7 +24,6 @@ import EventFormRemove from './components/admin/event-form/event-form-remove/eve
 import EventFormAdd from './components/admin/event-form/event-form-add/event-form-add.component';
 import NewArrivalForm from './components/admin/new-arrival-form/new-arrival-form.component';
 import NewArrivalFormAdd from './components/admin/new-arrival-form/new-arrival-form-add/new-arrival-form-add.component';
-import NewArrivalFormRemove from './components/admin/new-arrival-form/new-arrival-form-remove/new-arrival-form-remove.component';
 import Profile from './routes/profile/profile.component';
 
 function App() {
@@ -63,7 +62,6 @@ function App() {
                         </Route>
                         <Route path='new-arrivals' element={<NewArrivalForm />}>
                             <Route path='add' element={<NewArrivalFormAdd />} />
-                            <Route path='delete' element={<NewArrivalFormRemove />} />
                         </Route>
                     </Route>
                 </Route>

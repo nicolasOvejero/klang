@@ -36,7 +36,6 @@ function Admin() {
                 <AsideAction
                     title='Nouveaux arrivants'
                     pathAdd='/admin/new-arrivals/add'
-                    pathDelete='/admin/new-arrivals/delete'
                     color='primary'
                 ></AsideAction>
             </aside>

@@ -1,8 +1,6 @@
 @import '../../../common/common.style.scss';
 
 .aside-action {
-    margin-bottom: 2rem;
-
     .title {
         letter-spacing: 2px;
         font-size: 1.5rem;
@@ -27,6 +25,19 @@
         &:hover {
             cursor: pointer;
             font-weight: bold;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .aside-action {
+        .title {
+            font-size: 1.25rem;
+        }
+
+        .link {
+            font-size: 1rem;
+            margin: 0.15rem 2rem;
         }
     }
 }

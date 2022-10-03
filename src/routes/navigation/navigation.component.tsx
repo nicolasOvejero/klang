@@ -1,9 +1,10 @@
 import { Auth } from 'aws-amplify';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import Button from '../../components/button/button.component';
+import MobileMenu from '../../components/mobile/menu/menu.component';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { USER_INITIAL_STATE } from '../../store/user/user.reducer';
@@ -14,6 +15,7 @@ import './navigation.style.scss';
 function Navigation() {
     const auth = useSelector(selectAuthReducer);
     const user = useSelector(selectUserReducer);
+    const [menuOpen, setMenuOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isAdmin = auth.user?.groups?.includes('admin');
@@ -40,6 +42,12 @@ function Navigation() {
     return (
         <Fragment>
             <header className='navigation header'>
+                <span
+                    className='manu-icon material-symbols-outlined'
+                    onClick={() => setMenuOpen(true)}
+                >
+                    menu
+                </span>
                 <img
                     onClick={() => navigate('/')}
                     className='logo'
@@ -69,6 +77,11 @@ function Navigation() {
                     ></Button>
                 </div>
             </header>
+            <MobileMenu
+                isOpen={menuOpen}
+                closeMenu={() => setMenuOpen(false)}
+                signOut={ () => signOut() }
+            />
             <Outlet />
         </Fragment>
     );

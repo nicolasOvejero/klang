@@ -78,6 +78,7 @@ button {
 
 @media screen and (max-width: $breakpoint-medium) {
     button {
+        font-size: 0.75rem;
         padding: 0.65rem 1.75rem;
     }
 }

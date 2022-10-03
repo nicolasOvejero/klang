@@ -66,6 +66,8 @@
                     right: 0.5rem;
                     top: 0.5rem;
                 };
+                position: absolute;
+                right: 1rem;
                 text-align: end;
                 z-index: 2;
 
@@ -74,12 +76,17 @@
                 }
             }
 
-            .date {
-                align-self: center;
-                color: $text-color;
-                font-size: 2.5rem;
-                margin-top: -4rem;
-                text-transform: capitalize;
+            .header {
+                align-items: center;
+                display: flex;
+                margin-bottom: 1rem;
+
+                .date {
+                    color: $text-color;
+                    font-size: 2.5rem;
+                    margin-left: 3rem;
+                    text-transform: capitalize;
+                }
             }
 
             .image {
@@ -170,10 +177,12 @@
                     padding: 0.5rem;
                 }
 
-                .date {
-                    font-size: 1.5rem;
-                    margin: -2.5rem 1.5rem 0.5rem 0;
+                .header {
+                    .date {
+                        font-size: 1.5rem;
+                    }
                 }
+
 
                 .image {
                     margin-bottom: 0.75rem;
@@ -230,8 +239,16 @@
             &-informations {
                 height: 80%;
     
-                .date {
-                    font-size: 1.25rem;
+                .close {
+                    right: 0.5rem;
+                    top: 0.25rem;
+                }
+
+                .header {
+                    .date {
+                        font-size: 1.25rem;
+                        margin-left: 1.5rem;
+                    }
                 }
 
                 .image {
@@ -298,11 +315,11 @@
                 border-bottom-left-radius: 0;
                 border-top-right-radius: 2rem;
                 border-top-left-radius: 2rem;
+                bottom: -85%;
                 height: 85%;
                 left: 0;
                 right: 0;
                 top: auto;
-                bottom: -85%;
                 width: 100%;
 
                 &.open {
@@ -312,17 +329,26 @@
     
                 .close {
                     font-size: 1.5rem;
-                    margin: {
-                        left: -0.5rem;
-                        top: -0.5rem;
-                    };
+                    top: 0rem;
                     padding: 1rem;
                     text-align: start;
                 }
-    
-                .date {
-                    font-size: 1rem;
-                    margin: -2.5rem 0.5rem 0.5rem 0;
+
+                .header {
+                    flex-direction: column-reverse;
+                    margin-top: 0.5rem;
+
+                    .date {
+                        font-size: 1rem;
+                        margin: {
+                            bottom: 0.5rem;
+                            left: 0;
+                        }
+                    }
+
+                    .button {
+                        width: 100%;
+                    }
                 }
             }
         }

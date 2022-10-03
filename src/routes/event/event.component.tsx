@@ -1,6 +1,5 @@
 import Calendar from '../../components/calendar/calendar.component';
 import calendar from '../../assets/calendar.png';
-import './event.style.scss';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import wine from '../../assets/wine.png';
@@ -11,8 +10,16 @@ import { listEvents, ListEventsQuery } from '../../components/custom-queries';
 import { API } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api-graphql';
 import Loader from '../../components/loader/loader.component';
+import Button from '../../components/button/button.component';
+import { useSelector } from 'react-redux';
+import { selectUserReducer } from '../../store/user/user.selector';
+import { createUsersEvents } from '../../graphql/mutations';
+import { CreateUsersEventsMutation } from '../../API';
+import './event.style.scss';
+import Toaster from '../../components/toaster/toaster.component';
 
 export type EventModel = {
+    id: string;
     date: Date;
     image?: string;
     participants?: UserModel[];
@@ -24,19 +31,86 @@ export type EventModel = {
     schedule?: string;
 }
 
+type EventDefaultState = {
+    disableSubscription: boolean;
+    success: boolean;
+}
+
+const defaultState = {
+    disableSubscription: false,
+    success: false
+} 
+
 function Event() {
+    const user = useSelector(selectUserReducer);
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EventModel>();
     const [events, setEvents] = useState<EventModel[]>([]);
     const [loading, setLoading] = useState(true);
+    const [eventState, setEventState] = useState<EventDefaultState>(defaultState);
 
     const showEventDescription = (selectedDay: EventModel) => {
         setIsInfoOpen(true);
         setSelectedDate(selectedDay);
+        if (selectedDay.participants?.find((p) => p.id === user.id)) {
+            setEventState({
+                ...eventState,
+                disableSubscription: true,
+            })
+        }
     }
 
     const handleClose = () => {
         setIsInfoOpen(false);
+    }
+
+    const subscribeEvent = async() => {
+        if (eventState.disableSubscription) {
+            return;
+        }
+        
+        const eventId = selectedDate?.id;
+        const userId = user.id;
+
+        const subscription = await API.graphql({
+            query: createUsersEvents,
+            variables: {
+                input: {
+                    eventID: eventId, 
+                    userID: userId
+                }
+            }
+        }) as GraphQLResult<CreateUsersEventsMutation>;
+
+        if (subscription.errors) {
+            // TODO
+        }
+
+        const event = events.find((event) => event.id === selectedDate?.id);
+        if (event) {
+            event?.participants?.push(
+                {
+                    id: subscription.data?.createUsersEvents?.user.id || '',
+                    lastname: subscription.data?.createUsersEvents?.user.lastname || '',
+                    firstname: subscription.data?.createUsersEvents?.user.firstname || '',
+                    image: subscription.data?.createUsersEvents?.user.image || ''
+                }
+            );
+            setEvents([
+                ...events
+            ]);
+
+            setEventState({
+                disableSubscription: true,
+                success: true
+            });
+            setTimeout(() => {
+                setEventState({
+                    disableSubscription: true,
+                    success: false
+                });
+            }, 2000);
+        }
     }
 
     const getEvents = async () => {
@@ -58,6 +132,7 @@ function Event() {
         if (items) {
             setEvents(items.map((item) => {
                 return {
+                    id: item?.id || '',
                     date: moment(item?.date).toDate(),
                     image: item?.image || '',
                     type: item?.type || '',
@@ -118,9 +193,18 @@ function Event() {
                     >
                         close
                     </span>
-                    <h3 className='date'>
-                        { moment(selectedDate?.date).format('DD MMMM yyyy') }
-                    </h3>
+                    <div className='header'>
+                        <Button
+                            label="Je m'inscris"
+                            type='button'
+                            color='secondary'
+                            clickHandler={subscribeEvent}
+                            disabled={ eventState.disableSubscription }
+                        />
+                        <h3 className='date'>
+                            { moment(selectedDate?.date).format('DD MMMM yyyy') }
+                        </h3>
+                    </div>
                     <div className='image' style={{ backgroundImage: `url(${selectedDate?.image})` }}></div>
                     <div className='info-grid'>
                         <p className='head'>
@@ -176,6 +260,11 @@ function Event() {
                     />)
                 }
             </section>
+            <Toaster
+                message="Félicitation ! Vous êtes inscrit à l'événement"
+                type='success'
+                display={eventState.success}
+            />
         </article>
     )
 }

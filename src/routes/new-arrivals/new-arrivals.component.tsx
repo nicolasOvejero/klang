@@ -23,8 +23,19 @@ function NewArrivals() {
     const end = moment().endOf('week').format('DD MMMM');
 
     const getEvents = async () => {
+        const startReq = moment().startOf('week').format('YYYY-MM-DD');
+        const endReq = moment().endOf('week').format('YYYY-MM-DD');
+
         const apiData = await API.graphql({
             query: listNewArrivals,
+            variables: {
+                filter: {
+                    date: {
+                        ge: startReq,
+                        le: endReq
+                    }
+                }
+            }
         }) as GraphQLResult<ListNewArrivalsQuery>;
         const items = apiData.data?.listNewArrivals?.items;
         if (items) {
@@ -76,7 +87,7 @@ function NewArrivals() {
                         </div>)
                     }
                     {
-                        !loading && (<ul className='list'>
+                        !loading && newArrivales.length > 0 && (<ul className='list'>
                             {
                                 newArrivales.map((arrival) => {
                                     const listItems: JSX.Element[] = [];
@@ -94,6 +105,13 @@ function NewArrivals() {
                                 })
                             }
                         </ul>)
+                    }
+                    {
+                        !loading && newArrivales.length === 0 && (
+                            <div className='no-new-arrivals'>
+                                Aucun nouveaux arrivants <br />pour cette semaine
+                            </div>
+                        )
                     }
                 </div>
             </section>

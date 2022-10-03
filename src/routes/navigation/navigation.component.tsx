@@ -39,7 +39,7 @@ function Navigation() {
 
     return (
         <Fragment>
-            <header className='header'>
+            <header className='navigation header'>
                 <img
                     onClick={() => navigate('/')}
                     className='logo'

@@ -151,6 +151,7 @@ export const listEvents = /* GraphQL */ `
             sortDirection: $sortDirection
         ) {
             items {
+                id
                 date
                 image
                 participants {

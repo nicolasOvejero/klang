@@ -1,6 +1,6 @@
 @import '../../common/common.style.scss';
 
-.header {
+.navigation.header {
     align-items: center;
     display: flex;
     height: $header-height;
@@ -35,7 +35,7 @@
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .header {
+    .navigation.header {
         height: $header-height;
         padding: 0 0.75rem;
 
@@ -53,7 +53,7 @@
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .header {
+    .navigation.header {
         height: $header-height;
         flex-direction: row;
         padding: 0 0.5rem;

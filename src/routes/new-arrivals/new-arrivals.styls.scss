@@ -61,6 +61,15 @@
             }
         }
     }
+
+    .no-new-arrivals {
+        color: $primary-light;
+        letter-spacing: 2px;
+        font-size: 1.75rem;
+        height: 100%;
+        margin-top: 5rem;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: $breakpoint-large) {
@@ -87,6 +96,10 @@
                     }
                 }
             }
+        }
+
+        .no-new-arrivals {
+            font-size: 1.5rem;
         }
     }
 }
@@ -117,6 +130,10 @@
                     }
                 }
             }
+        }
+
+        .no-new-arrivals {
+            font-size: 1.25rem;
         }
     }
 }
@@ -159,6 +176,11 @@
                     }
                 }
             }
+        }
+
+        .no-new-arrivals {
+            font-size: 1rem;
+            margin-top: 3rem;
         }
     }
 }

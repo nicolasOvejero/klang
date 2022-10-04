@@ -25,6 +25,8 @@ import EventFormAdd from './components/admin/event-form/event-form-add/event-for
 import NewArrivalForm from './components/admin/new-arrival-form/new-arrival-form.component';
 import NewArrivalFormAdd from './components/admin/new-arrival-form/new-arrival-form-add/new-arrival-form-add.component';
 import Profile from './routes/profile/profile.component';
+import FirstTime from './components/first-time/first-time.component';
+import Code from './components/code/code.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -67,6 +69,8 @@ function App() {
                 </Route>
                 <Route element={<Connection />}>
                     <Route path="login" element={<Signin />} />
+                    <Route path="first-time" element={<FirstTime />} />
+                    <Route path="code" element={<Code />} />
                     <Route path='change-password' element={<ChangePassword />} />
                 </Route>
             </Routes>

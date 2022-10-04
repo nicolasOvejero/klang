@@ -1,0 +1,15 @@
+.code {
+    width: 20%;
+
+    .form {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        label {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+    }
+}

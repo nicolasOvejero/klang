@@ -97,7 +97,7 @@ function Birthday() {
                     </span>
                     <Background className='background' />
                     <h3 className="date">
-                        {moment(selectedDate?.date).format('DD MMMM yyyy')}
+                        {moment(selectedDate?.date).format('DD MMMM')}
                     </h3>
                     <div className="users">
                         {

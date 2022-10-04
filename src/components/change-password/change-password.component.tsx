@@ -1,5 +1,5 @@
 import { API, Auth } from 'aws-amplify';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CreateUserMutation, ListUsersQuery } from '../../API';
@@ -15,6 +15,7 @@ import { GraphQLResult } from "@aws-amplify/api";
 import './change-password.style.scss';
 
 const defaultResetState = {
+    code: '',
     password: '',
     confirmPassword: '',
     formHasError: false,
@@ -24,7 +25,7 @@ const defaultResetState = {
 
 function ChangePassword() {
     const [resetState, setResetState] = useState(defaultResetState);
-    const { password, confirmPassword, formHasError, formError, loading } = resetState;
+    const { code, password, confirmPassword, formHasError, formError, loading } = resetState;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector(selectAuthReducer);
@@ -101,23 +102,47 @@ function ChangePassword() {
         });
     }
 
-    async function changePassword(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-
+    function validPassword(): boolean {
         if (loading || !password || !confirmPassword) {
-            return;
+            return false;
         }
 
         if (password !== confirmPassword) {
+            console.error('Password mismatch');
             setResetState({
                 ...resetState,
                 formHasError: true,
                 formError: "Mots de passe non identiques", 
                 loading: false
             });
+            return false;
+        }
+
+        return true;
+    }
+
+    async function changePassword(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        if (!validPassword()) {
             return;
         }
 
+        if (auth?.tempUser?.code && auth?.tempUser?.username) {
+            resetPassword();
+        } else {
+            completeNewPassword();
+        }
+    }
+
+    async function resetPassword() {
+        if (auth.tempUser) {
+            await Auth.forgotPasswordSubmit(auth.tempUser?.username, auth.tempUser?.code, password);
+            navigate('/login');
+        }
+    }
+
+    async function completeNewPassword() {
         try {
             const user = await Auth.completeNewPassword(
                 auth.tempUser,
@@ -156,6 +181,21 @@ function ChangePassword() {
         <section className='change-password'>
             <h2 className='title'>Changement de mot de passe</h2>
             <form className='form' onSubmit={changePassword}>
+                {
+                    !(auth?.tempUser) && (
+                        <InputForm
+                            label='Code de vérification'
+                            type='text'
+                            required
+                            haserror={formHasError}
+                            errormessage={formError}
+                            onChange={handleChange}
+                            name='code'
+                            value={code}
+                        />
+                    )
+                }
+
                 <InputForm
                     label='Nouveau mot de passe'
                     type='password'

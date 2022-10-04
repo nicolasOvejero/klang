@@ -4,7 +4,7 @@ import InputForm from '../input-form/input-form.component';
 import { API, Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { listUsers } from '../../graphql/queries';
 import { GraphQLResult } from "@aws-amplify/api";
 import './signin.style.scss';
@@ -148,6 +148,20 @@ function Signin() {
                 user.signInUserSession.idToken.payload.given_name,
             );
         } catch (error: any) {
+            if (error.message === 'Password reset required for the user') {
+                 dispatch({
+                    type: AUTH_ACTION_TYPES.SET_TEMP_AUTH,
+                    payload: {
+                        isConnected: false,
+                        user: {
+                            username: username,
+                        },
+                    }
+                });
+                navigate('/first-time');
+                return;
+            }
+            
             setSignInState({
                 ...signInState,
                 formHasError: true,
@@ -182,6 +196,10 @@ function Signin() {
                     name='password'
                     value={password}
                 />
+
+                <Link to='/first-time' className='first-time'>
+                    Première connexion ?
+                </Link>
 
                 <div className='button-container'>
                    <Button label='Connexion' type='submit' disabled={loading} />

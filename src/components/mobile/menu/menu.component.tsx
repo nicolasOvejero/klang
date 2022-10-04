@@ -1,9 +1,11 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import './menu.style.scss';
 
 type MobileMenuProps = {
     isOpen: boolean;
+    isAdmin: boolean;
     closeMenu: () => void;
     signOut: () => void;
 }
@@ -55,14 +57,20 @@ function MobileMenu(props: MobileMenuProps) {
             >
                 Mon profil
             </Link>
-            <hr className='separator light' />
-            <Link
-                className='item'
-                to='admin'
-                onClick={props.closeMenu}
-            >
-                Administration
-            </Link>
+            {
+                props.isAdmin && (
+                    <Fragment>
+                        <hr className='separator light' />
+                        <Link
+                            className='item'
+                            to='admin'
+                            onClick={props.closeMenu}
+                        >
+                            Administration
+                        </Link>
+                    </Fragment>
+                )
+            }
             <hr className='separator light' />
             <Link
                 className='item'

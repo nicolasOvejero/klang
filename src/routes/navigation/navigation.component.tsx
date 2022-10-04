@@ -18,7 +18,7 @@ function Navigation() {
     const [menuOpen, setMenuOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isAdmin = auth.user?.groups?.includes('admin');
+    const isAdmin = auth.user?.groups?.includes('admin') || false;
 
     async function signOut() {
         try {
@@ -79,6 +79,7 @@ function Navigation() {
             </header>
             <MobileMenu
                 isOpen={menuOpen}
+                isAdmin={isAdmin}
                 closeMenu={() => setMenuOpen(false)}
                 signOut={ () => signOut() }
             />

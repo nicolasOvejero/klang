@@ -15,6 +15,10 @@
         padding: 1rem;
     }
 
+    .menu-mobile {
+        display: none;
+    }
+
     .default-background {
         align-items: center;
         display: flex;
@@ -56,22 +60,64 @@
             display: none;
         }
 
+        .menu-mobile {
+            background-color: darken($white, 10);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            display: block;
+            position: relative;
+
+            .header {
+                align-items: center;
+                display: flex;
+
+                .title {
+                    color: $text-color-dark;
+                    letter-spacing: 2px;
+                    flex: 1 0 0;
+                    font-size: 1.25rem;
+                }
+
+                .icon {
+                    font-size: 1.75rem;
+                    transition: all 0.25s ease-in-out;
+
+                    &.expanded {
+                        transform: rotate(-180deg);
+                    }
+                }
+            }
+
+            .content {
+                background-color: darken($white, 10);
+                border-bottom-left-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+                height: 0;
+                left: 0;
+                overflow: hidden;
+                padding: 0 1.5rem;
+                position: absolute;
+                top: 90%;
+                width: 100%;
+                z-index: 15;
+
+                &.expand {
+                    height: auto;
+                }
+            }
+
+            .aside-action {
+                margin: {
+                    bottom: 1rem;
+                    left: 1rem;
+                }
+            }
+        }
+
         .default-background {
             img {
                 height: auto;
                 width: 80%;
-            }
-        }
-
-        .aside-action {
-            margin-left: 0.75rem;
-            
-            &:not(:last-child) {
-                margin-bottom: 1rem;
-            }
-
-            &:first-child {
-                margin-top: 0.75rem;
             }
         }
     }
@@ -86,6 +132,31 @@
             height: 50%;
             flex: 1 0 0;
             padding: 0.75rem;
+        }
+
+        .menu-mobile {
+            padding: 0.5rem 1.25rem;
+
+            .header {
+                .title {
+                    font-size: 1rem;
+                }
+
+                .icon {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .content {
+                padding: 0 1rem;
+            }
+
+            .aside-action {
+                margin: {
+                    bottom: 0.75rem;
+                    left: 0.75rem;
+                }
+            }
         }
 
         .default-background {

@@ -6,18 +6,19 @@ type AsideActionPros = {
     pathAdd: string;
     pathDelete?: string;
     color: 'primary' | 'secondary';
+    handleClickItem?: () => void;
 }
 
 function AsideAction(props: AsideActionPros) {
     return (
         <div className='aside-action'>
             <p className={`title ${props.color}`}>{ props.title }</p>
-            <Link to={ props.pathAdd } className='link'>
+            <Link to={ props.pathAdd } className='link' onClick={props.handleClickItem}>
                 Ajouter
             </Link>
             {
                 props.pathDelete && (
-                    <Link to={ props.pathDelete } className='link'>
+                    <Link to={ props.pathDelete } className='link' onClick={props.handleClickItem}>
                         Supprimer
                     </Link>
                 )

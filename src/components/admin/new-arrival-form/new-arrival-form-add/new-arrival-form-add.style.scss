@@ -1,4 +1,7 @@
+@import '../../../../common/common.style.scss';
+
 .form-newarrivals-add {
+    flex: 1 0 0;
     width: 40%;
 
     .label {
@@ -9,5 +12,35 @@
         margin-left: 50%;
         transform: translateX(-50%);
         width: 50%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .form-newarrivals-add {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .form-newarrivals-add {
+        width: 60%;
+
+        .label {
+            margin-bottom: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .form-newarrivals-add {
+        width: 100%;
+
+        .label {
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            width: 70%;
+        }
     }
 }

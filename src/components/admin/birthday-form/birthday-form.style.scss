@@ -1,7 +1,42 @@
+@import '../../../common/common.style.scss';
+
 .birthday-form {
     align-items: center;
     display: flex;
+    flex-direction: column;
     flex: 1 0 0;
     padding: 1rem;
     justify-content: center;
+
+    .title {
+        color: $text-color-light;
+        letter-spacing: 3px;
+        flex: 25% 0 0;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .birthday-form {
+        .title {
+            font-size: 1.75rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .birthday-form {
+        .title {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .birthday-form {
+        .title {
+            font-size: 1rem;
+        }
+    }
 }

@@ -1,4 +1,7 @@
+@import '../../../../common/common.style.scss';
+
 .form-event-add {
+    flex: 1 0 0;
     width: 50%;
 
     .label {
@@ -9,5 +12,35 @@
         margin-left: 50%;
         transform: translateX(-50%);
         width: 50%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .form-event-add {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .form-event-add {
+        width: 60%;
+
+        .label {
+            margin-bottom: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .form-event-add {
+        width: 100%;
+
+        .label {
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            width: 70%;
+        }
     }
 }

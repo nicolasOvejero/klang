@@ -29,7 +29,7 @@
     }
 }
 
-@media screen and (max-width: $breakpoint-medium) {
+@media screen and (max-width: $breakpoint-large) {
     .aside-action {
         .title {
             font-size: 1.25rem;
@@ -38,6 +38,32 @@
         .link {
             font-size: 1rem;
             margin: 0.15rem 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .aside-action {
+        .title {
+            font-size: 1rem;
+        }
+
+        .link {
+            font-size: 0.85rem;
+            margin: 0.15rem 1.75rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .aside-action {
+        .title {
+            font-size: 0.85rem;
+        }
+
+        .link {
+            font-size: 0.75rem;
+            margin: 0.15rem 1.5rem;
         }
     }
 }

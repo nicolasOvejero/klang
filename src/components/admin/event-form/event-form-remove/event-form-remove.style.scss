@@ -1,6 +1,7 @@
 @import '../../../../common/common.style.scss';
 
 .form-event-delete {
+    flex: 1 0 0;
     width: 50%;
 
     .label {
@@ -18,5 +19,49 @@
         margin-left: 50%;
         transform: translateX(-50%);
         width: 50%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .form-event-delete {
+        width: 60%;
+
+        .warning-message {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .form-event-delete {
+        width: 60%;
+
+        .label {
+            margin-bottom: 2.5rem;
+        }
+
+        .warning-message {
+            font-size: 1rem;
+            margin: -1.5rem 0 1rem 0;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .form-event-delete {
+        width: 100%;
+
+        .label {
+            margin-bottom: 2rem;
+        }
+
+        .warning-message {
+            font-size: 0.8rem;
+            margin: -0.5rem 0 1rem 0;
+        }
+
+        .button {
+            width: 70%;
+        }
     }
 }

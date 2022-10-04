@@ -1,5 +1,5 @@
 import { API, Auth } from 'aws-amplify';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CreateUserMutation, ListUsersQuery } from '../../API';

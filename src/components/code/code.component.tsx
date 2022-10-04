@@ -66,7 +66,7 @@ function Code() {
     }
         
     return (
-        <section className='first-time'>
+        <section className='code'>
             <form className='form' onSubmit={sendCode}>
                 <InputForm
                     label="Code reçu"

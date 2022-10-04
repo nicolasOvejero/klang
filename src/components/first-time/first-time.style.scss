@@ -1,3 +1,5 @@
+@import '../../common/common.style.scss';
+
 .first-time {
     width: 20%;
 
@@ -10,6 +12,36 @@
         label {
             margin-bottom: 2rem;
             width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .first-time {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .first-time {
+        width: 50%;
+
+        .form {
+            label {
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .first-time {
+        width: 70%;
+
+        .form {
+            label {
+                margin-bottom: 1rem;
+            }
         }
     }
 }

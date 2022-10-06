@@ -15,7 +15,6 @@ import { GraphQLResult } from "@aws-amplify/api";
 import './change-password.style.scss';
 
 const defaultResetState = {
-    code: '',
     password: '',
     confirmPassword: '',
     formHasError: false,
@@ -25,7 +24,7 @@ const defaultResetState = {
 
 function ChangePassword() {
     const [resetState, setResetState] = useState(defaultResetState);
-    const { code, password, confirmPassword, formHasError, formError, loading } = resetState;
+    const { password, confirmPassword, formHasError, formError, loading } = resetState;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector(selectAuthReducer);
@@ -128,18 +127,7 @@ function ChangePassword() {
             return;
         }
 
-        if (auth?.tempUser?.code && auth?.tempUser?.username) {
-            resetPassword();
-        } else {
-            completeNewPassword();
-        }
-    }
-
-    async function resetPassword() {
-        if (auth.tempUser) {
-            await Auth.forgotPasswordSubmit(auth.tempUser?.username, auth.tempUser?.code, password);
-            navigate('/login');
-        }
+        completeNewPassword();
     }
 
     async function completeNewPassword() {
@@ -181,21 +169,6 @@ function ChangePassword() {
         <section className='change-password'>
             <h2 className='title'>Changement de mot de passe</h2>
             <form className='form' onSubmit={changePassword}>
-                {
-                    !(auth?.tempUser) && (
-                        <InputForm
-                            label='Code de vérification'
-                            type='text'
-                            required
-                            haserror={formHasError}
-                            errormessage={formError}
-                            onChange={handleChange}
-                            name='code'
-                            value={code}
-                        />
-                    )
-                }
-
                 <InputForm
                     label='Nouveau mot de passe'
                     type='password'

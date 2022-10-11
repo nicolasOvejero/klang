@@ -22,10 +22,9 @@ function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
         return users;
     })
     .sort((a, b) => moment(a.arrivalDate).diff(moment(b.arrivalDate)));
-    ;
 
     return (
-        <div className='container new-arrivals-carousel'>
+        <div className='container new-arrivals-carousel hidden out-right'>
             <h2 className='title'>
                 Qui sont les <br />prochains arrivants ?
             </h2>

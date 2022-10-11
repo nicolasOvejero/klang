@@ -3,14 +3,24 @@
 $loader-size: 5rem;
 
 .loader {
-    width: $loader-size;
-    height: $loader-size;
+    animation: rotation 1s linear infinite;
     border-radius: 50%;
-    display: inline-block;
     border-top: 6px solid $primary-light;
     border-right: 6px solid transparent;
     box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+    display: inline-block;
+    height: $loader-size;
+    width: $loader-size;
+    
+    &.big {
+        height: $loader-size * 2;
+        width: $loader-size * 2;
+
+        &::after {
+            height: $loader-size * 2;
+            width: $loader-size * 2;
+        }
+    }
 
     &::after {
         content: '';

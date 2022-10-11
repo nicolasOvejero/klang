@@ -12,7 +12,7 @@ function BirthdaysCarousel(props: userCarouselProps) {
     const users = props.users;
 
     return (
-        <div className='container'>
+        <div className='container hidden out-right'>
             <h2 className='title'>
                 Quels sont les<br />prochains anniversaires ?
             </h2>

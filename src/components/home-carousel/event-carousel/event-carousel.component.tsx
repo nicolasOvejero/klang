@@ -71,7 +71,7 @@ function EventCarousel(props: eventCarouselProps) {
     }, []);
 
     return (
-        <div className='container event-carousel'>
+        <div className='container event-carousel hidden out-right'>
             <div className='content'>
                 <div className='event-container'>
                     <div className='image' style={{ backgroundImage: `url(${event.image})` }}>
@@ -93,7 +93,7 @@ function EventCarousel(props: eventCarouselProps) {
                                 <p className='value'>{event.address?.street}, {event.address?.city}</p>
                             </div>
                             <Button
-                                label="Je m'inscrit"
+                                label="Je m'inscris"
                                 type='button'
                                 color='primary'
                                 disabled={ state.disableSubscription }

@@ -1,19 +1,21 @@
 import { GraphQLResult } from '@aws-amplify/api';
 import { API } from 'aws-amplify';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { EventModel } from '../../routes/event/event.component';
 import { getNextEvents, ListBirthdaysQuery, listBithday, ListEventsQuery, listNewArrivals, ListNewArrivalsQuery } from '../custom-queries';
 import moment from 'moment';
-import './home-carousel.style.scss';
 import EventCarousel from './event-carousel/event-carousel.component';
 import { NewArrivalModel } from '../../routes/new-arrivals/new-arrivals.component';
 import NewArrivalsCarousel from './new-arrival-carousel/new-arrival-carousel.component';
 import BirthdaysCarousel from './birthdays-carousel/birthdays-carousel.component';
+import Loader from '../loader/loader.component';
+import './home-carousel.style.scss';
 
 function HomeCarousel() {
     const [users, setUsers] = useState<any[]>([]);
     const [event, setEvent] = useState<EventModel>();
     const [newArrival, setNewArrival] = useState<NewArrivalModel[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [carouselPos, setCarouselPos] = useState(0);
     const [carouselLength, setCarouselLength] = useState(0);
     const viewsContainer = useRef<HTMLDivElement>(null);
@@ -32,10 +34,16 @@ function HomeCarousel() {
         setCarouselPos(nextPos);
 
         children[nextPos].classList.add('current');
+        children[nextPos].classList.remove('hidden');
+
+        setTimeout(() => {
+            children[nextPos].classList.remove('out-right');
+        }, 50);
 
         setTimeout(() => {
             children[carouselPos].classList.add('hidden');
             children[carouselPos].classList.remove('out-left');
+
             setTimeout(() => {
                 children[carouselPos].classList.remove('hidden');
             }, 20);
@@ -92,6 +100,8 @@ function HomeCarousel() {
             }
         }) as GraphQLResult<ListBirthdaysQuery>;
 
+        getNextEvent();
+
         if (firstBirthdays.errors) {
 
         }
@@ -131,6 +141,8 @@ function HomeCarousel() {
                 }
             }
         }) as GraphQLResult<ListEventsQuery>;
+
+        getNewArrivals();
 
         if (nextEvent.errors) {
 
@@ -197,57 +209,64 @@ function HomeCarousel() {
                 }
             });
             setNewArrival(newArrivals);
+            setIsLoading(false);
+        }
+
+        if (viewsContainer.current?.children.length) {
+            setCarouselLength(viewsContainer.current.children.length);
+            viewsContainer.current.children[0].classList.add('current');
+            viewsContainer.current.children[0].classList.remove('hidden');
+            viewsContainer.current.children[0].classList.remove('out-right');
         }
     }
 
     useEffect(() => {
         getBirthdays();
-        getNextEvent();
-        getNewArrivals();
     }, []);
-
-    useEffect(() => {
-        if (viewsContainer.current?.children.length) {
-            setCarouselLength(viewsContainer.current.children.length);
-            for (let i = 0; i < viewsContainer.current.children.length; i++) {
-                viewsContainer.current.children[i].classList.remove('current')
-            }
-            viewsContainer.current.children[0].classList.add('current');
-        }
-    }, [event, users, newArrival]);
 
     return (
         <section className='carousel-container'>
             <div className='carousel-panel'>
                 {
-                    carouselLength > 1 && (
-                        <span
-                            className="navigation-buttons material-symbols-outlined"
-                            onClick={prevView}
-                        >
-                            chevron_left
-                        </span>
+                    isLoading && (
+                        <Loader size='big' />
                     )
                 }
-                <div className='views' ref={viewsContainer}>
-                    {
-                        users && users.length > 0 && (<BirthdaysCarousel users={ users } />)
-                    }
-                    {
-                        event && (<EventCarousel event={ event } />)
-                    }
-                    {
-                        newArrival && newArrival.length > 0 && (<NewArrivalsCarousel newArrivals={ newArrival } />)
-                    }
-                </div>
                 {
-                    carouselLength > 1 && (
-                        <span
-                            className="navigation-buttons material-symbols-outlined"
-                            onClick={nextView}
-                        >
-                            chevron_right
-                        </span>
+                    !isLoading && (
+                        <Fragment>
+                            {
+                                carouselLength > 1 && (
+                                    <span
+                                        className="navigation-buttons material-symbols-outlined"
+                                        onClick={prevView}
+                                    >
+                                        chevron_left
+                                    </span>
+                                )
+                            }
+                            <div className='views' ref={viewsContainer}>
+                                {
+                                    users && users.length > 0 && (<BirthdaysCarousel users={ users } />)
+                                }
+                                {
+                                    event && (<EventCarousel event={ event } />)
+                                }
+                                {
+                                    newArrival && newArrival.length > 0 && (<NewArrivalsCarousel newArrivals={ newArrival } />)
+                                }
+                            </div>
+                            {
+                                carouselLength > 1 && (
+                                    <span
+                                        className="navigation-buttons material-symbols-outlined"
+                                        onClick={nextView}
+                                    >
+                                        chevron_right
+                                    </span>
+                                )
+                            }
+                        </Fragment>
                     )
                 }
             </div>

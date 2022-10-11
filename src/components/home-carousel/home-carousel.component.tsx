@@ -112,7 +112,8 @@ function HomeCarousel() {
                             birthday: moment(date?.date).format('DD MMMM'),
                         }
                     }).flat();
-                }).flat();
+                }).flat()
+                .sort((a, b) => moment(a?.birthday).diff(moment(b?.birthday)));
                 
             setUsers(users);
         }

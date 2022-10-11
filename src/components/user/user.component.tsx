@@ -27,10 +27,10 @@ function User({ user }: { user: UserModel }) {
                     user.job && <p>{user.job}</p>
                 }
                 {
-                    user.birthday && <p>Né le {user.birthday}</p>
+                    user.birthday && <p>Né(e) le {user.birthday}</p>
                 }
                 {
-                    user.arrivalDate && <p>Arrivé(e) le {user.arrivalDate}</p>
+                    user.arrivalDate && <p>Arrive le {user.arrivalDate}</p>
                 }
             </div>
         </div>

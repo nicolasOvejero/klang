@@ -7,14 +7,17 @@ export type UserModel = {
     lastname: string;
     image?: string;
     job?: string;
+    birthday?: string;
+    arrivalDate?: string;
     size?: 'small' | 'medium';
+    background?: 'bg-grey' | undefined;
 }
 
 function User({ user }: { user: UserModel }) {
     return (
-        <div className={ `user ${ user.size ? user.size : '' }` }>
+        <div className={ `user ${ user.size ? user.size : '' } ${ user.background ? user.background : '' }` }>
             <div
-                className='user-image'
+                className={`user-image ${!(user.image) ? 'default' : ''}`}
                 style={{ backgroundImage: `url(${ user.image || defaultFaces })` }}>
             </div>
             <div className='user-name'>
@@ -22,6 +25,12 @@ function User({ user }: { user: UserModel }) {
                 <p>{user.lastname}</p>
                 {
                     user.job && <p>{user.job}</p>
+                }
+                {
+                    user.birthday && <p>Né le {user.birthday}</p>
+                }
+                {
+                    user.arrivalDate && <p>Arrivé(e) le {user.arrivalDate}</p>
                 }
             </div>
         </div>

@@ -97,7 +97,7 @@ function Profile() {
         }) as GraphQLResult<UpdateUserMutation>;
 
         if (updatedProfile.errors) {
-            console.log(updatedProfile.errors);
+            console.error(updatedProfile.errors);
             setProfileState({
                 ...profileState,
                 formError: "Enregistrement impossible"

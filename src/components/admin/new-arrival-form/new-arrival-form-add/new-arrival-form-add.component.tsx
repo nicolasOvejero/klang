@@ -51,7 +51,7 @@ function NewArrivalFormAdd() {
         }) as GraphQLResult<ListNewArrivalsQuery>;
 
         if (newArrivalsList.errors) {
-            console.log(newArrivalsList.errors);
+            console.error(newArrivalsList.errors);
             setNewArrivals({
                 ...newArrivals,
                 formError: 'Une erreur est survenue'
@@ -74,7 +74,7 @@ function NewArrivalFormAdd() {
         }) as GraphQLResult<CreateNewArrivalsMutation>;
 
         if (newNewArrivals.errors) {
-            console.log(newNewArrivals.errors);
+            console.error(newNewArrivals.errors);
             setNewArrivals({
                 ...newArrivals,
                 formError: 'Une erreur est survenue'
@@ -107,7 +107,7 @@ function NewArrivalFormAdd() {
             }) as GraphQLResult<UpdateUserMutation>;
 
             if (updatedUser.errors) {
-                console.log(updatedUser.errors);
+                console.error(updatedUser.errors);
                 setNewArrivals({
                     ...newArrivals,
                     formError: 'Une erreur est survenue'

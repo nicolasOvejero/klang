@@ -1,7 +1,6 @@
 import Calendar from "../../components/calendar/calendar.component";
 import partyImage from '../../assets/party.png';
 import cake from '../../assets/cake.png';
-import './birthday.style.scss';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { ReactComponent as Background } from '../../assets/bg-party.svg';
@@ -10,6 +9,7 @@ import { API } from 'aws-amplify';
 import { ListBirthdaysQuery, listBithday } from "../../components/custom-queries";
 import { GraphQLResult } from "@aws-amplify/api";
 import Loader from "../../components/loader/loader.component";
+import './birthday.style.scss';
 
 export type BirthdayModel = {
     date: Date;
@@ -23,7 +23,6 @@ function Birthday() {
     const [loading, setLoading] = useState(true);
 
     const showEventDescription = (selectedDay: BirthdayModel) => {
-        console.log(selectedDay);
         setIsInfoOpen(true);
         setSelectedDate(selectedDay);
     }
@@ -33,8 +32,17 @@ function Birthday() {
     }
 
     const getBirthdays = async () => {
+        const currentMonth = moment().format('MM');
+
         const apiData = await API.graphql({
             query: listBithday,
+            variables: {
+                filter: {
+                    date: {
+                        contains: `-${currentMonth}-`, 
+                    }
+                }
+            }
         }) as GraphQLResult<ListBirthdaysQuery>;
         const items = apiData.data?.listBirthdays?.items;
         if (items) {

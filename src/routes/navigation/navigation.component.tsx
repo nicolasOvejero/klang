@@ -35,7 +35,7 @@ function Navigation() {
                 payload: USER_INITIAL_STATE
             });
         } catch (error) {
-            console.log('error signing out: ', error);
+            console.error('error signing out: ', error);
         }
     }
 

@@ -114,11 +114,11 @@ export const listBithdayLight = /* GraphQL */ `
         $nextToken: String
     ) {
         listBirthdays(filter: $filter, limit: $limit, nextToken: $nextToken) {
-        items {
-            id
-            date
-        }
-        nextToken
+            items {
+                id
+                date
+            }
+            nextToken
         }
     }
 `;
@@ -155,6 +155,47 @@ export const listEvents = /* GraphQL */ `
                 date
                 image
                 participants {
+                    items {
+                        user {
+                            id
+                            image
+                            lastname
+                            firstname
+                        }
+                    }
+                }
+                type
+                address {
+                    city
+                    street
+                }
+                schedule
+            }
+            nextToken
+        }
+    }
+`;
+
+export const getNextEvents = /* GraphQL */ `
+    query ListEvents(
+        $id: ID
+        $filter: ModelEventFilterInput
+        $limit: Int
+        $nextToken: String
+        $sortDirection: ModelSortDirection
+    ) {
+        listEvents(
+            id: $id
+            filter: $filter
+            limit: $limit
+            nextToken: $nextToken
+            sortDirection: $sortDirection
+        ) {
+            items {
+                id
+                date
+                image
+                participants(limit: 4) {
                     items {
                         user {
                             id
@@ -318,4 +359,27 @@ export type ListNewArrivalsQuery = {
     } | null >,
     nextToken?: string | null,
   } | null,
+};
+
+export const subscriptionToEvent = /* GraphQL */ `
+  query SubscriptionToEvent(
+    $filter: ModelUsersEventsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsersEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+          id
+      }
+      nextToken
+    }
+  }
+`;
+
+export type SubscriptionToEventQuery = {
+  listUsersEvents:  {
+    items:  Array< {
+        id: string,
+    }>,
+  },
 };

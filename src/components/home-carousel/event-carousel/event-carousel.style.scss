@@ -1,0 +1,226 @@
+@import '../../../common/common.style.scss';
+
+.event-carousel {
+    .event {
+        &-container {
+            height: 100%;
+
+            .image {
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius: 0.75rem;
+                height: 50%;
+                margin-bottom: 1rem;
+                position: relative;
+                width: 100%;
+
+                .event-title-container {
+                    background-color: rgba($white, 0.8);
+                    border-radius: 1rem;
+                    display: inline-block;
+                    font-weight: bold;
+                    margin: auto;
+                    padding: 0.75rem;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+
+                    .title {
+                        color: $text-color;
+                        margin: 0 !important;
+                    }
+                }
+            }
+        }
+
+        &-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        &-info-container {
+            display: flex;
+            flex-direction: row;
+
+            .left-container {
+                flex: 1 0 0;
+                width: 50%;
+
+                .info-container {
+                    display: grid;
+                    grid-template-columns: 2fr 5fr;
+                    gap: 0.5rem;
+
+                    .label,
+                    .value {
+                        font-size: 1.25rem;
+                    }
+                }
+
+                .button {
+                    margin-top: 1rem !important;
+                    width: 90%;
+                }
+            }
+
+            .right-container {
+                flex: 1 0 0;
+                width: 50%;
+
+                .participants {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-template-rows: repeat(2, 1fr);
+                    gap: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .event-carousel {
+        .event {
+            &-container {
+                .image {
+                    height: 40%;
+                    margin-bottom: 0.75rem;
+
+                    .event-title-container {
+                        width: 60%;
+
+                        .title {
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+            }
+
+            &-title {
+                font-size: 1.75rem;
+            }
+
+            &-info-container {
+                .left-container {
+                    width: 50%;
+
+                    .info-container {
+                        .label,
+                        .value {
+                            font-size: 1rem;
+                        }
+                    }
+
+                    .button {
+                        width: 95%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .event-carousel {
+        .event {
+            &-container {
+                .image {
+                    height: 33%;
+                    margin: {
+                        bottom: 0.5rem;
+                        left: -8%;
+                    }
+                    width: 116%;
+
+                    .event-title-container {
+                        width: 70%;
+                    }
+                }
+            }
+
+            &-info-container {
+                flex-direction: column;
+
+                .left-container {
+                    width: 100%;
+
+                    .info-container {
+                        gap: 0.35rem;
+
+                        .label,
+                        .value {
+                            font-size: 0.95rem;
+                        }
+                    }
+
+                    .button {
+                        margin-bottom: 1rem !important;
+                        width: 100%;
+                    }
+                }
+
+                .right-container {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .event-carousel {
+        .event {
+            &-container {
+                .image {
+                    margin-left: -15%;
+                    width: 130%;
+
+                    .event-title-container {
+                        padding: 0.5rem;
+                        width: 80%;
+
+                        .title {
+                            font-size: 1.25rem;
+                        }
+                    }
+                }
+            }
+
+            &-title {
+                font-size: 1.5rem;
+            }
+
+            &-info-container {
+                height: 66%;
+                overflow-y: auto;
+                overflow-x: hidden;
+
+                .left-container {
+                    .info-container {
+                        grid-template-columns: 3fr 4fr;
+                        gap: 0.25rem;
+
+                        .label,
+                        .value {
+                            font-size: 0.85rem;
+                        }
+                    }
+
+                    .button {
+                        width: 99%;
+                    }
+                }
+
+                .right-container {
+                    .participants {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 1fr;
+                    }
+                }
+            }
+        }
+    }
+}

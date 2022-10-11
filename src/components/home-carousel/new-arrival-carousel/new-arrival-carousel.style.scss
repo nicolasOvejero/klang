@@ -1,0 +1,26 @@
+@import '../../../common/common.style.scss';
+
+.new-arrivals-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .new-arrivals-container {
+        grid-gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .new-arrivals-container {
+        grid-gap: 1rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .new-arrivals-container {
+        grid-template-columns: 1fr;
+        grid-gap: 0.5rem;
+    }
+}

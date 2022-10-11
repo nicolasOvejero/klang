@@ -1,0 +1,167 @@
+@import '../../common/common.style.scss';
+
+.carousel-container {
+    flex: 1 0 0;
+
+    .carousel-panel {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        margin: 0 -1rem;
+        padding: 1rem 2rem;
+
+        .views {
+            flex: 1 0 0;
+            height: 100%;
+            position: relative;
+            width: 100%;
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                margin: 0 auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                position: absolute;
+                height: 100%;
+                width: 95%;
+                transform: translateX(150%);
+                transition: all 0.7s ease-in-out;
+
+                &.current {
+                    transform: translateX(0);
+                }
+
+                &.out-left {
+                    transform: translateX(-150%);
+                }
+
+                &.out-right {
+                    transform: translateX(150%);
+                }
+
+                &.hidden {
+                    display: none;
+                }
+
+                .title {
+                    color: $text-color-light;
+                    letter-spacing: 6px;
+                    margin-bottom: 1rem;
+                    font-size: 2.5rem;
+                    text-align: center;
+                }
+
+                .content {
+                    flex: 1 0 0;
+                }
+
+                .button {
+                    font-size: 1.25rem;
+                    height: 3.5rem;
+                    margin: auto;
+                }
+            }
+        }
+
+        .navigation-buttons {
+            align-items: center;
+            border: 1px solid $text-color-light;
+            border-radius: 50%;
+            color: $text-color;
+            display: flex;
+            justify-content: center;
+            font-size: 2.5rem;
+            height: 3.5rem;
+            transition: all 0.2s ease;
+            width: 3.5rem;
+
+            &:hover {
+                cursor: pointer;
+                border-width: 3px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .carousel-container {
+        .carousel-panel {
+            padding: 0.5rem 1.5rem;
+
+            .views {
+                .container {
+                    .title {
+                        font-size: 2rem;
+                    }
+
+                    .button {
+                        font-size: 1.25rem;
+                        height: auto;
+                    }
+                }
+            }
+
+            .navigation-buttons {
+                font-size: 2rem;
+                height: 3rem;
+                width: 3rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .carousel-container {
+        .carousel-panel {
+            padding: 0rem 1rem;
+
+            .views {
+                .container {
+                    .title {
+                        letter-spacing: 5px;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.5rem;
+                    }
+
+                    .button {
+                        font-size: 1rem;
+                        margin-top: 1rem;
+                    }
+                }
+            }
+
+            .navigation-buttons {
+                font-size: 1.75rem;
+                height: 2.5rem;
+                width: 2.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .carousel-container {
+        .carousel-panel {
+            margin: 0 -1rem;
+            padding: 0rem 0.5rem;
+
+            .views {
+                .container {
+                    .title {
+                        letter-spacing: 4px;
+                        margin-bottom: 0.5rem;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+            .navigation-buttons {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

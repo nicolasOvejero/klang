@@ -9,13 +9,13 @@ import { listNewArrivals, ListNewArrivalsQuery } from '../../components/custom-q
 import { GraphQLResult } from '@aws-amplify/api-graphql';
 import Loader from '../../components/loader/loader.component';
 
-type NewArrival = {
+export type NewArrivalModel = {
     date: Date;
     users: UserModel[];
 }
 
 function NewArrivals() {
-    const [newArrivales, setNewArrivales] = useState<NewArrival[]>([]);
+    const [newArrivales, setNewArrivales] = useState<NewArrivalModel[]>([]);
     const [loading, setLoading] = useState(true);
 
     moment.locale('fr');
@@ -50,7 +50,7 @@ function NewArrivals() {
                             image: user?.image || '',
                             job: user?.job || '',
                         }
-                    }) || []
+                    }) || []
                 }
             }));
             setTimeout(() => {

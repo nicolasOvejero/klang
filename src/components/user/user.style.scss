@@ -1,5 +1,9 @@
 @import '../../common/common.style.scss';
 
+$image-height: 6rem;
+$image-height-small: 4rem;
+$image-height-medium: 5rem;
+
 .user {
     align-items: center;
     display: flex;
@@ -10,24 +14,41 @@
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 50%;
-        height: 6rem;
+        height: $image-height;
         margin-right: 1.5rem;
-        width: 6rem;
+        min-height: $image-height;
+        min-width: $image-height;
+        width: $image-height;
+
+        &.default {
+            background-size: contain;
+        }
     }
 
     &-name {
         color: $text-color;
         font-size: 1.25rem;
         letter-spacing: 2px;
-        margin: 0
+        margin: 0;
+
+        p {
+            display: -webkit-box;
+            line-clamp: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
     }
 
     &.small {
         .user {
             &-image {
-                height: 4rem;
+                height: $image-height-small;
+                min-height: $image-height-small;
+                min-width: $image-height-small;
                 margin-right: 0.5rem;
-                width: 4rem;
+                width: $image-height-small;
             }
 
             &-name {
@@ -39,9 +60,11 @@
     &.medium {
         .user {
             &-image {
-                height: 5rem;
+                height: $image-height-medium;
                 margin-right: 1rem;
-                width: 5rem;
+                min-height: $image-height-medium;
+                min-width: $image-height-medium;
+                width: $image-height-medium;
             }
 
             &-name {
@@ -49,14 +72,22 @@
             }
         }
     }
+
+    &.bg-grey {
+        background-color: darken($grey-light, 8);
+        border-radius: 2rem;
+        padding: 0.5rem;
+    }
 }
 
 @media screen and (max-width: $breakpoint-large) {
     .user {
         &-image {
-            height: 5rem;
+            height: $image-height - 1;
             margin-right: 1rem;
-            width: 5rem;
+            min-height: $image-height - 1;
+            min-width: $image-height - 1;
+            width: $image-height - 1;
         }
 
         &-name {
@@ -66,8 +97,10 @@
         &.small {
             .user {
                 &-image {
-                    height: 3.5rem;
-                    width: 3.5rem;
+                    height: $image-height-small - 0.5;
+                    min-height: $image-height-small - 0.5;
+                    min-width: $image-height-small - 0.5;
+                    width: $image-height-small - 0.5;
                 }
 
                 &-name {
@@ -79,8 +112,10 @@
         &.medium {
             .user {
                 &-image {
-                    height: 4rem;
-                    width: 4rem;
+                    height: $image-height-medium - 1;
+                    min-height: $image-height-medium - 1;
+                    min-width: $image-height-medium - 1;
+                    width: $image-height-medium - 1;
                 }
 
                 &-name {
@@ -94,8 +129,11 @@
 @media screen and (max-width: $breakpoint-medium) {
     .user {
         &-image {
-            height: 4rem;
-            width: 4rem;
+            height: $image-height - 2;
+            margin-right: 0.5rem;
+            min-height: $image-height - 2;
+            min-width: $image-height - 2;
+            width: $image-height - 2;
         }
 
         &-name {
@@ -105,8 +143,10 @@
         &.small {
             .user {
                 &-image {
-                    height: 3rem;
-                    width: 3rem;
+                    height: $image-height-small - 1;
+                    min-height: $image-height-small - 1;
+                    min-width: $image-height-small - 1;
+                    width: $image-height-small - 1;
                 }
 
                 &-name {
@@ -118,8 +158,10 @@
         &.medium {
             .user {
                 &-image {
-                    height: 3.5rem;
-                    width: 3.5rem;
+                    height: $image-height-medium - 1.5;
+                    min-height: $image-height-medium - 1.5;
+                    min-width: $image-height-medium - 1.5;
+                    width: $image-height-medium - 1.5;
                 }
 
                 &-name {

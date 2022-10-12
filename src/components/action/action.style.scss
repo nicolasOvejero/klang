@@ -1,0 +1,48 @@
+@import '../../common/common.style.scss';
+
+.actions {
+    .icon {
+        color: $text-color-dark;
+        font-size: 2rem;
+        padding: 0.5rem;
+
+        &:hover {
+            background-color: $grey-light;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        &:active {
+            background-color: darken($grey-light, 50);
+            color: $white;
+        }
+    }
+
+    .overflow-menu {
+        background-color: $white;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 14px 0px darken($grey-light, 30);
+        opacity: 0;
+        padding: 0.25rem 0;
+        position: absolute;
+        transform: translateX(-30%);
+        transition: opacity 0.5s ease-in-out;
+        visibility: hidden;
+        width: 13rem;
+
+        &.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .item {
+            font-size: 1rem;
+            padding: 1rem;
+
+            &:hover {
+                background-color: darken($white, 20);
+                cursor: pointer;
+            }
+        }
+    }
+}

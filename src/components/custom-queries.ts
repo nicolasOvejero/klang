@@ -75,6 +75,7 @@ export const listBithday = /* GraphQL */ `
                     image
                     lastname
                     firstname
+                    mail
                 }
             }
         }
@@ -97,6 +98,7 @@ export type ListBirthdaysQuery = {
                     lastname?: string | null,
                     firstname: string,
                     image?: string | null,
+                    mail: string,
                 } | null>,
                 nextToken?: string | null,
             } | null,

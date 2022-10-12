@@ -1,4 +1,5 @@
 import defaultFaces from '../../assets/ufo.png';
+import Action from '../action/action.component';
 import './user.style.scss';
 
 export type UserModel = {
@@ -9,8 +10,10 @@ export type UserModel = {
     job?: string;
     birthday?: string;
     arrivalDate?: string;
+    mail?: string;
     size?: 'small' | 'medium';
-    background?: 'bg-grey' | undefined;
+    background?: 'bg-grey' | 'bg-white' | undefined;
+    showActions?: boolean;
 }
 
 function User({ user }: { user: UserModel }) {
@@ -33,6 +36,9 @@ function User({ user }: { user: UserModel }) {
                     user.arrivalDate && <p>Arrive le {user.arrivalDate}</p>
                 }
             </div>
+                {            
+                    user.showActions && <Action actions={[{ label: 'Envoyer un mail', action: 'mail', mail: user.mail }]} />
+                }
         </div>
     );
 }

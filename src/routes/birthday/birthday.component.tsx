@@ -54,7 +54,10 @@ function Birthday() {
                             id: user?.id || '',
                             lastname: user?.lastname || '',
                             firstname: user?.firstname || '',
-                            image: user?.image || ''
+                            image: user?.image || '',
+                            mail: user?.mail || '',
+                            background: 'bg-white',
+                            showActions: true
                         }
                     })
                 }
@@ -110,7 +113,7 @@ function Birthday() {
                     <div className="users">
                         {
                             selectedDate?.users?.map((user) => 
-                                <User user={user}></User>
+                                <User key={user.id} user={user}></User>
                             )
                         }
                     </div>

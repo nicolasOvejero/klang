@@ -1,6 +1,6 @@
 @import '../../common/common.style.scss';
 
-$image-height: 6rem;
+$image-height: 5.5rem;
 $image-height-small: 4rem;
 $image-height-medium: 5rem;
 
@@ -15,7 +15,7 @@ $image-height-medium: 5rem;
         background-size: cover;
         border-radius: 50%;
         height: $image-height;
-        margin-right: 1.5rem;
+        margin-right: 1rem;
         min-height: $image-height;
         min-width: $image-height;
         width: $image-height;
@@ -27,6 +27,7 @@ $image-height-medium: 5rem;
 
     &-name {
         color: $text-color;
+        flex: 1 0 0;
         font-size: 1.25rem;
         letter-spacing: 2px;
         margin: 0;
@@ -75,6 +76,12 @@ $image-height-medium: 5rem;
 
     &.bg-grey {
         background-color: darken($grey-light, 8);
+        border-radius: 2rem;
+        padding: 0.5rem;
+    }
+
+    &.bg-white {
+        background-color: lighten($white, 100);
         border-radius: 2rem;
         padding: 0.5rem;
     }

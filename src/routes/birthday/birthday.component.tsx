@@ -5,13 +5,13 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { ReactComponent as Background } from '../../assets/bg-party.svg';
 import User, { UserModel } from "../../components/user/user.component";
-import { API } from 'aws-amplify';
-import { ListBirthdaysQuery, listBithday } from "../../components/custom-queries";
-import { GraphQLResult } from "@aws-amplify/api";
 import Loader from "../../components/loader/loader.component";
+import RequestError from "../../common/errors/request-error";
+import BirthdayService from "../../common/services/birthday.service";
 import './birthday.style.scss';
 
 export type BirthdayModel = {
+    id: string;
     date: Date;
     users?: UserModel[];
 }
@@ -34,34 +34,20 @@ function Birthday() {
     const getBirthdays = async () => {
         const currentMonth = moment().format('MM');
 
-        const apiData = await API.graphql({
-            query: listBithday,
-            variables: {
+        try {
+            const birthdays = await BirthdayService.getBirthdays({
                 filter: {
                     date: {
                         contains: `-${currentMonth}-`, 
                     }
                 }
+            });
+            setBirthdays(birthdays);
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListBirthdaysQuery>;
-        const items = apiData.data?.listBirthdays?.items;
-        if (items) {
-            setBirthdays(items.map((item) => {
-                return {
-                    date: moment(item?.date).toDate(),
-                    users: item?.users?.items?.map((user) => {
-                        return {
-                            id: user?.id || '',
-                            lastname: user?.lastname || '',
-                            firstname: user?.firstname || '',
-                            image: user?.image || '',
-                            mail: user?.mail || '',
-                            background: 'bg-white',
-                            showActions: true
-                        }
-                    })
-                }
-            }));
+        } finally {
             setTimeout(() => {
                 setLoading(false);
             }, 500);
@@ -112,9 +98,11 @@ function Birthday() {
                     </h3>
                     <div className="users">
                         {
-                            selectedDate?.users?.map((user) => 
-                                <User key={user.id} user={user}></User>
-                            )
+                            selectedDate?.users?.map((user) => {
+                                user.showActions = true;
+                                user.background = 'bg-white';
+                                return (<User key={user.id} user={user}></User>)
+                            })
                         }
                     </div>
                 </aside>

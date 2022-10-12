@@ -1,15 +1,15 @@
 import welcome from '../../assets/welcome.png';
 import moment from 'moment';
 import 'moment/locale/fr';
-import './new-arrivals.styls.scss';
 import User, { UserModel } from '../../components/user/user.component';
 import { useEffect, useState } from 'react';
-import { API } from 'aws-amplify';
-import { listNewArrivals, ListNewArrivalsQuery } from '../../components/custom-queries';
-import { GraphQLResult } from '@aws-amplify/api-graphql';
 import Loader from '../../components/loader/loader.component';
+import RequestService from '../../common/services/new-arrivals.service';
+import RequestError from '../../common/errors/request-error';
+import './new-arrivals.styls.scss';
 
 export type NewArrivalModel = {
+    id: string;
     date: Date;
     users: UserModel[];
 }
@@ -26,33 +26,21 @@ function NewArrivals() {
         const startReq = moment().startOf('week').format('YYYY-MM-DD');
         const endReq = moment().endOf('week').format('YYYY-MM-DD');
 
-        const apiData = await API.graphql({
-            query: listNewArrivals,
-            variables: {
+        try {
+            const newArrivales = await RequestService.getNewArrivals({
                 filter: {
                     date: {
                         ge: startReq,
                         le: endReq
                     }
                 }
+            });
+            setNewArrivales(newArrivales);
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListNewArrivalsQuery>;
-        const items = apiData.data?.listNewArrivals?.items;
-        if (items) {
-            setNewArrivales(items.map((item) => {
-                return {
-                    date: moment(item?.date).toDate(),
-                    users: item?.users?.items?.map((user) => {
-                        return {
-                            id: user?.id || '',
-                            lastname: user?.lastname || '',
-                            firstname: user?.firstname || '',
-                            image: user?.image || '',
-                            job: user?.job || '',
-                        }
-                    }) || []
-                }
-            }));
+        } finally {
             setTimeout(() => {
                 setLoading(false);
             }, 500);

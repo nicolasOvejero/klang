@@ -6,29 +6,27 @@ import wine from '../../assets/wine.png';
 import winter from '../../assets/winter.png';
 import halloween from '../../assets/halloween.png';
 import User, { UserModel } from '../../components/user/user.component';
-import { listEvents, ListEventsQuery } from '../../components/custom-queries';
-import { API } from 'aws-amplify';
-import { GraphQLResult } from '@aws-amplify/api-graphql';
 import Loader from '../../components/loader/loader.component';
 import Button from '../../components/button/button.component';
 import { useSelector } from 'react-redux';
 import { selectUserReducer } from '../../store/user/user.selector';
-import { createUsersEvents } from '../../graphql/mutations';
-import { CreateUsersEventsMutation } from '../../API';
-import './event.style.scss';
 import Toaster from '../../components/toaster/toaster.component';
+import RequestError from '../../common/errors/request-error';
+import UserService from '../../common/services/user.service';
+import EventService from '../../common/services/event.service';
+import './event.style.scss';
 
 export type EventModel = {
     id: string;
     date: Date;
-    image?: string;
+    image?: string | null;
     participants?: UserModel[];
-    type: string;
+    type: string | undefined | null;
     address?: {
-        city: string;
-        street: string;
+        city: string | undefined | null;
+        street: string | undefined | null;
     };
-    schedule?: string;
+    schedule?: string | null;
 }
 
 type EventDefaultState = {
@@ -72,44 +70,44 @@ function Event() {
         const eventId = selectedDate?.id;
         const userId = user.id;
 
-        const subscription = await API.graphql({
-            query: createUsersEvents,
-            variables: {
+        try {
+            const subscription = await UserService.createUsersEvents({
                 input: {
                     eventID: eventId, 
                     userID: userId
                 }
-            }
-        }) as GraphQLResult<CreateUsersEventsMutation>;
-
-        if (subscription.errors) {
-            // TODO
-        }
-
-        const event = events.find((event) => event.id === selectedDate?.id);
-        if (event) {
-            event?.participants?.push(
-                {
-                    id: subscription.data?.createUsersEvents?.user.id || '',
-                    lastname: subscription.data?.createUsersEvents?.user.lastname || '',
-                    firstname: subscription.data?.createUsersEvents?.user.firstname || '',
-                    image: subscription.data?.createUsersEvents?.user.image || ''
-                }
-            );
-            setEvents([
-                ...events
-            ]);
-
-            setEventState({
-                disableSubscription: true,
-                success: true
             });
-            setTimeout(() => {
+
+            const event = events.find((event) => event.id === selectedDate?.id);
+
+            if (event && subscription) {
+                event?.participants?.push(
+                    {
+                        id: subscription.user.id,
+                        lastname: subscription.user.lastname,
+                        firstname: subscription.user.firstname,
+                        image: subscription.user.image
+                    }
+                );
+                setEvents([
+                    ...events
+                ]);
+
                 setEventState({
                     disableSubscription: true,
-                    success: false
+                    success: true
                 });
-            }, 2000);
+                setTimeout(() => {
+                    setEventState({
+                        disableSubscription: true,
+                        success: false
+                    });
+                }, 2000);
+            }
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
         }
     }
 
@@ -117,40 +115,21 @@ function Event() {
         const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
         const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
         
-        const apiData = await API.graphql({
-            query: listEvents,
-            variables: {
+        try {
+            const events = await EventService.getEvents({
                 filter: {
                     date: {
                         ge: startOfMonth, 
                         le: endOfMonth
                     }
                 }
+            });
+            setEvents(events);
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListEventsQuery>;
-        const items = apiData.data?.listEvents?.items;
-        if (items) {
-            setEvents(items.map((item) => {
-                return {
-                    id: item?.id || '',
-                    date: moment(item?.date).toDate(),
-                    image: item?.image || '',
-                    type: item?.type || '',
-                    address: {
-                        city: item?.address?.city || '',
-                        street: item?.address?.street || '',
-                    },
-                    schedule: item?.schedule || '', 
-                    participants: item?.participants?.items?.map((user) => {
-                        return {
-                            id: user?.user.id || '',
-                            lastname: user?.user.lastname || '',
-                            firstname: user?.user.firstname || '',
-                            image: user?.user.image || ''
-                        }
-                    })
-                }
-            }));
+        } finally {
             setTimeout(() => {
                 setLoading(false);
             }, 500);

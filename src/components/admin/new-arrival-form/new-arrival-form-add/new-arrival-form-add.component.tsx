@@ -2,17 +2,14 @@ import { ChangeEvent, FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/fr';
-import { GraphQLResult } from '@aws-amplify/api-graphql';
-import { listUsersLight, ListUsersLightQuery } from '../../../custom-queries';
-import { API } from 'aws-amplify';
 import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import InputDate from '../../../input-date/input-date.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
+import RequestService from '../../../../common/services/new-arrivals.service';
+import RequestError from '../../../../common/errors/request-error';
+import UserService from '../../../../common/services/user.service';
 import './new-arrival-form-add.style.scss';
-import { listNewArrivals } from '../../../../graphql/queries';
-import { CreateNewArrivalsMutation, ListNewArrivalsQuery, UpdateUserMutation } from '../../../../API';
-import { createNewArrivals, updateUser } from '../../../../graphql/mutations';
 
 const defaultNewArrivalsAddState = {
     user: '',
@@ -38,51 +35,26 @@ function NewArrivalFormAdd() {
         });
     }
 
-    const upsertNewArrival = async(date: string) => {
-        const newArrivalsList = await API.graphql({
-            query: listNewArrivals,
-            variables: {
-                filter: {
-                    date: {
-                        eq: date
-                    }
+    const upsertNewArrival = async (date: string) => {
+        const newArrivalsList = await RequestService.getNewArrivals({
+            filter: {
+                date: {
+                    eq: date
                 }
             }
-        }) as GraphQLResult<ListNewArrivalsQuery>;
+        });
 
-        if (newArrivalsList.errors) {
-            console.error(newArrivalsList.errors);
-            setNewArrivals({
-                ...newArrivals,
-                formError: 'Une erreur est survenue'
-            });
-            return;
+        if (newArrivalsList && newArrivalsList.length > 0) {
+            return newArrivalsList[0];
         }
 
-        const items = newArrivalsList.data?.listNewArrivals?.items;
-        if (items && items.length > 0) {
-            return items[0];
-        }
-
-        const newNewArrivals = await API.graphql({
-            query: createNewArrivals,
-            variables: {
-                input: {
-                    date: date
-                }
+        const newNewArrivals = await RequestService.createNewArrivals({
+            input: {
+                date: date
             }
-        }) as GraphQLResult<CreateNewArrivalsMutation>;
+        });
 
-        if (newNewArrivals.errors) {
-            console.error(newNewArrivals.errors);
-            setNewArrivals({
-                ...newArrivals,
-                formError: 'Une erreur est survenue'
-            });
-            return;
-        }
-
-        return newNewArrivals.data?.createNewArrivals;
+        return newNewArrivals;
     }
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -93,27 +65,16 @@ function NewArrivalFormAdd() {
         }
 
         const givenDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
-        const newArrivalValue = await upsertNewArrival(givenDate);
 
-        if (newArrivalValue) {
-            const updatedUser = await API.graphql({
-                query: updateUser,
-                variables: {
-                    input: {
-                        id: user,
-                        newArrivalsUsersId: newArrivalValue?.id
-                    }
+        try {
+            const newArrivalValue = await upsertNewArrival(givenDate);
+
+            await UserService.udpateUser({
+                input: {
+                    id: user,
+                    newArrivalsUsersId: newArrivalValue?.id
                 }
-            }) as GraphQLResult<UpdateUserMutation>;
-
-            if (updatedUser.errors) {
-                console.error(updatedUser.errors);
-                setNewArrivals({
-                    ...newArrivals,
-                    formError: 'Une erreur est survenue'
-                });
-                return;
-            }
+            });
 
             setNewArrivals({
                 ...defaultNewArrivalsAddState,
@@ -122,38 +83,47 @@ function NewArrivalFormAdd() {
             setTimeout(() => {
                 setNewArrivals(defaultNewArrivalsAddState);
             }, 2000);
+        } catch (error: unknown) {
+            setNewArrivals({
+                ...newArrivals,
+                formError: 'Une erreur est survenue'
+            });
+
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
         }
     }
     
     const getNewUsers = async () => {
-        const apiData = await API.graphql({
-            query: listUsersLight,
-            variables: {
+        try {
+            const users = await UserService.getUserLight({
                 filter: {
                     newArrivalsUsersId: {
                         attributeExists: false
                     }
                 }
-            }
-        }) as GraphQLResult<ListUsersLightQuery>;
+            });
 
-        if (apiData.errors) {
-            // TO DO
-            return;
-        }
-
-        const items = apiData.data?.listUsers?.items;
-        if (items) {
             setUsers([{
                     value: '',
                     label: ''
-                }].concat(items.map((item) => {
+                }].concat(users.map((user) => {
                     return {
-                        label: `${item.firstname} ${item.lastname}`,
-                        value: item.id,
+                        label: `${user.firstname} ${user.lastname}`,
+                        value: user.id,
                     }
                 }))
             );
+        } catch (error: unknown) {
+            setNewArrivals({
+                ...newArrivals,
+                formError: 'Une erreur est survenue'
+            });
+
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
         }
     }
 

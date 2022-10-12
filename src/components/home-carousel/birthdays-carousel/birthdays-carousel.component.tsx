@@ -20,7 +20,7 @@ function BirthdaysCarousel(props: userCarouselProps) {
                 <div className='users-container'>
                     {
                         users.map((user) => {
-                            user['background'] = 'bg-grey';
+                            user.background = 'bg-grey';
                             return (
                                 <User key={user.id} user={user}></User>
                             );

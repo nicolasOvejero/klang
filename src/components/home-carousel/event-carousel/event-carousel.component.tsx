@@ -3,16 +3,16 @@ import Button from "../../button/button.component";
 import moment from 'moment';
 import User from "../../user/user.component";
 import { useNavigate } from "react-router-dom";
-import './event-carousel.style.scss';
 import { selectUserReducer } from "../../../store/user/user.selector";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { API } from "aws-amplify";
-import { subscriptionToEvent, SubscriptionToEventQuery } from "../../custom-queries";
-import { GraphQLResult } from "@aws-amplify/api-graphql";
+import RequestError from "../../../common/errors/request-error";
+import EventService from "../../../common/services/event.service";
+import './event-carousel.style.scss';
 
 export type eventCarouselProps = {
     event: EventModel;
+    subscriptionClickHandler: (eventId: string, userId: string, callback: () => void) => void;
 }
 
 type EventCarouselDefaultState = {
@@ -32,9 +32,8 @@ function EventCarousel(props: eventCarouselProps) {
     const event = props.event;
 
     const checkSubscriptionForMe = async () => {
-        const subscriptionFound = await API.graphql({
-            query: subscriptionToEvent,
-            variables: {
+        try {
+            const subscriptionFound = await EventService.findSubscriptionByUserIdAndEventId({
                 filter: {
                     and: {
                         userID: {
@@ -45,26 +44,24 @@ function EventCarousel(props: eventCarouselProps) {
                         }
                     }
                 }
-            }
-        }) as GraphQLResult<SubscriptionToEventQuery>;
+            });
 
-        if (subscriptionFound.errors) {
-            console.error(subscriptionFound.errors);
-            return;
-        }
-
-
-        if (subscriptionFound.data) {
             setState({
                 ...state,
-                disableSubscription: subscriptionFound.data.listUsersEvents.items.length > 0
-            })
+                disableSubscription: subscriptionFound.length > 0
+            });
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
         }
     }
 
-    const subscribeEvent = () => {
-
-    };
+    const addUserToEvent = async () => {
+        props.subscriptionClickHandler(event.id, user.id, () => {
+            checkSubscriptionForMe();
+        });
+    } 
 
     useEffect(() => {
         checkSubscriptionForMe();
@@ -97,7 +94,7 @@ function EventCarousel(props: eventCarouselProps) {
                                 type='button'
                                 color='primary'
                                 disabled={ state.disableSubscription }
-                                clickHandler={ subscribeEvent }
+                                clickHandler={ addUserToEvent }
                             ></Button>
                         </div>
                         <div className='right-container'>

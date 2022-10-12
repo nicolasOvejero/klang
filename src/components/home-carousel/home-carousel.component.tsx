@@ -1,15 +1,17 @@
-import { GraphQLResult } from '@aws-amplify/api';
-import { API } from 'aws-amplify';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { EventModel } from '../../routes/event/event.component';
-import { getNextEvents, ListBirthdaysQuery, listBithday, ListEventsQuery, listNewArrivals, ListNewArrivalsQuery } from '../custom-queries';
 import moment from 'moment';
 import EventCarousel from './event-carousel/event-carousel.component';
 import { NewArrivalModel } from '../../routes/new-arrivals/new-arrivals.component';
 import NewArrivalsCarousel from './new-arrival-carousel/new-arrival-carousel.component';
 import BirthdaysCarousel from './birthdays-carousel/birthdays-carousel.component';
 import Loader from '../loader/loader.component';
+import RequestError from '../../common/errors/request-error';
+import UserService from '../../common/services/user.service';
+import EventService from '../../common/services/event.service';
+import NewArrivalsService from '../../common/services/new-arrivals.service';
 import './home-carousel.style.scss';
+import BirthdayService from '../../common/services/birthday.service';
 
 function HomeCarousel() {
     const [users, setUsers] = useState<any[]>([]);
@@ -81,9 +83,8 @@ function HomeCarousel() {
         const currentMonth = moment().format('MM');
         const nextMonth = moment().add(1, 'M').format('MM');
 
-        const firstBirthdays = await API.graphql({
-            query: listBithday,
-            variables: {
+        try {
+            const birthdays = await BirthdayService.getBirthdays({
                 limit: 6,
                 filter: {
                     or: [{
@@ -97,128 +98,115 @@ function HomeCarousel() {
                         },
                     }]
                 }
+            });
+
+            setUsers(
+                birthdays
+                    .filter((date) => {
+                        const mdate = moment(date?.date);
+                        return mdate.date() >= moment().date() && mdate.month() >= moment().month();
+                    })
+                    .flatMap((b) =>
+                        b.users?.map((u) => {
+                            u.birthday = moment(b.date).format('DD MMMM')
+                            return u
+                        })
+                            .flat()
+                    )
+                    .sort((a, b) => moment(a?.birthday).diff(moment(b?.birthday)))
+            );
+
+            getNextEvent();
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListBirthdaysQuery>;
-
-        getNextEvent();
-
-        if (firstBirthdays.errors) {
-
-        }
-
-        if (firstBirthdays?.data?.listBirthdays?.items?.length != null) {
-            const users = firstBirthdays?.data?.listBirthdays?.items
-                .filter((date) => {
-                    const mdate = moment(date?.date);
-                    return mdate.date() >= moment().date() && mdate.month() >= moment().month();
-                })
-                .map((date) => {
-                    return date?.users?.items?.map((user) => {
-                        return {
-                            id: user?.id,
-                            firstname: user?.firstname,
-                            lastname: user?.lastname,
-                            image: user?.image,
-                            birthday: moment(date?.date).format('DD MMMM'),
-                        }
-                    }).flat();
-                }).flat()
-                .sort((a, b) => moment(a?.birthday).diff(moment(b?.birthday)));
-                
-            setUsers(users);
         }
     }
 
     const getNextEvent = async () => {
         const currentDay = moment().format('YYYY-MM-DD');
- 
-        const nextEvent = await API.graphql({
-            query: getNextEvents,
-            variables: {
+
+        try {
+            const nextEvent = await EventService.getNextEvent({
                 limit: 1,
                 date: {
                     ge: currentDay
                 }
+            });
+
+            setEvent(nextEvent);
+
+            getNewArrivals();
+
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListEventsQuery>;
-
-        getNewArrivals();
-
-        if (nextEvent.errors) {
-
-        }
-
-        if (nextEvent?.data?.listEvents?.items != null) {
-            const event = nextEvent.data.listEvents.items.map((item) => {
-                return {
-                    id: item?.id || '',
-                    date: moment(item?.date).toDate(),
-                    image: item?.image || '',
-                    type: item?.type || '',
-                    address: {
-                        city: item?.address?.city || '',
-                        street: item?.address?.street || '',
-                    },
-                    schedule: item?.schedule || '', 
-                    participants: item?.participants?.items?.map((user) => {
-                        return {
-                            id: user?.user.id || '',
-                            lastname: user?.user.lastname || '',
-                            firstname: user?.user.firstname || '',
-                            image: user?.user.image || ''
-                        }
-                    })
-                }
-            })
-            setEvent(event[0]);
         }
     }
 
     const getNewArrivals = async () => {
         const currentDay = moment().format('YYYY-MM-DD');
  
-        const firstBirthdays = await API.graphql({
-            query: listNewArrivals,
-            variables: {
+        try {
+            const newArrivals = await NewArrivalsService.getNewArrivals({
                 limit: 6,
                 filter: {
                     date: {
                         ge: currentDay
                     }
                 }
-            }
-        }) as GraphQLResult<ListNewArrivalsQuery>;
-
-        if (firstBirthdays.errors) {
-
-        }
-
-        if (firstBirthdays?.data?.listNewArrivals?.items != null) {
-            const newArrivals = firstBirthdays.data.listNewArrivals.items.map((item) => {
-                return {
-                    date: moment(item?.date).toDate(),
-                    users: item?.users?.items?.map((user) => {
-                        return {
-                            id: user?.id || '',
-                            lastname: user?.lastname || '',
-                            firstname: user?.firstname || '',
-                            image: user?.image || '',
-                            job: user?.job || '',
-                        }
-                    }) || []
-                }
             });
+
             setNewArrival(newArrivals);
             setIsLoading(false);
-        }
-
-        if (viewsContainer.current?.children.length) {
-            setCarouselLength(viewsContainer.current.children.length);
-            viewsContainer.current.children[0].classList.add('current');
-            viewsContainer.current.children[0].classList.remove('hidden');
-            viewsContainer.current.children[0].classList.remove('out-right');
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
+        } finally {
+            setTimeout(() => {
+                if (viewsContainer.current?.children.length) {
+                    setCarouselLength(viewsContainer.current.children.length);
+                    viewsContainer.current.children[0].classList.add('current');
+                    viewsContainer.current.children[0].classList.remove('hidden');
+                    viewsContainer.current.children[0].classList.remove('out-right');
+                }
+            }, 20);
         }
     }
+
+    const subscribeEvent = async (eventId: string, userId: string, callback: () => void) => {
+        try {
+            const subscription = await UserService.createUsersEvents({
+                input: {
+                    eventID: eventId, 
+                    userID: userId
+                }
+            });
+
+            if (event && subscription) {
+                event.participants?.push(
+                    {
+                        id: subscription.user.id,
+                        lastname: subscription.user.lastname,
+                        firstname: subscription.user.firstname,
+                        image: subscription.user.image
+                    }
+                );
+
+                setEvent({
+                    ...event
+                });
+                callback();
+            }
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
+        }
+    };
 
     useEffect(() => {
         getBirthdays();
@@ -250,7 +238,7 @@ function HomeCarousel() {
                                     users && users.length > 0 && (<BirthdaysCarousel users={ users } />)
                                 }
                                 {
-                                    event && (<EventCarousel event={ event } />)
+                                    event && (<EventCarousel event={ event } subscriptionClickHandler={subscribeEvent} />)
                                 }
                                 {
                                     newArrival && newArrival.length > 0 && (<NewArrivalsCarousel newArrivals={ newArrival } />)

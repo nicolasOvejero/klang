@@ -1,14 +1,13 @@
-import { GraphQLResult } from '@aws-amplify/api';
-import { API } from 'aws-amplify';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { UpdateUserMutation } from '../../API';
 import defaultFaces from '../../assets/ufo.png';
+import RequestError from '../../common/errors/request-error';
+import UserService from '../../common/services/user.service';
 import Button from '../../components/button/button.component';
 import InputForm from '../../components/input-form/input-form.component';
 import Toaster from '../../components/toaster/toaster.component';
-import { updateUser } from '../../graphql/mutations';
+import { UserModel } from '../../components/user/user.component';
 import { selectUserReducer } from '../../store/user/user.selector';
 import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import './profile.style.scss';
@@ -45,17 +44,10 @@ function Profile() {
         });
     }
 
-    const updateStore = (updatedProfile: UpdateUserMutation) => {
+    const updateStore = (updatedProfile: UserModel) => {
         dispatch({
             type: USER_ACTION_TYPES.SET_USER,
-            payload: {
-                id: updatedProfile.updateUser?.id || '',
-                email: updatedProfile.updateUser?.mail || '',
-                firstname: updatedProfile.updateUser?.firstname,
-                lastname: updatedProfile.updateUser?.lastname || '',
-                image: updatedProfile.updateUser?.image || '',
-                job: updatedProfile.updateUser?.job || ''
-            }
+            payload: updatedProfile
         });
 
         setProfileState({
@@ -83,9 +75,8 @@ function Profile() {
             return;
         }
 
-        const updatedProfile = await API.graphql({
-            query: updateUser,
-            variables: {
+        try {
+            const updatedProfile = await UserService.udpateUser({
                 input: {
                     id: user.id,
                     lastname: lastname.trim(),
@@ -93,20 +84,19 @@ function Profile() {
                     image: image.trim(),
                     job: job.trim(),
                 }
-            }
-        }) as GraphQLResult<UpdateUserMutation>;
-
-        if (updatedProfile.errors) {
-            console.error(updatedProfile.errors);
-            setProfileState({
-                ...profileState,
-                formError: "Enregistrement impossible"
             });
-            return;
-        }
 
-        if (updatedProfile.data) {
-            updateStore(updatedProfile.data);
+            if (updatedProfile) {
+                updateStore(updatedProfile);
+            }
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+                setProfileState({
+                    ...profileState,
+                    formError: "Enregistrement impossible"
+                });
+            }
         }
     }
 

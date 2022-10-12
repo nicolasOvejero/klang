@@ -10,6 +10,8 @@ export const listUsers = /* GraphQL */ `
             lastname
             firstname
             image
+            job
+            id
         }
         nextToken
         }
@@ -21,10 +23,12 @@ export type ListUsersQuery = {
         __typename: "ModelUserConnection",
         items:  Array< {
             __typename: "User",
+            id: string,
             mail: string,
             lastname?: string | null,
             firstname: string,
             image?: string | null,
+            job?: string | null
         }>,
         nextToken?: string | null,
     } | null,
@@ -104,7 +108,7 @@ export type ListBirthdaysQuery = {
             } | null,
             createdAt: string,
             updatedAt: string,
-        } | null >,
+        }>,
         nextToken?: string | null,
     } | null,
 };
@@ -132,7 +136,7 @@ export type ListBirthdaysLightQuery = {
       __typename: "Birthday",
       id: string,
       date: string,
-    } | null >,
+    }>,
     nextToken?: string | null,
   } | null,
 };
@@ -285,9 +289,9 @@ export const listEventsLight = /* GraphQL */ `
 `;
 
 export type ListEventsLightQuery = {
-    listEvents?:  {
+    listEvents: {
         __typename: "ModelEventConnection",
-        items:  Array< {
+        items: Array< {
             __typename: "Event",
             id: string,
             date: string,
@@ -302,9 +306,9 @@ export type ListEventsLightQuery = {
                 } | null>
                 nextToken?: string | null,
             } | null,
-        } | null >,
+        }>,
         nextToken?: string | null,
-    } | null,
+    },
 };
 
 export const listNewArrivals = /* GraphQL */ `
@@ -344,6 +348,7 @@ export type ListNewArrivalsQuery = {
     __typename: "ModelNewArrivalsConnection",
     items:  Array< {
       __typename: "NewArrivals",
+      id: string,
       date: string,
       users?:  {
         __typename: "ModelUserConnection",
@@ -358,7 +363,7 @@ export type ListNewArrivalsQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-    } | null >,
+    } >,
     nextToken?: string | null,
   } | null,
 };

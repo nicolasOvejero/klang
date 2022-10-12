@@ -1,14 +1,13 @@
-import API, { GraphQLResult } from '@aws-amplify/api';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { listEventsLight, ListEventsLightQuery } from '../../../custom-queries';
+import { ListEventsLightQuery } from '../../../custom-queries';
 import moment from 'moment';
-import './event-form-remove.style.scss';
 import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
-import { deleteEvent } from '../../../../graphql/mutations';
-import { DeleteEventMutation } from '../../../../API';
-import { graphqlOperation } from 'aws-amplify';
+import RequestError from '../../../../common/errors/request-error';
+import EventService from '../../../../common/services/event.service';
+import UserService from '../../../../common/services/user.service';
+import './event-form-remove.style.scss';
 
 const defaultEventDeleteState = {
     idEvent: '',
@@ -39,50 +38,47 @@ function EventFormRemove() {
     }
 
     const getEvents = async () => {
-        const apiData = await API.graphql({
-            query: listEventsLight,
-            variables: {
+        try {
+            const apiData = await EventService.getEventsLight({
                 filter: {
                     date: {
                         ge: moment().add(-1, 'month').format('YYYY-MM-DD')
                     }
                 }
+            });
+
+            setOriginialEvents(apiData);
+
+            const items: any[] = (apiData?.listEvents?.items.filter((v) => v != null)) || [];
+            setEvents(
+                [{
+                    value: '',
+                    label: ''
+                }]
+                .concat(items.map((item) => {
+                    return {
+                        label: `${moment(item.date).format('DD/MM/YYYY')} - ${item.type}`,
+                        value: item.id,
+                    }
+                }))
+            );
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
-        }) as GraphQLResult<ListEventsLightQuery>;
-
-        setOriginialEvents(apiData.data);
-
-        const items: any[] = (apiData.data?.listEvents?.items.filter((v) => v != null)) || [];
-        setEvents(
-            [{
-                value: '',
-                label: ''
-            }]
-            .concat(items.map((item) => {
-                return {
-                    label: `${moment(item.date).format('DD/MM/YYYY')} - ${item.type}`,
-                    value: item.id,
-                }
-            }))
-        );
+        }
     }
 
     const deleteSubscribers = async () => {
-        const eventValues = originalEvents?.listEvents?.items.find((event) => event?.id === idEvent);
+        try {
+            const eventValues = originalEvents?.listEvents?.items.find((event) => event?.id === idEvent);
 
-        const txnMutation: any = eventValues?.participants?.items.map((p, i) => {
-            return `mutation${i}: deleteUsersEvents(input: {id: "${p?.id}"}) { id }`;
-        });
+            const mutations: any = eventValues?.participants?.items.map((p, i) => {
+                return `mutation${i}: deleteUsersEvents(input: {id: "${p?.id}"}) { id }`;
+            });
 
-        const deleteReturn = await API.graphql(
-            graphqlOperation(`
-                mutation batchMutation {
-                    ${txnMutation}
-                }
-            `)
-        ) as GraphQLResult;
-
-        if (deleteReturn.errors) {
+            await UserService.bulkDeleteUsers(mutations);
+        } catch (error: unknown) {
             setEventRemoveState({
                 ...eventRemoveState,
                 formHasError: true,
@@ -102,33 +98,33 @@ function EventFormRemove() {
             await deleteSubscribers();
         }
 
-        const deleteReturn = await API.graphql({
-            query: deleteEvent,
-            variables: {
+        try {
+            await EventService.deleteEvent({
                 input: {
                     id: idEvent
                 }
-            }
-        }) as GraphQLResult<DeleteEventMutation>;
+            });
 
-        if (deleteReturn.errors) {
+            getEvents();
+
+            setEventRemoveState({
+                ...eventRemoveState,
+                success: true
+            });
+
+            setTimeout(() => {
+                setEventRemoveState(defaultEventDeleteState);
+            }, 2000)
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
             setEventRemoveState({
                 ...eventRemoveState,
                 formHasError: true,
-                formError: "Impossible de supprimer l'événement"
+                formError: 'Impossible de supprimer les participants'
             });
         }
-
-        getEvents();
-
-        setEventRemoveState({
-            ...eventRemoveState,
-            success: true
-        });
-
-        setTimeout(() => {
-            setEventRemoveState(eventRemoveState);
-        }, 2000)
     }
 
     useEffect(() => {

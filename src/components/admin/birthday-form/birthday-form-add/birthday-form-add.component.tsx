@@ -1,16 +1,14 @@
-import { API } from 'aws-amplify';
-import { ListBirthdaysLightQuery, listBithdayLight, listUsersLight, ListUsersLightQuery } from '../../../custom-queries';
-import { GraphQLResult } from "@aws-amplify/api";
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
+import Button from '../../../button/button.component';
+import Toaster from '../../../toaster/toaster.component';
+import InputDate from '../../../input-date/input-date.component';
+import RequestError from '../../../../common/errors/request-error';
+import UserService from '../../../../common/services/user.service';
+import BirthdayService from '../../../../common/services/birthday.service';
 import moment from 'moment';
 import 'moment/locale/fr';
-import Button from '../../../button/button.component';
-import { createBirthday, updateUser } from '../../../../graphql/mutations';
-import { CreateBirthdayMutation, UpdateUserMutation } from '../../../../API';
-import Toaster from '../../../toaster/toaster.component';
 import './birthday-form-add.style.scss';
-import InputDate from '../../../input-date/input-date.component';
 
 const defaultBirthdayAddState = {
     user: '',
@@ -40,22 +38,16 @@ function BirthdayFormAdd() {
 
     const saveNewBirthdayToUser = async (birthdayId: string | undefined) => {
         if (!birthdayId) {
-            setBirthdayAddState({
-                ...birthdayAddState,
-                formHasError: true,
-                formError: 'Une erreur est survenue'
-            });
-            return;
+            throw new Error('No birthday ID found');
         }
-        await API.graphql({
-            query: updateUser,
-            variables: {
-                input: {
-                    id: user, 
-                    birthdayUsersId: birthdayId
-                }
+
+        await UserService.udpateUser({
+            input: {
+                id: user, 
+                birthdayUsersId: birthdayId
             }
-        }) as GraphQLResult<UpdateUserMutation>;
+        });
+
         setBirthdayAddState({
             ...defaultBirthdayAddState,
             success: true
@@ -66,16 +58,13 @@ function BirthdayFormAdd() {
     }
 
     const saveNewBirthday = async (date: string) => {
-        const newBirthday = await API.graphql({
-            query: createBirthday,
-            variables: {
-                input: {
-                    date
-                }
+        const newBirthday = await BirthdayService.createBirthday({
+            input: {
+                date
             }
-        }) as GraphQLResult<CreateBirthdayMutation>;
+        });
 
-        await saveNewBirthdayToUser(newBirthday.data?.createBirthday?.id);        
+        newBirthday && await saveNewBirthdayToUser(newBirthday.id);        
     }
 
     const handlerSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -84,48 +73,59 @@ function BirthdayFormAdd() {
         if (!user || !day || !month || !year) {
             return;
         }
-        const formatedDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
-        const existingBirthdateData = await API.graphql({
-            query: listBithdayLight,
-            variables: {
+        
+        try {
+            const formatedDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
+            const birthdays = await BirthdayService.getBirthdaysLight({
                 filter: {
                     date: {
                         eq: formatedDate
                     }
                 }
+            });
+
+            if (birthdays.length > 0) {
+                await saveNewBirthdayToUser(birthdays[0]?.id);
+            } else {
+                await saveNewBirthday(formatedDate);
             }
-        }) as GraphQLResult<ListBirthdaysLightQuery>;
-        const items = existingBirthdateData.data?.listBirthdays?.items;
-        if (items && items.length > 0) {
-            await saveNewBirthdayToUser(items[0]?.id);
-        } else {
-            await saveNewBirthday(formatedDate);
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
+
+            setBirthdayAddState({
+                ...birthdayAddState,
+                formHasError: true,
+                formError: 'Une erreur est survenue'
+            });
         }
     }
 
     const getUsers = async () => {
-        const apiData = await API.graphql({
-            query: listUsersLight,
-            variables: {
+        try {
+            const users = await UserService.getUserLight({
                 filter: {
                     birthdayUsersId: {
                         attributeExists: false
                     }
                 }
-            }
-        }) as GraphQLResult<ListUsersLightQuery>;
-        const items = apiData.data?.listUsers?.items;
-        if (items) {
+            });
+
             setUsers([{
                     value: '',
                     label: ''
-                }].concat(items.map((item) => {
+                }].concat(users.map((user) => {
                     return {
-                        label: `${item.firstname} ${item.lastname}`,
-                        value: item.id,
+                        label: `${user.firstname} ${user.lastname}`,
+                        value: user.id,
                     }
                 }))
             );
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
         }
     }
 

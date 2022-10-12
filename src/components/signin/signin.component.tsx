@@ -1,17 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
-import { API, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import { useDispatch } from 'react-redux';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { Link, useNavigate } from 'react-router-dom';
-import { listUsers } from '../../graphql/queries';
-import { GraphQLResult } from "@aws-amplify/api";
-import './signin.style.scss';
-import { CreateUserMutation, ListUsersQuery } from '../../API';
 import { USER_ACTION_TYPES } from '../../store/user/user.types';
-import { createUser } from '../../graphql/mutations';
 import { UserModel } from '../user/user.component';
+import RequestError from '../../common/errors/request-error';
+import UserService from '../../common/services/user.service';
+import './signin.style.scss';
 
 const defaultSignInState = {
     username: '',
@@ -42,56 +40,40 @@ function Signin() {
         lastname: string,
         firstname: string
     ) => {
-        const existingProfile = await API.graphql({
-            query: listUsers,
-            variables: {
+        try {
+            const existingProfiles = await UserService.getUsers({
                 filter: {
                     mail: {
                         eq: email
                     }
                 }
-            }
-        }) as GraphQLResult<ListUsersQuery>;
-
-        const user = existingProfile.data?.listUsers?.items[0];
-
-        if (user) {
-            disptachUser({
-                id: user.id,
-                email: user.mail,
-                firstname: user.firstname,
-                lastname: user.lastname || '',
-                image: user.image || '',
-                job: user.job || ''
             })
-            navigate('/');
-        } else {
-            const createdUser = await API.graphql({
-                query: createUser,
-                variables: {
+
+            if (existingProfiles.length > 0) {
+                disptachUser(existingProfiles[0]);
+                navigate('/');
+            } else {
+                const newProfile = await UserService.creatUser({
                     input: {
-                        mail: email, 
+                        mail: email,
                         firstname: firstname,
                         lastname: lastname
                     }
-                }
-            }) as GraphQLResult<CreateUserMutation>;
-            const user = createdUser.data?.createUser;
-            if (user) {
-                disptachUser({
-                    id: user.id,
-                    email: user.mail,
-                    firstname: user.firstname,
-                    lastname: user.lastname || '',
-                    image: user.image || '',
-                    job: user.job || ''
                 });
-                navigate('/profile');
+
+                if (newProfile) {
+                    disptachUser(newProfile);
+                    navigate('/profile');
+                }
+            }
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
             }
         }
     }
 
-    function disptachUser(user: UserModel & { email: string | undefined }) {
+    function disptachUser(user: UserModel) {
         dispatch({
             type: USER_ACTION_TYPES.SET_USER,
             payload: user

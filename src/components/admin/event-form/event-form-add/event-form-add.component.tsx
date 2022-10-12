@@ -1,10 +1,9 @@
-import { GraphQLResult } from '@aws-amplify/api-graphql';
-import { API } from 'aws-amplify';
 import moment from 'moment';
 import 'moment/locale/fr';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Address, CreateAddressMutation, CreateEventMutation } from '../../../../API';
-import { createAddress, createEvent } from '../../../../graphql/mutations';
+import RequestError from '../../../../common/errors/request-error';
+import EventService from '../../../../common/services/event.service';
+import RequestService from '../../../../common/services/new-arrivals.service';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';
 import InputForm from '../../../input-form/input-form.component';
@@ -24,6 +23,12 @@ const defaultEventAddState = {
     formError: '',
     success: false
 };
+
+export type Address = {
+    id: string;
+    city: string | null | undefined;
+    street: string | null | undefined;
+}
 
 function EventFormAdd() {
     moment.locale('fr');
@@ -47,28 +52,15 @@ function EventFormAdd() {
     const saveEvent = async(newAddress: Address) => {
         const formatedDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
 
-        const newEvent = await API.graphql({
-            query: createEvent,
-            variables: {
-                input: {
-                    image,
-                    type,
-                    schedule,
-                    date: formatedDate,
-                    eventAddressId: newAddress.id
-                }
+        await EventService.createEvent({
+            input: {
+                image,
+                type,
+                schedule,
+                date: formatedDate,
+                eventAddressId: newAddress.id
             }
-        }) as GraphQLResult<CreateEventMutation>;
-
-        if (newEvent.errors) {
-            console.error(newEvent.errors);
-            setEventAddState({
-                ...eventAddState,
-                formHasError: true,
-                formError: "Impossible d'ajouter l'événement"
-            });
-            return;
-        }
+        });
 
         setEventAddState({
             ...defaultEventAddState,
@@ -89,29 +81,26 @@ function EventFormAdd() {
             return;
         }
 
-        const newAddress = await API.graphql({
-            query: createAddress,
-            variables: {
+        try {
+            const newAddress = await RequestService.createAddress({
                 input: {
                     city: address_city,
                     street: address_street
                 }
-            }
-        }) as GraphQLResult<CreateAddressMutation>;
+            });
 
-        if (newAddress.errors) {
-            console.error(newAddress.errors);
+            newAddress && await saveEvent(newAddress);
+        } catch (error: unknown) {
+            if (error instanceof RequestError) {
+                console.error(error.errors);
+            }
             setEventAddState({
                 ...eventAddState,
                 formHasError: true,
-                formError: "Impossible d'ajouter une adresse"
+                formError: "Impossible d'ajouter l'événement"
             });
-            return;
         }
 
-        if (newAddress.data?.createAddress) {
-            await saveEvent(newAddress.data?.createAddress);
-        }
     }
 
     return (

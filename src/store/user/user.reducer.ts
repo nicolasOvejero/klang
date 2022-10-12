@@ -5,7 +5,7 @@ export type UserState = {
     id: string;
     firstname: string;
     lastname: string;
-    email: string;
+    mail: string;
     image?: string;
     job?: string;
 }
@@ -14,7 +14,7 @@ export const USER_INITIAL_STATE = {
     id: '',
     firstname: '',
     lastname: '',
-    email: '',
+    mail: '',
     image: undefined,
     job: undefined,
 }

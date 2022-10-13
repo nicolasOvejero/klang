@@ -15,9 +15,9 @@ type DropdownProps = {
 
 function Dropdown(props: DropdownProps) {
     return (
-        <label htmlFor={props.label} className={`label ${ props.haserror ? 'error': ''}`}>
+        <label htmlFor={props.name} className={`label ${ props.haserror ? 'error': ''}`}>
             <select
-                id={props.label}
+                id={props.name}
                 name={props.name}
                 onChange={props.onChange}
                 value={props.value}

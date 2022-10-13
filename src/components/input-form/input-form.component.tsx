@@ -9,7 +9,7 @@ type FormInputProps = {
 
 function InputForm({ label, haserror, errormessage, ...otherProps }: FormInputProps) {
     return (
-        <label className={`label ${ haserror ? 'error': ''}`}>
+        <label htmlFor={otherProps.name} className={`label ${ haserror ? 'error': ''}`}>
             <input className='input' {...otherProps} />
             <div className={`label-text ${otherProps.value ? 'filled' : ''}`}>
                 {label}

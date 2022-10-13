@@ -8,10 +8,9 @@ import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
 import { UserModel } from '../user/user.component';
-import RequestService from '../../common/services/new-arrivals.service';
 import RequestError from '../../common/errors/request-error';
-import './change-password.style.scss';
 import UserService from '../../common/services/user.service';
+import './change-password.style.scss';
 
 const defaultResetState = {
     password: '',

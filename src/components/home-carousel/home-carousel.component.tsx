@@ -10,8 +10,8 @@ import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import EventService from '../../common/services/event.service';
 import NewArrivalsService from '../../common/services/new-arrivals.service';
-import './home-carousel.style.scss';
 import BirthdayService from '../../common/services/birthday.service';
+import './home-carousel.style.scss';
 
 function HomeCarousel() {
     const [users, setUsers] = useState<any[]>([]);
@@ -210,6 +210,7 @@ function HomeCarousel() {
 
     useEffect(() => {
         getBirthdays();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

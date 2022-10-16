@@ -4,7 +4,7 @@ import 'moment/locale/fr';
 import './input-date.style.scss';
 import { ChangeEvent } from 'react';
 
-type InputDateProps = {
+export type InputDateProps = {
     day: {
         value: string;
         formHasError: boolean;
@@ -61,6 +61,7 @@ function InputDate(props: InputDateProps) {
                 label='Jour'
                 {...(props.day)}
                 name='day'
+                haserror={props.day.formHasError}
                 required
                 options={arrayDays}
             />
@@ -68,6 +69,7 @@ function InputDate(props: InputDateProps) {
                 label='Mois'
                 {...(props.month)}
                 name='month'
+                haserror={props.month.formHasError}
                 required
                 options={arrayMonth}
             />
@@ -75,6 +77,7 @@ function InputDate(props: InputDateProps) {
                 label='Année'
                 {...(props.year)}
                 name='year'
+                haserror={props.year.formHasError}
                 required
                 options={arrayYear}
             />

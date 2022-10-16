@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import { getByTagName } from '../../setupTests';
 import InputForm from './input-form.component';
 
 describe('render input', () => {
@@ -11,9 +12,7 @@ describe('render input', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label');
@@ -48,9 +47,7 @@ describe('render input', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label');
@@ -85,9 +82,7 @@ describe('render input', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label', 'error');

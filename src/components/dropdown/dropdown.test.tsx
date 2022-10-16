@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import { getByTagName } from '../../setupTests';
 import Dropdown, { DropdownOption } from './dropdown.component';
 
 const defaultOptions: DropdownOption[] = [
@@ -26,9 +27,7 @@ describe('render drowpdown', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label');
@@ -62,9 +61,7 @@ describe('render drowpdown', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label');
@@ -100,9 +97,7 @@ describe('render drowpdown', () => {
             />
         );
 
-        const labelEl = screen.getByText(
-            (_, element) => element?.tagName.toLowerCase() === 'label'
-        );
+        const labelEl = getByTagName('label', screen);
 
         expect(labelEl).toBeInTheDocument();
         expect(labelEl).toHaveClass('label');

@@ -4,7 +4,21 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import configureStore from 'redux-mock-store';
+import { cleanup, Screen } from '@testing-library/react';
 
 const mockStore = configureStore();
 
+afterEach(cleanup);
+
 export default mockStore;
+
+export function getAllByTagName(tagName: string, screen: Screen) {
+    return screen.getAllByText(
+        (_, element) => element?.tagName.toLowerCase() === tagName
+    );
+}
+export function getByTagName(tagName: string, screen: Screen) {
+    return screen.getByText(
+        (_, element) => element?.tagName.toLowerCase() === tagName
+    );
+}

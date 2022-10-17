@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import defaultFaces from '../../assets/ufo.png';
@@ -25,6 +26,7 @@ const defaultProfileState = {
 function Profile() {
     const user = useSelector(selectUserReducer);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
     const [profileState, setProfileState] = useState({
         ...defaultProfileState,
         image: user.image || '',
@@ -70,7 +72,7 @@ function Profile() {
         if (!lastname || !firstname) {
             setProfileState({
                 ...profileState,
-                formError: "Le prénom et nom de famille sont obligatoire"
+                formError: t('profile.errors.required')
             });
             return;
         }
@@ -94,7 +96,7 @@ function Profile() {
                 console.error(error.errors);
                 setProfileState({
                     ...profileState,
-                    formError: "Enregistrement impossible"
+                    formError: t('profile.errors.unknown')
                 });
             }
         }
@@ -103,7 +105,9 @@ function Profile() {
     return (
         <article className='profile'>
             <section className='container'>
-                <h2 className='title'>Mon profil</h2>
+                <h2 className='title'>
+                    {t('profile.title')}
+                </h2>
                 <div
                     className={`image ${image !== '' ? '' : 'default'}`}
                     style={{ backgroundImage: `url(${image || defaultFaces})` }}
@@ -113,7 +117,7 @@ function Profile() {
                     className='form'
                 >
                     <InputForm
-                        label="Image URL"
+                        label={t('profile.image')}
                         type='text'
                         onChange={handleChange}
                         name='image'
@@ -122,7 +126,7 @@ function Profile() {
                         errormessage={formError}
                     />
                     <InputForm
-                        label="Prénom"
+                        label={t('profile.firstname')}
                         type='text'
                         required
                         onChange={handleChange}
@@ -132,7 +136,7 @@ function Profile() {
                         errormessage={formError}
                     />
                     <InputForm
-                        label="Nom de famille"
+                        label={t('profile.lastname')}
                         type='text'
                         required
                         onChange={handleChange}
@@ -142,7 +146,7 @@ function Profile() {
                         errormessage={formError}
                     />
                     <InputForm
-                        label="Travail"
+                        label={t('profile.job')}
                         type='text'
                         onChange={handleChange}
                         name='job'
@@ -151,13 +155,13 @@ function Profile() {
                         errormessage={formError}
                     />
                     <Button
-                        label='Enregistrer'
+                        label={t('profile.save')}
                         type='submit'
                         disabled={loading} />
                 </form>
             </section>
             <Toaster
-                message="Votre profil a bien été mis à jour"
+                message={t('profile.success')}
                 type='success'
                 display={success}
             />

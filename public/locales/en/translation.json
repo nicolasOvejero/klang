@@ -59,5 +59,23 @@
         "from": "From",
         "to": "to",
         "no-new": "No new arrivals <br />for this week"
+    },
+    "header": {
+        "admin": "Administration",
+        "profile": "My profile",
+        "logout": "Logout"
+    },
+    "profile": {
+        "title": "My profile",
+        "image": "Profile Image URL",
+        "firstname": "First name",
+        "lastname": "Last name",
+        "job": "Job",
+        "save": "Save",
+        "success": "Your profile has been successfully updated",
+        "errors": {
+            "unknown": "Impossible to save",
+            "required": "Firstname and lastname are required"
+        }
     }
 }

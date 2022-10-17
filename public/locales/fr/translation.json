@@ -60,5 +60,23 @@
         "from": "Du",
         "to": "au",
         "no-new": "Aucun nouveaux arrivants <br />pour cette semaine"
+    },
+    "header": {
+        "admin": "Administration",
+        "profile": "Mon profil",
+        "logout": "Déconnexion"
+    },
+    "profile": {
+        "title": "Mon profil",
+        "image": "URL de l'image de profile",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "job": "Travail",
+        "save": "Enregistrer",
+        "success": "Votre profil a bien été mis à jour",
+        "errors": {
+            "unknown": "Enregistrement impossible",
+            "required": "Le prénom et nom de famille sont obligatoire"
+        }
     }
 }

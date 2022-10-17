@@ -1,5 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
@@ -8,17 +9,16 @@ import MobileMenu from '../../components/mobile/menu/menu.component';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { USER_INITIAL_STATE } from '../../store/user/user.reducer';
-import { selectUserReducer } from '../../store/user/user.selector';
 import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import './navigation.style.scss';
 
 function Navigation() {
     const auth = useSelector(selectAuthReducer);
-    const user = useSelector(selectUserReducer);
     const [menuOpen, setMenuOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isAdmin = auth.user?.groups?.includes('admin') || false;
+    const { t } = useTranslation();
 
     async function signOut() {
         try {
@@ -55,23 +55,20 @@ function Navigation() {
                     src={logo}
                 />
                 <div className='identity'>
-                    <p className='identity-name'>
-                        Bonjour, { user.firstname || auth.user?.username }
-                    </p>
                     {
                         isAdmin && <Button
-                            label='Administration'
+                            label={t('header.admin')}
                             type='button'
                             clickHandler={() => navigate('/admin')}
                         ></Button>
                     }
                     <Button
-                        label='Mon profil'
+                        label={t('header.profile')}
                         type='button'
                         clickHandler={() => navigate('/profile')}
                     ></Button>
                     <Button
-                        label='Déconnexion'
+                        label={t('header.logout')}
                         type='button'
                         clickHandler={signOut}
                     ></Button>

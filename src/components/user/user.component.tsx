@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import defaultFaces from '../../assets/ufo.png';
 import Action from '../action/action.component';
 import './user.style.scss';
@@ -17,6 +18,8 @@ export type UserModel = {
 }
 
 function User({ user }: { user: UserModel }) {
+    const { t } = useTranslation();
+
     return (
         <div className={ `user ${ user.size ? user.size : '' } ${ user.background ? user.background : '' }` }>
             <div
@@ -30,10 +33,10 @@ function User({ user }: { user: UserModel }) {
                     user.job && <p>{user.job}</p>
                 }
                 {
-                    user.birthday && <p>Né(e) le {user.birthday}</p>
+                    user.birthday && <p>{ t('user.born') } {user.birthday}</p>
                 }
                 {
-                    user.arrivalDate && <p>Arrive le {user.arrivalDate}</p>
+                    user.arrivalDate && <p>{ t('user.arrive') } {user.arrivalDate}</p>
                 }
             </div>
                 {            

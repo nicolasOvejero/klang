@@ -78,5 +78,9 @@
             "unknown": "Enregistrement impossible",
             "required": "Le prénom et nom de famille sont obligatoire"
         }
+    },
+    "user": {
+        "born": "Né(e) le",
+        "arrive": "Arrive le"
     }
 }

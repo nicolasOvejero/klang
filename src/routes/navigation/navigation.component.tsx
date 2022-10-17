@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import Button from '../../components/button/button.component';
+import LangSelector from '../../components/lang-selector/lang-selector.component';
 import MobileMenu from '../../components/mobile/menu/menu.component';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
@@ -72,6 +73,7 @@ function Navigation() {
                         type='button'
                         clickHandler={signOut}
                     ></Button>
+                    <LangSelector />
                 </div>
             </header>
             <MobileMenu

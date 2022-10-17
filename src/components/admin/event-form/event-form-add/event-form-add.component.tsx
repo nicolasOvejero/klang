@@ -31,7 +31,6 @@ export type Address = {
 }
 
 function EventFormAdd() {
-    moment.locale('fr');
     const [eventAddState, setEventAddState] = useState(defaultEventAddState);
     const { image, type, schedule,
         address_city, address_street,

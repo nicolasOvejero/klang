@@ -41,5 +41,24 @@
             "title": "Qui sont les <br />prochains arrivants ?",
             "button": "Voir plus de nouveaux arrivants"
         }
+    },
+    "birthdays": {
+        "title": "Les anniversaires du mois"
+    },
+    "events": {
+        "title": "Les événements du mois",
+        "subscribe": "Je m'inscris",
+        "type": "Type d'événement :",
+        "hour": "Heure :",
+        "address": "Adresse :",
+        "participants": "Participants :",
+        "no-users": "Aucun participants pour le moment",
+        "success": "Félicitation ! Vous êtes inscrit à l'événement"
+    },
+    "new-arrivals": {
+        "title": "Les nouveaux arrivants",
+        "from": "Du",
+        "to": "au",
+        "no-new": "Aucun nouveaux arrivants <br />pour cette semaine"
     }
 }

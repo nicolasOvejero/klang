@@ -8,6 +8,7 @@ import User, { UserModel } from "../../components/user/user.component";
 import Loader from "../../components/loader/loader.component";
 import RequestError from "../../common/errors/request-error";
 import BirthdayService from "../../common/services/birthday.service";
+import { useTranslation } from "react-i18next";
 import './birthday.style.scss';
 
 export type BirthdayModel = {
@@ -21,6 +22,7 @@ function Birthday() {
     const [selectedDate, setSelectedDate] = useState<BirthdayModel>();
     const [birthdays, setBirthdays] = useState<BirthdayModel[]>([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     const showEventDescription = (selectedDay: BirthdayModel) => {
         setIsInfoOpen(true);
@@ -63,7 +65,7 @@ function Birthday() {
         <article className='body birthdays'>
             <section className="title-container">
                 <h1 className="title">
-                    Les anniversaires du mois
+                    {t('birthdays.title')}
                 </h1>
             </section>
             <section className='birthday-container'>

@@ -40,5 +40,24 @@
             "title": "Who are the<br /> next arrivals ?",
             "button": "See more new arrivals"
         }
+    },
+    "birthdays": {
+        "title": "Birthdays of the month"
+    },
+    "events": {
+        "title": "Events of the month",
+        "subscribe": "I register",
+        "type": "Event type :",
+        "hour": "Hour :",
+        "address": "Address :",
+        "participants": "Participants :",
+        "no-users": "No participants at the moment",
+        "success": "Congratulations ! You are registered for the event"
+    },
+    "new-arrivals": {
+        "title": "The new arrivals",
+        "from": "From",
+        "to": "to",
+        "no-new": "No new arrivals <br />for this week"
     }
 }

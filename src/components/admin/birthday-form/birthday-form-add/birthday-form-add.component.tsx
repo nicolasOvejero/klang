@@ -21,7 +21,6 @@ const defaultBirthdayAddState = {
 };
 
 function BirthdayFormAdd() {
-    moment.locale('fr');
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [birthdayAddState, setBirthdayAddState] = useState(defaultBirthdayAddState);
     const { user, day, month, year, formHasError, formError, success } = birthdayAddState;

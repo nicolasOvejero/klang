@@ -21,7 +21,6 @@ const defaultNewArrivalsAddState = {
 };
 
 function NewArrivalFormAdd() {
-    moment.locale('fr');
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [newArrivals, setNewArrivals] = useState(defaultNewArrivalsAddState);
     const { user, day, month, year, formError, success } = newArrivals;

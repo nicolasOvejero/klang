@@ -27,8 +27,11 @@ import Profile from './routes/profile/profile.component';
 import FirstTime from './components/first-time/first-time.component';
 import Code from './components/code/code.component';
 import { Suspense } from 'react';
+import moment from 'moment';
+import 'moment/locale/fr';
 
 function App() {
+    moment.locale('fr');
     const auth = useSelector(selectAuthReducer);
 
     return (

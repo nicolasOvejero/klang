@@ -1,5 +1,6 @@
 import { Auth } from "aws-amplify";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AUTH_ACTION_TYPES } from "../../store/auth/auth.types";
@@ -17,6 +18,7 @@ function FirstTime() {
     const [firstTimeState, setFirstTimeState] = useState(defaultFirstTimeState);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const { username, formError, loading } = firstTimeState;
 
@@ -57,7 +59,7 @@ function FirstTime() {
             console.error(error);
             setFirstTimeState({
                 ...firstTimeState,
-                formError: 'Une erreur est survenue',
+                formError: t('login.errors.unknown'),
                 loading: false
             });
         }
@@ -67,7 +69,7 @@ function FirstTime() {
         <section className='first-time'>
             <form className='form' onSubmit={sendCode}>
                 <InputForm
-                    label="Nom d'utilisateur"
+                    label={t('login.username')}
                     type='text'
                     required
                     haserror={formError !== ''}
@@ -78,7 +80,11 @@ function FirstTime() {
                 />
 
                 <div className='button-container'>
-                   <Button label='Suivant' type='submit' disabled={loading} />
+                    <Button
+                        label={t('login.next')}
+                        type='submit'
+                        disabled={loading}
+                    />
                 </div>
             </form>
         </section>

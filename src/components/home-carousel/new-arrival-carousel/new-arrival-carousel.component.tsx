@@ -3,6 +3,7 @@ import { NewArrivalModel } from '../../../routes/new-arrivals/new-arrivals.compo
 import Button from '../../button/button.component';
 import User from '../../user/user.component';
 import moment from 'moment';
+import { Trans, useTranslation } from 'react-i18next';
 import './new-arrival-carousel.style.scss';
 
 export type newArrivalsCarouselProps = {
@@ -11,6 +12,8 @@ export type newArrivalsCarouselProps = {
 
 function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
     const newArrivals = props.newArrivals.flatMap((newArrival) => {
         const users = newArrival.users.flat();
 
@@ -26,7 +29,8 @@ function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
     return (
         <div className='container new-arrivals-carousel hidden out-right'>
             <h2 className='title'>
-                Qui sont les <br />prochains arrivants ?
+                <Trans i18nKey='home.new-arrivals.title'>
+                </Trans>
             </h2>
             <div className='content'>
                 <div className='new-arrivals-container'>
@@ -40,7 +44,7 @@ function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
                 </div>
             </div>
             <Button
-                label="Voir plus de nouveaux arrivants"
+                label={t('home.new-arrivals.button')}
                 type='button'
                 clickHandler={ () => navigate('new-arrivals') }
             ></Button>

@@ -9,6 +9,7 @@ import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import { UserModel } from '../user/user.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
+import { useTranslation } from 'react-i18next';
 import './signin.style.scss';
 
 const defaultSignInState = {
@@ -24,6 +25,7 @@ function Signin() {
     const { username, password, formHasError, formError, loading } = signInState;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -147,7 +149,7 @@ function Signin() {
             setSignInState({
                 ...signInState,
                 formHasError: true,
-                formError: "Mot de passe ou utilisateur incorrect", 
+                formError: t('login.errors.wrongPasswordOrUsername'),
                 loading: false
             });
         }
@@ -155,10 +157,10 @@ function Signin() {
 
     return (
         <section className='signin'>
-            <h2 className='title'>Je me connecte</h2>
+            <h2 className='title'>{ t('login.title') }</h2>
             <form className='form' onSubmit={signIn}>
                 <InputForm
-                    label="Nom d'utilisateur"
+                    label={t('login.username')}
                     type='text'
                     required
                     haserror={formHasError}
@@ -169,7 +171,7 @@ function Signin() {
                 />
 
                 <InputForm
-                    label='Mot de passe'
+                    label={t('login.password')}
                     type='password'
                     required
                     haserror={formHasError}
@@ -177,14 +179,18 @@ function Signin() {
                     onChange={handleChange}
                     name='password'
                     value={password}
+                    autoComplete='on'
                 />
 
                 <Link to='/first-time' className='first-time'>
-                    Première connexion ?
+                    {t('login.first')}
                 </Link>
 
                 <div className='button-container'>
-                   <Button label='Connexion' type='submit' disabled={loading} />
+                    <Button
+                        label={t('login.connection')}
+                        type='submit'
+                        disabled={loading} />
                 </div>
             </form>
         </section>

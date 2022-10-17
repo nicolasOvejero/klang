@@ -26,54 +26,57 @@ import NewArrivalFormAdd from './components/admin/new-arrival-form/new-arrival-f
 import Profile from './routes/profile/profile.component';
 import FirstTime from './components/first-time/first-time.component';
 import Code from './components/code/code.component';
+import { Suspense } from 'react';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
 
     return (
-        <div className="App">
-            <Routes>
-                <Route element={
-                    <GuardedRoute auth={auth.isConnected}>
-                        <Navigation />
-                    </GuardedRoute>
-                }>
-                    <Route index element={<Home />} />
-                    <Route path='birthdays' element={<Birthday />} />
-                    <Route path='events' element={<Event />} />
-                    <Route path='new-arrivals' element={<NewArrivals />} />
-                    <Route path='profile' element={<Profile />} />
-                </Route>
-                <Route element={
-                    <AdminGuardedRoute groups={auth.user?.groups}>
-                        <Navigation />
-                    </AdminGuardedRoute>
-                }>
-                    <Route path='admin' element={<Admin />}>
-                        <Route path='users' element={<UsersForm />}>
-                            <Route path='add' element={<UsersFormAdd />} />
-                            <Route path='delete' element={<UsersFormRemove />} />
-                        </Route>
-                        <Route path='birthdays' element={<BirthdayForm />}>
-                            <Route path='add' element={<BirthdayFormAdd />} />
-                        </Route>
-                        <Route path='events' element={<EventForm />}>
-                            <Route path='add' element={<EventFormAdd />} />
-                            <Route path='delete' element={<EventFormRemove />} />
-                        </Route>
-                        <Route path='new-arrivals' element={<NewArrivalForm />}>
-                            <Route path='add' element={<NewArrivalFormAdd />} />
+        <Suspense fallback="loading">
+            <div className="App">
+                <Routes>
+                    <Route element={
+                        <GuardedRoute auth={auth.isConnected}>
+                            <Navigation />
+                        </GuardedRoute>
+                    }>
+                        <Route index element={<Home />} />
+                        <Route path='birthdays' element={<Birthday />} />
+                        <Route path='events' element={<Event />} />
+                        <Route path='new-arrivals' element={<NewArrivals />} />
+                        <Route path='profile' element={<Profile />} />
+                    </Route>
+                    <Route element={
+                        <AdminGuardedRoute groups={auth.user?.groups}>
+                            <Navigation />
+                        </AdminGuardedRoute>
+                    }>
+                        <Route path='admin' element={<Admin />}>
+                            <Route path='users' element={<UsersForm />}>
+                                <Route path='add' element={<UsersFormAdd />} />
+                                <Route path='delete' element={<UsersFormRemove />} />
+                            </Route>
+                            <Route path='birthdays' element={<BirthdayForm />}>
+                                <Route path='add' element={<BirthdayFormAdd />} />
+                            </Route>
+                            <Route path='events' element={<EventForm />}>
+                                <Route path='add' element={<EventFormAdd />} />
+                                <Route path='delete' element={<EventFormRemove />} />
+                            </Route>
+                            <Route path='new-arrivals' element={<NewArrivalForm />}>
+                                <Route path='add' element={<NewArrivalFormAdd />} />
+                            </Route>
                         </Route>
                     </Route>
-                </Route>
-                <Route element={<Connection />}>
-                    <Route path="login" element={<Signin />} />
-                    <Route path="first-time" element={<FirstTime />} />
-                    <Route path="code" element={<Code />} />
-                    <Route path='change-password' element={<ChangePassword />} />
-                </Route>
-            </Routes>
-        </div>
+                    <Route element={<Connection />}>
+                        <Route path="login" element={<Signin />} />
+                        <Route path="first-time" element={<FirstTime />} />
+                        <Route path="code" element={<Code />} />
+                        <Route path='change-password' element={<ChangePassword />} />
+                    </Route>
+                </Routes>
+            </div>
+        </Suspense>
     );
 }
 

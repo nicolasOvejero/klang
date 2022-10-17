@@ -1,0 +1,45 @@
+{
+    "login": {
+        "title": "Je me connecte",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "first": "Première connexion ?",
+        "connection": "Connexion",
+        "next": "Suivant",
+        "code": "Code reçu",
+        "errors": {
+            "wrongPasswordOrUsername": "Mot de passe ou utilisateur incorrect",
+            "unknown": "Une erreur est survenue"
+        }
+    },
+    "change-password": {
+        "title": "Changement de mot de passe",
+        "new": "Nouveau mot de passe",
+        "confirm": "Confirmation mot de passe",
+        "connection": "Connexion",
+        "errors": {
+            "update-ko": "Impossible de mettre à jour le mot de passe",
+            "not-same-password": "Mots de passe non identiques",
+            "unknown": "Une erreur est survenue"
+        }
+    },
+    "home": {
+        "birthdays": {
+            "title": "Quels sont les<br />prochains anniversaires ?",
+            "button": "Souhaite leur un joyeux anniversaire"
+        },
+        "events": {
+            "title": "Quels est le <br />prochain événement ?",
+            "date": "Date :",
+            "hour": "Heure :",
+            "address": "Adresse :",
+            "subscribe": "Je m'inscris",
+            "participants": "Les participants",
+            "button": "Voir plus d'événements"
+        },
+        "new-arrivals": {
+            "title": "Qui sont les <br />prochains arrivants ?",
+            "button": "Voir plus de nouveaux arrivants"
+        }
+    }
+}

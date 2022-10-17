@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../button/button.component';
 import User, { UserModel } from '../../user/user.component';
@@ -9,12 +10,14 @@ export type userCarouselProps = {
 
 function BirthdaysCarousel(props: userCarouselProps) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const users = props.users;
 
     return (
         <div className='container hidden out-right'>
             <h2 className='title'>
-                Quels sont les<br />prochains anniversaires ?
+                <Trans i18nKey='home.birthdays.title'>
+                </Trans>
             </h2>
             <div className='content'>
                 <div className='users-container'>
@@ -29,7 +32,7 @@ function BirthdaysCarousel(props: userCarouselProps) {
                 </div>
             </div>
             <Button
-                label='Souhaite leur un joyeux anniversaire'
+                label={t('home.birthdays.button')}
                 type='button'
                 clickHandler={ () => navigate('birthdays') }
             ></Button>

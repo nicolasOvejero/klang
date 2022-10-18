@@ -10,6 +10,8 @@ import { UserModel } from '../user/user.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as User } from '../../assets/icons/user.svg';
+import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
 import './signin.style.scss';
 
 const defaultSignInState = {
@@ -168,6 +170,7 @@ function Signin() {
                     onChange={handleChange}
                     name='username'
                     value={username}
+                    icon={User}
                 />
 
                 <InputForm
@@ -180,8 +183,8 @@ function Signin() {
                     name='password'
                     value={password}
                     autoComplete='on'
+                    icon={Lock}
                 />
-
                 <Link to='/first-time' className='first-time'>
                     {t('login.first')}
                 </Link>

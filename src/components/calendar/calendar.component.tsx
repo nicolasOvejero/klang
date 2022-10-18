@@ -13,7 +13,7 @@ type CalendarPops = {
 
 function Calendar(props: CalendarPops) {
     const { i18n } = useTranslation();
-    moment.locale(i18n.language, {
+    moment.updateLocale(i18n.language, {
         week: {
             dow: 1
         }

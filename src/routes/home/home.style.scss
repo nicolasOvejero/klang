@@ -7,17 +7,8 @@
     padding: 1rem;
 }
 
-@media screen and (max-width: $breakpoint-large) {
-    .body.home {
-    }
-}
-
-@media screen and (max-width: $breakpoint-medium) {
-    .body.home {
-    }
-}
-
 @media screen and (max-width: $breakpoint-small) {
     .body.home {
+        height: $body-height-small;
     }
 }

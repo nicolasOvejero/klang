@@ -10,8 +10,9 @@ import InputForm from '../input-form/input-form.component';
 import { UserModel } from '../user/user.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
-import './change-password.style.scss';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
+import './change-password.style.scss';
 
 const defaultResetState = {
     password: '',
@@ -161,6 +162,7 @@ function ChangePassword() {
                     onChange={handleChange}
                     name='password'
                     value={password}
+                    icon={Lock}
                 />
 
                 <InputForm
@@ -172,6 +174,7 @@ function ChangePassword() {
                     onChange={handleChange}
                     name='confirmPassword'
                     value={confirmPassword}
+                    icon={Lock}
                 />
 
                 <div className='button-container'>

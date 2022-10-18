@@ -4,6 +4,27 @@
     display: block;
     letter-spacing: 4px;
     height: 1.5rem;
+    position: relative;
+
+    svg {
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 1.3rem;
+
+        & + input, & + select {
+            margin-left: 8%;
+            width: 92%;
+
+            & + .label-text {
+                padding-left: 8%;
+            }
+        }
+
+        & ~ .error-text {
+            margin-left: 8%;
+        }
+    }
 
     &-text {
         color: $text-color-dark;
@@ -104,6 +125,24 @@
 @media screen and (max-width: $breakpoint-medium) {
     .label {
         height: 1rem;
+
+        svg {
+            width: 1.3rem;
+    
+            &+input,
+            &+select {
+                margin-left: 10%;
+                width: 90%;
+    
+                &+.label-text {
+                    padding-left: 10%;
+                }
+            }
+    
+            &~.error-text {
+                margin-left: 10%;
+            }
+        }
 
         &-text {
             font-size: 0.75rem;

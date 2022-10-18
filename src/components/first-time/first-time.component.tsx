@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AUTH_ACTION_TYPES } from "../../store/auth/auth.types";
 import Button from "../button/button.component";
 import InputForm from "../input-form/input-form.component";
+import { ReactComponent as User } from '../../assets/icons/user.svg';
 import './first-time.style.scss';
 
 const defaultFirstTimeState = {
@@ -77,6 +78,7 @@ function FirstTime() {
                     onChange={handleChange}
                     name='username'
                     value={username}
+                    icon={User}
                 />
 
                 <div className='button-container'>

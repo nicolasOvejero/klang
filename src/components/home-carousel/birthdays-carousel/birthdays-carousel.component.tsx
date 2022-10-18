@@ -12,7 +12,7 @@ export type userCarouselProps = {
 function BirthdaysCarousel(props: userCarouselProps) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    moment.locale(i18n.language, {
+    moment.updateLocale(i18n.language, {
         week: {
             dow: 1
         }

@@ -58,6 +58,20 @@
                     .value {
                         font-size: 1.25rem;
                     }
+
+                    .label {
+                        align-items: center;
+                        display: flex;
+
+                        &-icon {
+                            color: $primary;
+                            height: 1.5rem;
+                        }
+
+                        span {
+                            margin-left: 1.5rem;
+                        }
+                    }
                 }
 
                 .button {
@@ -108,9 +122,17 @@
                     width: 50%;
 
                     .info-container {
+                        grid-template-columns: 2.5fr 5fr;
+                        
                         .label,
                         .value {
                             font-size: 1rem;
+                        }
+
+                        .label {
+                            &-icon {
+                                height: 1rem;
+                            }
                         }
                     }
 
@@ -175,8 +197,8 @@
         .event {
             &-container {
                 .image {
-                    margin-left: -15%;
-                    width: 130%;
+                    margin-left: -12.5%;
+                    width: 125%;
 
                     .event-title-container {
                         padding: 0.5rem;
@@ -200,12 +222,22 @@
 
                 .left-container {
                     .info-container {
-                        grid-template-columns: 3fr 4fr;
-                        gap: 0.25rem;
+                        grid-template-columns: 1fr;
+                        gap: 0;
 
                         .label,
                         .value {
-                            font-size: 0.85rem;
+                            font-size: 1rem;
+                        }
+
+                        .value {
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .label {
+                            &-icon {
+                                height: 1rem;
+                            }
                         }
                     }
 

@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { ReactComponent as FR } from '../../../assets/fr.svg';
 import { ReactComponent as EN } from '../../../assets/gb.svg';
-import './menu.style.scss';
 import { useDispatch } from 'react-redux';
 import { LANG_ACTION_TYPES } from '../../../store/lang/lang.types';
+import { ReactComponent as Close } from '../../../assets/icons/close.svg';
+import './menu.style.scss';
 
 type MobileMenuProps = {
     isOpen: boolean;
@@ -29,12 +30,10 @@ function MobileMenu(props: MobileMenuProps) {
 
     return (
         <div className={ `mobile-menu ${props.isOpen ? 'open' : ''}` }>
-            <span
-                className='close material-symbols-outlined'
+            <Close
+                className='close'
                 onClick={props.closeMenu}
-            >
-                close
-            </span>
+            />
             <div className='logo-container'>
                 <img
                     className='logo'

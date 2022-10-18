@@ -11,6 +11,8 @@ import UserService from '../../common/services/user.service';
 import EventService from '../../common/services/event.service';
 import NewArrivalsService from '../../common/services/new-arrivals.service';
 import BirthdayService from '../../common/services/birthday.service';
+import { ReactComponent as ChevRight } from '../../assets/icons/chevron-right.svg';
+import { ReactComponent as ChevLeft } from '../../assets/icons/chevron-left.svg';
 import './home-carousel.style.scss';
 
 function HomeCarousel() {
@@ -226,12 +228,10 @@ function HomeCarousel() {
                         <Fragment>
                             {
                                 carouselLength > 1 && (
-                                    <span
-                                        className="navigation-buttons material-symbols-outlined"
+                                    <ChevLeft
+                                        className='navigation-buttons'
                                         onClick={prevView}
-                                    >
-                                        chevron_left
-                                    </span>
+                                    />
                                 )
                             }
                             <div className='views' ref={viewsContainer}>
@@ -247,12 +247,10 @@ function HomeCarousel() {
                             </div>
                             {
                                 carouselLength > 1 && (
-                                    <span
-                                        className="navigation-buttons material-symbols-outlined"
+                                    <ChevRight
+                                        className='navigation-buttons'
                                         onClick={nextView}
-                                    >
-                                        chevron_right
-                                    </span>
+                                    />
                                 )
                             }
                         </Fragment>

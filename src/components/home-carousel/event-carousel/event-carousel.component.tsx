@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import RequestError from "../../../common/errors/request-error";
 import EventService from "../../../common/services/event.service";
 import { Trans, useTranslation } from "react-i18next";
+import { ReactComponent as Calendar } from '../../../assets/icons/calendar-days.svg';
+import { ReactComponent as Clock } from '../../../assets/icons/clock.svg';
+import { ReactComponent as Pin } from '../../../assets/icons/map-pin.svg';
 import './event-carousel.style.scss';
 
 export type eventCarouselProps = {
@@ -31,7 +34,7 @@ function EventCarousel(props: eventCarouselProps) {
     const [state, setState] = useState<EventCarouselDefaultState>(defaultState);
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    moment.locale(i18n.language, {
+    moment.updateLocale(i18n.language, {
         week: {
             dow: 1
         }
@@ -91,11 +94,20 @@ function EventCarousel(props: eventCarouselProps) {
                         <div className='left-container'>
                             <h3 className='event-title'>{event.type}</h3>
                             <div className='info-container'>
-                                <p className='label'>{t('home.events.date')}</p>
+                                <p className='label'>
+                                    <Calendar className='label-icon' />
+                                    <span>{t('home.events.date')}</span>
+                                </p>
                                 <p className='value'>{moment(event.date).format('dddd DD MMMM YYYY')}</p>
-                                <p className='label'>{t('home.events.hour')}</p>
+                                <p className='label'>
+                                    <Clock className='label-icon' />
+                                    <span>{t('home.events.hour')}</span>
+                                </p>
                                 <p className='value'>{event.schedule}</p>
-                                <p className='label'>{t('home.events.address')}</p>
+                                <p className='label'>
+                                    <Pin className='label-icon' />
+                                    <span>{t('home.events.address')}</span>
+                                </p>
                                 <p className='value'>{event.address?.street}, {event.address?.city}</p>
                             </div>
                             <Button

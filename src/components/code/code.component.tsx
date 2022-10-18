@@ -7,6 +7,7 @@ import { selectAuthReducer } from "../../store/auth/auth.selector";
 import { AUTH_ACTION_TYPES } from "../../store/auth/auth.types";
 import Button from "../button/button.component";
 import InputForm from "../input-form/input-form.component";
+import { ReactComponent as Send } from '../../assets/icons/send.svg';
 import './code.style.scss';
 
 const defaultCodeState = {
@@ -79,6 +80,7 @@ function Code() {
                     onChange={handleChange}
                     name='code'
                     value={code}
+                    icon={Send}
                 />
 
                 <div className='button-container'>

@@ -17,18 +17,19 @@
     }
 
     .close {
-        font-size: 3rem;
+        height: 3.5rem;
         margin: {
-            left: -2rem;
-            top: -2rem;
+            left: -0.5rem;
+            top: -0.5rem;
         };
-        padding: 1.5rem;
+        padding: 0.5rem;
+        width: 3.5rem;
     }
 
     .logo-container {
         margin: {
             bottom: 1.5rem;
-            top: -4.5rem;
+            top: -3.5rem;
         }
         text-align: center;
         width: 100%;

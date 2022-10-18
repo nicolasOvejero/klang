@@ -1,9 +1,10 @@
 import { Outlet, useMatch } from 'react-router-dom';
 import AsideAction from '../../components/admin/aside-action/aside-action.component';
 import defaultBackground from '../../assets/admin-bg.png';
-import './admin.style.scss';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as ChevDown } from '../../assets/icons/chevron-down.svg';
+import './admin.style.scss';
 
 function Admin() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,9 +41,9 @@ function Admin() {
                     <p className='title'>
                         Menu
                     </p>
-                    <span className={ `icon material-symbols-outlined ${isMobileMenuOpen ? 'expanded' : ''}` }>
-                        expand_more
-                    </span>
+                    <ChevDown
+                        className={`icon ${isMobileMenuOpen ? 'expanded' : ''}`}
+                    />
                 </div>
                 <div className={`content ${isMobileMenuOpen ? 'expand' : ''}`}>
                     <AsideAction

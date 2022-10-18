@@ -9,6 +9,7 @@ import Loader from "../../components/loader/loader.component";
 import RequestError from "../../common/errors/request-error";
 import BirthdayService from "../../common/services/birthday.service";
 import { useTranslation } from "react-i18next";
+import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import './birthday.style.scss';
 
 export type BirthdayModel = {
@@ -89,12 +90,10 @@ function Birthday() {
                     />
                 </div>
                 <aside className={`birthday-informations ${isInfoOpen ? 'open' : ''}`}>
-                    <span
-                        className='close material-symbols-outlined'
+                    <Close
+                        className='close'
                         onClick={handleClose}
-                    >
-                        close
-                    </span>
+                    />
                     <Background className='background' />
                     <h3 className="date">
                         {moment(selectedDate?.date).format('DD MMMM')}

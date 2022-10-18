@@ -58,15 +58,16 @@
 
 @media screen and (max-width: $breakpoint-small) {
     .navigation.header {
-        height: $header-height;
+        height: $header-height-small;
         flex-direction: row;
         padding: 0 0.5rem;
 
         .manu-icon {
             color: $text-color-dark;
             display: block;
-            font-size: 2rem;
+            height: 2.5rem;
             margin-right: 1rem;
+            width: 2.5rem;
         }
 
         .logo {

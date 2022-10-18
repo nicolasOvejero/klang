@@ -15,6 +15,10 @@ import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import EventService from '../../common/services/event.service';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as Close } from '../../assets/icons/close.svg';
+import { ReactComponent as CalendarIcon } from '../../assets/icons/calendar-days.svg';
+import { ReactComponent as ClockIcon } from '../../assets/icons/clock.svg';
+import { ReactComponent as PinIcon } from '../../assets/icons/map-pin.svg';
 import './event.style.scss';
 
 export type EventModel = {
@@ -169,12 +173,7 @@ function Event() {
                     />
                 </div>
                 <aside className={`event-informations ${isInfoOpen ? 'open' : ''}`}>
-                    <span
-                        className='close material-symbols-outlined'
-                        onClick={handleClose}
-                    >
-                        close
-                    </span>
+                    <Close className='close' onClick={handleClose}/>
                     <div className='header'>
                         <Button
                             label={t('events.subscribe')}
@@ -190,18 +189,21 @@ function Event() {
                     <div className='image' style={{ backgroundImage: `url(${selectedDate?.image})` }}></div>
                     <div className='info-grid'>
                         <p className='head'>
+                            <CalendarIcon className='head-icon' />
                             {t('events.type')}
                         </p>
                         <p className='type'>
                             { selectedDate?.type }
                         </p>
                         <p className='head'>
+                            <ClockIcon className='head-icon' />
                             {t('events.address')}
                         </p>
                         <p className='address'>
                             { selectedDate?.address?.street }, { selectedDate?.address?.city }
                         </p>
                         <p className='head'>
+                            <PinIcon className='head-icon' />
                             {t('events.hour')}
                         </p>
                         <p className='schedule'>

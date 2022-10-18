@@ -11,6 +11,7 @@ import { selectAuthReducer } from '../../store/auth/auth.selector';
 import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { USER_INITIAL_STATE } from '../../store/user/user.reducer';
 import { USER_ACTION_TYPES } from '../../store/user/user.types';
+import { ReactComponent as Menu } from '../../assets/icons/menu.svg';
 import './navigation.style.scss';
 
 function Navigation() {
@@ -43,12 +44,10 @@ function Navigation() {
     return (
         <Fragment>
             <header className='navigation header'>
-                <span
-                    className='manu-icon material-symbols-outlined'
+                <Menu
+                    className='manu-icon'
                     onClick={() => setMenuOpen(true)}
-                >
-                    menu
-                </span>
+                />
                 <img
                     onClick={() => navigate('/')}
                     className='logo'

@@ -1,4 +1,5 @@
 import { Component, createRef } from 'react';
+import { ReactComponent as More } from '../../assets/icons/more-vertical.svg';
 import './action.style.scss';
 
 export type ActionProps = {
@@ -58,11 +59,10 @@ class Action extends Component<ActionProps, { isOverflowMenuOpen: boolean }> {
                 ref={ this.mainDivRef }
                 className='actions'
             >
-                <span
-                    className='icon material-symbols-outlined'
-                    onClick={() => this.setState({ isOverflowMenuOpen: !this.state.isOverflowMenuOpen })}>
-                    more_vert
-                </span>
+                <More
+                    className='icon'
+                    onClick={() => this.setState({ isOverflowMenuOpen: !this.state.isOverflowMenuOpen })}
+                />
                 {
                     this.props.actions.map((action) => (
                         <div key={action.label} className={`overflow-menu ${this.state.isOverflowMenuOpen ? 'open' : 'close'}`}>

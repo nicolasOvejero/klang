@@ -15,7 +15,11 @@
       "auth": {
         "klang4ed3b6a8": {},
         "klang": {},
-        "klang051e245e": {}
+        "klang051e245e": {},
+        "userPoolGroups": {}
+      },
+      "api": {
+        "klang": {}
       }
     }
   }

@@ -84,6 +84,7 @@
 
 @media screen and (max-width: $breakpoint-small) {
     .profile {
+        height: $body-height-small;
         padding: 0.5rem;
 
         .container {

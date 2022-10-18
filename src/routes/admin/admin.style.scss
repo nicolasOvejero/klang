@@ -127,6 +127,7 @@
 @media screen and (max-width: $breakpoint-small) {
     .admin {
         flex-direction: column;
+        height: $body-height-small;
         padding: 0.75rem;
 
         .menu {

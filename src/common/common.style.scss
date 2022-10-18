@@ -63,6 +63,7 @@ $body-height-small: 94vh;
 
 @media screen and (max-width: $breakpoint-small) {
     .body {
+        height: $body-height-small;
         overflow: hidden;
 
         .title {

@@ -15,11 +15,11 @@ import './navigation.style.scss';
 
 function Navigation() {
     const auth = useSelector(selectAuthReducer);
+    const { t } = useTranslation();
     const [menuOpen, setMenuOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isAdmin = auth.user?.groups?.includes('admin') || false;
-    const { t } = useTranslation();
 
     async function signOut() {
         try {

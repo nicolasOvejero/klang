@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from "react-router-dom";
 import './i18n';
 import './index.scss';
+import { Suspense } from 'react';
 
 Amplify.configure(awsconfig);
 
@@ -20,7 +21,9 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <App />
+        <Suspense fallback="loading">
+          <App />
+        </Suspense>
       </PersistGate>
     </Provider>
   </BrowserRouter>

@@ -1,7 +1,12 @@
 import { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
+import { ReactComponent as FR } from '../../../assets/fr.svg';
+import { ReactComponent as EN } from '../../../assets/gb.svg';
 import './menu.style.scss';
+import { useDispatch } from 'react-redux';
+import { LANG_ACTION_TYPES } from '../../../store/lang/lang.types';
 
 type MobileMenuProps = {
     isOpen: boolean;
@@ -11,6 +16,17 @@ type MobileMenuProps = {
 }
 
 function MobileMenu(props: MobileMenuProps) {
+    const { t, i18n } = useTranslation();
+    const dispatch = useDispatch();
+
+    const onLangClick = (lang: string) => {
+        i18n.changeLanguage(lang);
+        dispatch({
+            type: LANG_ACTION_TYPES.SET_LANG,
+            payload: { lang }
+        });
+    }
+
     return (
         <div className={ `mobile-menu ${props.isOpen ? 'open' : ''}` }>
             <span
@@ -31,7 +47,7 @@ function MobileMenu(props: MobileMenuProps) {
                 to='birthdays'
                 onClick={props.closeMenu}
             >
-                Anniversaires
+                {t('mobile.birthdays')}
             </Link>
             <hr className='separator light' />
             <Link
@@ -39,7 +55,7 @@ function MobileMenu(props: MobileMenuProps) {
                 to='events'
                 onClick={props.closeMenu}
             >
-                Événements
+                {t('mobile.events')}
             </Link>
             <hr className='separator light' />
             <Link
@@ -47,7 +63,7 @@ function MobileMenu(props: MobileMenuProps) {
                 to='new-arrivals'
                 onClick={props.closeMenu}
             >
-                Nouveaux arrivants
+                {t('mobile.new-arrivals')}
             </Link>
             <hr className='separator' />
             <Link
@@ -55,7 +71,7 @@ function MobileMenu(props: MobileMenuProps) {
                 to='profile'
                 onClick={props.closeMenu}
             >
-                Mon profil
+                {t('mobile.profile')}
             </Link>
             {
                 props.isAdmin && (
@@ -66,7 +82,7 @@ function MobileMenu(props: MobileMenuProps) {
                             to='admin'
                             onClick={props.closeMenu}
                         >
-                            Administration
+                            {t('mobile.administration')}
                         </Link>
                     </Fragment>
                 )
@@ -77,8 +93,35 @@ function MobileMenu(props: MobileMenuProps) {
                 to='login'
                 onClick={props.signOut}
             >
-                Logout
+                {t('mobile.logout')}
             </Link>
+            <hr className='separator' />
+            <p className='item'>
+                {t('mobile.lang')} {i18n.language?.toLocaleUpperCase()}
+                {
+                    i18n.language === 'fr' && <FR />
+                }
+                {
+                    i18n.language === 'en' && <EN />
+                }
+            </p>
+            <hr className='separator light' />
+            <div className='button-container'>
+                    <button
+                        className='language-button'
+                        type='button'
+                        onClick={() => onLangClick('fr')}
+                    >
+                        FR <FR />
+                    </button>
+                    <button
+                        className='language-button'
+                        type='button'
+                        onClick={() => onLangClick('en')}
+                    >
+                        EN <EN />
+                    </button>
+            </div>
         </div>
     );
 }

@@ -81,5 +81,14 @@
     "user": {
         "born": "Born the",
         "arrive": "Arrive the"
+    },
+    "mobile": {
+        "birthdays": "Birthdays",
+        "events": "Events",
+        "new-arrivals": "New arrivals",
+        "profile": "My profile",
+        "administration": "Administration",
+        "logout": "Logout",
+        "lang": "Current language :"
     }
 }

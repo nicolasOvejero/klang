@@ -3,6 +3,8 @@ import { withTranslation } from 'react-i18next';
 import { ReactComponent as FR } from '../../assets/fr.svg';
 import { ReactComponent as EN } from '../../assets/gb.svg';
 import { i18n } from 'i18next';
+import { LANG_ACTION_TYPES } from '../../store/lang/lang.types';
+import { connect } from 'react-redux';
 import './lang-selector.style.scss';
 
 class LangSelector extends Component<any, { showMenu: boolean }> {
@@ -39,6 +41,11 @@ class LangSelector extends Component<any, { showMenu: boolean }> {
 
     onLangClick = (lang: string) => {
         this.i18n.changeLanguage(lang);
+        this.currentLang = this.i18n.language;
+        this.props.dispatch({
+            type: LANG_ACTION_TYPES.SET_LANG,
+            payload: { lang }
+        });
     }
 
     setShowMenu = (showMenu: boolean) => {
@@ -46,6 +53,8 @@ class LangSelector extends Component<any, { showMenu: boolean }> {
     }
 
     render() {
+        this.currentLang = this.i18n.language;
+
         return (
             <div
                 ref={this.refDiv}
@@ -85,4 +94,4 @@ class LangSelector extends Component<any, { showMenu: boolean }> {
     }
 }
 
-export default withTranslation()(LangSelector);
+export default connect()(withTranslation()(LangSelector));

@@ -11,6 +11,7 @@ import { UserModel } from '../user/user.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import './change-password.style.scss';
+import { useTranslation } from 'react-i18next';
 
 const defaultResetState = {
     password: '',
@@ -26,6 +27,7 @@ function ChangePassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector(selectAuthReducer);
+    const { t } = useTranslation();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -92,7 +94,7 @@ function ChangePassword() {
             setResetState({
                 ...resetState,
                 formHasError: true,
-                formError: "Mots de passe non identiques", 
+                formError: t('change-password.errors.not-same-password'), 
                 loading: false
             });
             return false;
@@ -141,17 +143,17 @@ function ChangePassword() {
             setResetState({
                 ...resetState,
                 formHasError: true,
-                formError: 'Impossible de mettre à jour le mot de passe'
+                formError: t('change-password.errors.update-ko')
             });
         }
     }
 
     return (
         <section className='change-password'>
-            <h2 className='title'>Changement de mot de passe</h2>
+            <h2 className='title'>{t('change-password.title')}</h2>
             <form className='form' onSubmit={changePassword}>
                 <InputForm
-                    label='Nouveau mot de passe'
+                    label={t('change-password.new')}
                     type='password'
                     required
                     haserror={formHasError}
@@ -162,7 +164,7 @@ function ChangePassword() {
                 />
 
                 <InputForm
-                    label="Confirmation mot de passe"
+                    label={t('change-password.confirm')}
                     type='password'
                     required
                     haserror={formHasError}
@@ -173,7 +175,11 @@ function ChangePassword() {
                 />
 
                 <div className='button-container'>
-                   <Button label='Connexion' type='submit' disabled={loading} />
+                    <Button
+                        label={t('change-password.connection')}
+                        type='submit'
+                        disabled={loading}
+                    />
                 </div>
             </form>
         </section>

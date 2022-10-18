@@ -1,0 +1,143 @@
+{
+    "login": {
+        "title": "Sign In",
+        "username": "Username",
+        "password": "Password",
+        "first": "First time ?",
+        "connection": "Signin",
+        "next": "Next",
+        "code": "Received code",
+        "errors": {
+            "wrongPasswordOrUsername": "Wrong password or username",
+            "unknown": "An error has occurred"
+        }
+    },
+    "change-password": {
+        "title": "Change your password",
+        "new": "New password",
+        "confirm": "Confirm password",
+        "connection": "Signin",
+        "errors": {
+            "update-ko": "Impossible de mettre à jour le mot de passe",
+            "not-same-password": "Passwords are not the same"
+        }
+    },
+    "home": {
+        "birthdays": {
+            "title": "What are the<br /> next birthdays?",
+            "button": "Wish them a happy birthday"
+        },
+        "events": {
+            "title": "What is <br />the next event?",
+            "date": "Date :",
+            "hour": "Hour :",
+            "address": "Address :",
+            "subscribe": "I register",
+            "participants": "The participants",
+            "button": "See more events"
+        },
+        "new-arrivals": {
+            "title": "Who are the<br /> next arrivals ?",
+            "button": "See more new arrivals"
+        }
+    },
+    "birthdays": {
+        "title": "Birthdays of the month"
+    },
+    "events": {
+        "title": "Events of the month",
+        "subscribe": "I register",
+        "type": "Event type :",
+        "hour": "Hour :",
+        "address": "Address :",
+        "participants": "Participants :",
+        "no-users": "No participants at the moment",
+        "success": "Congratulations ! You are registered for the event"
+    },
+    "new-arrivals": {
+        "title": "The new arrivals",
+        "from": "From",
+        "to": "to",
+        "no-new": "No new arrivals <br />for this week"
+    },
+    "header": {
+        "admin": "Administration",
+        "profile": "My profile",
+        "logout": "Logout"
+    },
+    "profile": {
+        "title": "My profile",
+        "image": "Profile Image URL",
+        "firstname": "First name",
+        "lastname": "Last name",
+        "job": "Job",
+        "save": "Save",
+        "success": "Your profile has been successfully updated",
+        "errors": {
+            "unknown": "Impossible to save",
+            "required": "Firstname and lastname are required"
+        }
+    },
+    "user": {
+        "born": "Born the",
+        "arrive": "Arrive the"
+    },
+    "mobile": {
+        "birthdays": "Birthdays",
+        "events": "Events",
+        "new-arrivals": "New arrivals",
+        "profile": "My profile",
+        "administration": "Administration",
+        "logout": "Logout",
+        "lang": "Current language :"
+    },
+    "admin": {
+        "menu": {
+            "add": "Add",
+            "delete": "Delete",
+            "birthdays": "Birthdays",
+            "events": "Events",
+            "new-arrivals": "New arrivals"
+        },
+        "birthdays": {
+            "title-add": "Add new birthday",
+            "title-manage": "Manage birthdays",
+            "who": "Who ?",
+            "save": "Save",
+            "success": "The birthday of has been successfully recorded",
+            "error": "An error has occurred"
+        },
+        "events": {
+            "title-add": "Add new event",
+            "title-delete": "Delete an event",
+            "title-manage": "Manage events",
+            "image": "URL Picture of the place",
+            "type": "Event type",
+            "schedule": "Schedule",
+            "city": "City",
+            "street": "Street",
+            "event": "Which event ?",
+            "save": "Save",
+            "delete": "Delete",
+            "success": "New event created",
+            "success-delete": "The event has been successfully deleted",
+            "error": "An error has occurred",
+            "error-participants": "Unable to delete participants",
+            "error-delete": "Unable to delete event"
+        },
+        "new-arrivals": {
+            "title-add": "Add a new arrival",
+            "title-manage": "Manage new arrivals",
+            "who": "Who ?",
+            "save": "Save",
+            "error": "An error has occurred",
+            "success": "The arrival date has been registered"
+        }
+    },
+    "inputs": {
+        "day": "Day",
+        "month": "Month",
+        "year": "Year"
+    }
+
+}

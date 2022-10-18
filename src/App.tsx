@@ -1,4 +1,3 @@
-import './App.scss';
 import Connection from './routes/connection/connection.component';
 import { useSelector } from 'react-redux';
 import { selectAuthReducer } from './store/auth/auth.selector';
@@ -26,9 +25,27 @@ import NewArrivalFormAdd from './components/admin/new-arrival-form/new-arrival-f
 import Profile from './routes/profile/profile.component';
 import FirstTime from './components/first-time/first-time.component';
 import Code from './components/code/code.component';
+import moment from 'moment';
+import 'moment/locale/fr';
+import { selectLangReducer } from './store/lang/lang.selector';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import './App.scss';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
+    const { lang } = useSelector(selectLangReducer);
+    const { i18n } = useTranslation();
+
+    useEffect(() => {
+        moment.locale(lang || 'en', {
+            week: {
+                dow: 1
+            }
+        });
+        i18n.changeLanguage(lang || 'en');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="App">

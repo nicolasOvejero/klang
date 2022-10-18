@@ -37,7 +37,7 @@ export default class BirthdayService {
                     }
                 })
             }
-        })
+        });
     }
 
     static async getBirthdaysLight(variables: object): Promise<{ id: string, date: string }[]> {

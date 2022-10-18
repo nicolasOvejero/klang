@@ -1,11 +1,11 @@
 import welcome from '../../assets/welcome.png';
 import moment from 'moment';
-import 'moment/locale/fr';
 import User, { UserModel } from '../../components/user/user.component';
 import { useEffect, useState } from 'react';
 import Loader from '../../components/loader/loader.component';
 import RequestService from '../../common/services/new-arrivals.service';
 import RequestError from '../../common/errors/request-error';
+import { Trans, useTranslation } from 'react-i18next';
 import './new-arrivals.styls.scss';
 
 export type NewArrivalModel = {
@@ -17,8 +17,8 @@ export type NewArrivalModel = {
 function NewArrivals() {
     const [newArrivales, setNewArrivales] = useState<NewArrivalModel[]>([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
-    moment.locale('fr');
     const start = moment().startOf('week').format('DD MMMM');
     const end = moment().endOf('week').format('DD MMMM');
 
@@ -56,7 +56,7 @@ function NewArrivals() {
         <article className='body new-arrivals'>
             <section className='title-container'>
                 <h1 className='title'>
-                    Les nouveaux arrivants
+                    {t('new-arrivals.title')}
                 </h1>
             </section>
             <section className='new-arrivals-container'>
@@ -68,7 +68,7 @@ function NewArrivals() {
                 </div>
                 <div className='new-arrivals-list'>
                     <h3 className='calendar-title'>
-                        Du {start} au {end}
+                        {t('new-arrivals.from')} {start} {t('new-arrivals.to')} {end}
                     </h3>
                     {
                         loading && (<div className='calendar-position'>
@@ -98,7 +98,8 @@ function NewArrivals() {
                     {
                         !loading && newArrivales.length === 0 && (
                             <div className='no-new-arrivals'>
-                                Aucun nouveaux arrivants <br />pour cette semaine
+                                <Trans i18nKey='new-arrivals.no-new'>
+                                </Trans>
                             </div>
                         )
                     }

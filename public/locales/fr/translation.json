@@ -1,0 +1,143 @@
+{
+    "login": {
+        "title": "Je me connecte",
+        "username": "Nom d'utilisateur",
+        "password": "Mot de passe",
+        "first": "Première connexion ?",
+        "connection": "Connexion",
+        "next": "Suivant",
+        "code": "Code reçu",
+        "errors": {
+            "wrongPasswordOrUsername": "Mot de passe ou utilisateur incorrect",
+            "unknown": "Une erreur est survenue"
+        }
+    },
+    "change-password": {
+        "title": "Changement de mot de passe",
+        "new": "Nouveau mot de passe",
+        "confirm": "Confirmation mot de passe",
+        "connection": "Connexion",
+        "errors": {
+            "update-ko": "Impossible de mettre à jour le mot de passe",
+            "not-same-password": "Mots de passe non identiques",
+            "unknown": "Une erreur est survenue"
+        }
+    },
+    "home": {
+        "birthdays": {
+            "title": "Quels sont les<br />prochains anniversaires ?",
+            "button": "Souhaite leur un joyeux anniversaire"
+        },
+        "events": {
+            "title": "Quels est le <br />prochain événement ?",
+            "date": "Date :",
+            "hour": "Heure :",
+            "address": "Adresse :",
+            "subscribe": "Je m'inscris",
+            "participants": "Les participants",
+            "button": "Voir plus d'événements"
+        },
+        "new-arrivals": {
+            "title": "Qui sont les <br />prochains arrivants ?",
+            "button": "Voir plus de nouveaux arrivants"
+        }
+    },
+    "birthdays": {
+        "title": "Les anniversaires du mois"
+    },
+    "events": {
+        "title": "Les événements du mois",
+        "subscribe": "Je m'inscris",
+        "type": "Type d'événement :",
+        "hour": "Heure :",
+        "address": "Adresse :",
+        "participants": "Participants :",
+        "no-users": "Aucun participants pour le moment",
+        "success": "Félicitation ! Vous êtes inscrit à l'événement"
+    },
+    "new-arrivals": {
+        "title": "Les nouveaux arrivants",
+        "from": "Du",
+        "to": "au",
+        "no-new": "Aucun nouveaux arrivants <br />pour cette semaine"
+    },
+    "header": {
+        "admin": "Administration",
+        "profile": "Mon profil",
+        "logout": "Déconnexion"
+    },
+    "profile": {
+        "title": "Mon profil",
+        "image": "URL de l'image de profile",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "job": "Travail",
+        "save": "Enregistrer",
+        "success": "Votre profil a bien été mis à jour",
+        "errors": {
+            "unknown": "Enregistrement impossible",
+            "required": "Le prénom et nom de famille sont obligatoire"
+        }
+    },
+    "user": {
+        "born": "Né(e) le",
+        "arrive": "Arrive le"
+    },
+    "mobile": {
+        "birthdays": "Anniversaires",
+        "events": "Événements",
+        "new-arrivals": "Nouveaux arrivants",
+        "profile": "Mon profil",
+        "administration": "Administration",
+        "logout": "Déconnexion",
+        "lang": "Langue courante :"
+    },
+    "admin": {
+        "menu": {
+            "add": "Ajouter",
+            "delete": "Supprimer",
+            "birthdays": "Anniversaires",
+            "events": "Événements",
+            "new-arrivals": "Nouveaux arrivants"
+        },
+        "birthdays": {
+            "title-add": "Ajouter un anniversaire",
+            "title-manage": "Gestion des anniversaires",
+            "who": "Qui ?",
+            "save": "Enregistrer",
+            "success": "La date d'anniversaire de a bien été enregistrée",
+            "error": "Une erreur est survenue"
+        },
+        "events": {
+            "title-add": "Ajouter un événement",
+            "title-delete": "Supprimer un événement",
+            "title-manage": "Gestion des événements",
+            "image": "Image de l'endroit",
+            "type": "Type d'événement",
+            "schedule": "Horaire",
+            "city": "Ville",
+            "street": "Rue",
+            "event": "Quel événement ?",
+            "save": "Enregistrer",
+            "delete": "Supprimer",
+            "success": "Nouvel événement créé",
+            "success-delete": "L'événement a bien été supprimé",
+            "error": "Une erreur est survenue",
+            "error-participants": "Impossible de supprimer les participants",
+            "error-delete": "Impossible de supprimer l'événement"
+        },
+        "new-arrivals": {
+            "title-add": "Ajouter un nouvelle arrivant",
+            "title-manage": "Gestion des nouveaux arrivants",
+            "who": "Qui ?",
+            "save": "Enregistrer",
+            "error": "Une erreur est survenue",
+            "success": "La date d'arrivée a bien été enregistrée"
+        }
+    },
+    "inputs": {
+        "day": "Jour",
+        "month": "Mois",
+        "year": "Année"
+    }
+}

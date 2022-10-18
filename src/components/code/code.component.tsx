@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ function Code() {
     const [codeState, setCodeState] = useState(defaultCodeState);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const { code, formError, loading } = codeState;
 
@@ -59,7 +61,7 @@ function Code() {
             console.error(error);
             setCodeState({
                 ...codeState,
-                formError: 'Une erreur est survenue',
+                formError: t('login.errors.unknown'),
                 loading: false
             });
         }
@@ -69,7 +71,7 @@ function Code() {
         <section className='code'>
             <form className='form' onSubmit={sendCode}>
                 <InputForm
-                    label="Code reçu"
+                    label={t('login.code')}
                     type='text'
                     required
                     haserror={formError !== ''}
@@ -80,7 +82,11 @@ function Code() {
                 />
 
                 <div className='button-container'>
-                   <Button label='Suivant' type='submit' disabled={loading} />
+                    <Button
+                        label={t('login.next')}
+                        type='submit'
+                        disabled={loading}
+                    />
                 </div>
             </form>
         </section>

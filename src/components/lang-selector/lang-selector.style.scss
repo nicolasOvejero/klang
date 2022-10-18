@@ -1,0 +1,30 @@
+.languages {
+    position: relative;
+
+    .overflow {
+        position: absolute;
+        top: 130%;
+        visibility: hidden;
+
+        &.visible {
+            visibility: visible;
+        }
+    }
+
+    .language-button {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-right: 0 !important;
+        padding: 0.65rem;
+
+        &:not(:last-of-type) {
+            margin-bottom: 0.5rem;
+        }
+
+        svg {
+            margin-left: 0.5rem;
+            width: 1.25rem;
+        }
+    }
+}

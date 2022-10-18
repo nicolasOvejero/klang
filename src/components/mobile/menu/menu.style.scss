@@ -62,5 +62,28 @@
         &.secondary {
             color: $secondary;
         }
+
+        svg {
+            height: 1.25rem;
+            margin-left: 0.5rem;
+        }
+    }
+
+    .button-container {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        .language-button {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem;
+
+            svg {
+                height: 1rem;
+                margin-left: 0.5rem;
+            }
+        }
     }
 }

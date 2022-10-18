@@ -14,6 +14,7 @@ import Toaster from '../../components/toaster/toaster.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import EventService from '../../common/services/event.service';
+import { useTranslation } from 'react-i18next';
 import './event.style.scss';
 
 export type EventModel = {
@@ -46,6 +47,7 @@ function Event() {
     const [events, setEvents] = useState<EventModel[]>([]);
     const [loading, setLoading] = useState(true);
     const [eventState, setEventState] = useState<EventDefaultState>(defaultState);
+    const { t } = useTranslation();
 
     const showEventDescription = (selectedDay: EventModel) => {
         setIsInfoOpen(true);
@@ -145,7 +147,7 @@ function Event() {
         <article className='body events'>
             <section className='title-container'>
                 <h1 className='title'>
-                    Les événements du mois
+                    {t('events.title')}
                 </h1>
             </section>
             <section className='event-container'>
@@ -175,7 +177,7 @@ function Event() {
                     </span>
                     <div className='header'>
                         <Button
-                            label="Je m'inscris"
+                            label={t('events.subscribe')}
                             type='button'
                             color='secondary'
                             clickHandler={subscribeEvent}
@@ -188,19 +190,19 @@ function Event() {
                     <div className='image' style={{ backgroundImage: `url(${selectedDate?.image})` }}></div>
                     <div className='info-grid'>
                         <p className='head'>
-                            Type d'événement :
+                            {t('events.type')}
                         </p>
                         <p className='type'>
                             { selectedDate?.type }
                         </p>
                         <p className='head'>
-                            Adresse :
+                            {t('events.address')}
                         </p>
                         <p className='address'>
                             { selectedDate?.address?.street }, { selectedDate?.address?.city }
                         </p>
                         <p className='head'>
-                            Heure :
+                            {t('events.hour')}
                         </p>
                         <p className='schedule'>
                             { selectedDate?.schedule }
@@ -208,7 +210,7 @@ function Event() {
                     </div>
                     <hr />
                     <p>
-                        Participants :
+                        {t('events.participants')}
                     </p>
                     {
                         selectedDate?.participants &&
@@ -223,7 +225,9 @@ function Event() {
                     }
                     {
                         selectedDate?.participants?.length === 0 &&
-                        <p className='no-users'>Aucun participants pour le moment</p>
+                        <p className='no-users'>
+                            {t('events.no-users')}
+                        </p>
                     }
                 </aside>
                 {
@@ -241,7 +245,7 @@ function Event() {
                 }
             </section>
             <Toaster
-                message="Félicitation ! Vous êtes inscrit à l'événement"
+                message={t('events.success')}
                 type='success'
                 display={eventState.success}
             />

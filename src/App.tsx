@@ -38,7 +38,11 @@ function App() {
     const { i18n } = useTranslation();
 
     useEffect(() => {
-        moment.locale(lang || 'en');
+        moment.locale(lang || 'en', {
+            week: {
+                dow: 1
+            }
+        });
         i18n.changeLanguage(lang || 'en');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

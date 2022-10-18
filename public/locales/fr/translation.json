@@ -91,5 +91,53 @@
         "administration": "Administration",
         "logout": "Déconnexion",
         "lang": "Langue courante :"
+    },
+    "admin": {
+        "menu": {
+            "add": "Ajouter",
+            "delete": "Supprimer",
+            "birthdays": "Anniversaires",
+            "events": "Événements",
+            "new-arrivals": "Nouveaux arrivants"
+        },
+        "birthdays": {
+            "title-add": "Ajouter un anniversaire",
+            "title-manage": "Gestion des anniversaires",
+            "who": "Qui ?",
+            "save": "Enregistrer",
+            "success": "La date d'anniversaire de a bien été enregistrée",
+            "error": "Une erreur est survenue"
+        },
+        "events": {
+            "title-add": "Ajouter un événement",
+            "title-delete": "Supprimer un événement",
+            "title-manage": "Gestion des événements",
+            "image": "Image de l'endroit",
+            "type": "Type d'événement",
+            "schedule": "Horaire",
+            "city": "Ville",
+            "street": "Rue",
+            "event": "Quel événement ?",
+            "save": "Enregistrer",
+            "delete": "Supprimer",
+            "success": "Nouvel événement créé",
+            "success-delete": "L'événement a bien été supprimé",
+            "error": "Une erreur est survenue",
+            "error-participants": "Impossible de supprimer les participants",
+            "error-delete": "Impossible de supprimer l'événement"
+        },
+        "new-arrivals": {
+            "title-add": "Ajouter un nouvelle arrivant",
+            "title-manage": "Gestion des nouveaux arrivants",
+            "who": "Qui ?",
+            "save": "Enregistrer",
+            "error": "Une erreur est survenue",
+            "success": "La date d'arrivée a bien été enregistrée"
+        }
+    },
+    "inputs": {
+        "day": "Jour",
+        "month": "Mois",
+        "year": "Année"
     }
 }

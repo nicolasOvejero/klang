@@ -30,7 +30,12 @@ function EventCarousel(props: eventCarouselProps) {
     const user = useSelector(selectUserReducer);
     const [state, setState] = useState<EventCarouselDefaultState>(defaultState);
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    moment.locale(i18n.language, {
+        week: {
+            dow: 1
+        }
+    });
     const event = props.event;
 
     const checkSubscriptionForMe = async () => {

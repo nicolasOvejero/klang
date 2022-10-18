@@ -12,7 +12,12 @@ export type newArrivalsCarouselProps = {
 
 function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    moment.locale(i18n.language, {
+        week: {
+            dow: 1
+        }
+    });
 
     const newArrivals = props.newArrivals.flatMap((newArrival) => {
         const users = newArrival.users.flat();

@@ -3,6 +3,7 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import './input-date.style.scss';
 import { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type InputDateProps = {
     day: {
@@ -25,6 +26,7 @@ export type InputDateProps = {
 }
 
 function InputDate(props: InputDateProps) {
+    const { t } = useTranslation();
     const arrayDays: DropdownOption[] =  [{
         value: '',
         label: ''
@@ -58,7 +60,7 @@ function InputDate(props: InputDateProps) {
     return (
         <div className='date-input'>
             <Dropdown
-                label='Jour'
+                label={t('inputs.day')}
                 {...(props.day)}
                 name='day'
                 haserror={props.day.formHasError}
@@ -66,7 +68,7 @@ function InputDate(props: InputDateProps) {
                 options={arrayDays}
             />
             <Dropdown
-                label='Mois'
+                label={t('inputs.month')}
                 {...(props.month)}
                 name='month'
                 haserror={props.month.formHasError}
@@ -74,7 +76,7 @@ function InputDate(props: InputDateProps) {
                 options={arrayMonth}
             />
             <Dropdown
-                label='Année'
+                label={t('inputs.year')}
                 {...(props.year)}
                 name='year'
                 haserror={props.year.formHasError}

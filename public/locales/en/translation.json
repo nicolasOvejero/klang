@@ -1,6 +1,6 @@
 {
     "login": {
-        "connect": "Sign In",
+        "title": "Sign In",
         "username": "Username",
         "password": "Password",
         "first": "First time ?",
@@ -90,5 +90,54 @@
         "administration": "Administration",
         "logout": "Logout",
         "lang": "Current language :"
+    },
+    "admin": {
+        "menu": {
+            "add": "Add",
+            "delete": "Delete",
+            "birthdays": "Birthdays",
+            "events": "Events",
+            "new-arrivals": "New arrivals"
+        },
+        "birthdays": {
+            "title-add": "Add new birthday",
+            "title-manage": "Manage birthdays",
+            "who": "Who ?",
+            "save": "Save",
+            "success": "The birthday of has been successfully recorded",
+            "error": "An error has occurred"
+        },
+        "events": {
+            "title-add": "Add new event",
+            "title-delete": "Delete an event",
+            "title-manage": "Manage events",
+            "image": "URL Picture of the place",
+            "type": "Event type",
+            "schedule": "Schedule",
+            "city": "City",
+            "street": "Street",
+            "event": "Which event ?",
+            "save": "Save",
+            "delete": "Delete",
+            "success": "New event created",
+            "success-delete": "The event has been successfully deleted",
+            "error": "An error has occurred",
+            "error-participants": "Unable to delete participants",
+            "error-delete": "Unable to delete event"
+        },
+        "new-arrivals": {
+            "title-add": "Add a new arrival",
+            "title-manage": "Manage new arrivals",
+            "who": "Who ?",
+            "save": "Save",
+            "error": "An error has occurred",
+            "success": "The arrival date has been registered"
+        }
+    },
+    "inputs": {
+        "day": "Day",
+        "month": "Month",
+        "year": "Year"
     }
+
 }

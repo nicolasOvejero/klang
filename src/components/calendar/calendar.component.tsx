@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { BirthdayModel } from '../../routes/birthday/birthday.component';
 import { EventModel } from '../../routes/event/event.component';
 import './calendar.style.scss';
@@ -11,6 +12,13 @@ type CalendarPops = {
 }
 
 function Calendar(props: CalendarPops) {
+    const { i18n } = useTranslation();
+    moment.locale(i18n.language, {
+        week: {
+            dow: 1
+        }
+    });
+
     const month = moment().format('MMMM YYYY');
     const totalDaysInCurrentMonth = moment().daysInMonth();
     const dayLabels = moment.weekdaysShort(true);
@@ -34,9 +42,9 @@ function Calendar(props: CalendarPops) {
                 selectedDate.month() === date.month();
         });
     }
-    
+
     return (
-        <div className={ `calendar ${props.color}` }>
+        <div className={`calendar ${props.color}`}>
             <div className='month-name'>
                 { month }
             </div>

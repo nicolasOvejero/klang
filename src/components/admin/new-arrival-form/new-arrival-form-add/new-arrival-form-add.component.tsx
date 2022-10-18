@@ -10,6 +10,7 @@ import RequestService from '../../../../common/services/new-arrivals.service';
 import RequestError from '../../../../common/errors/request-error';
 import UserService from '../../../../common/services/user.service';
 import './new-arrival-form-add.style.scss';
+import { useTranslation } from 'react-i18next';
 
 const defaultNewArrivalsAddState = {
     user: '',
@@ -24,6 +25,7 @@ function NewArrivalFormAdd() {
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [newArrivals, setNewArrivals] = useState(defaultNewArrivalsAddState);
     const { user, day, month, year, formError, success } = newArrivals;
+    const { t } = useTranslation();
 
     const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
@@ -85,7 +87,7 @@ function NewArrivalFormAdd() {
         } catch (error: unknown) {
             setNewArrivals({
                 ...newArrivals,
-                formError: 'Une erreur est survenue'
+                formError: t('admin.new-arrivals.error')
             });
 
             if (error instanceof RequestError) {
@@ -117,7 +119,7 @@ function NewArrivalFormAdd() {
         } catch (error: unknown) {
             setNewArrivals({
                 ...newArrivals,
-                formError: 'Une erreur est survenue'
+                formError: t('admin.new-arrivals.error')
             });
 
             if (error instanceof RequestError) {
@@ -137,7 +139,7 @@ function NewArrivalFormAdd() {
             onSubmit={handleSubmit}
         >
             <Dropdown
-                label='Qui ?'
+                label={t('admin.new-arrivals.who')}
                 value={user}
                 name='user'
                 required
@@ -154,11 +156,11 @@ function NewArrivalFormAdd() {
                 endDateYear={moment().year() + 5}
             ></InputDate>
             <Button
-                label='Enregistrer'
+                label={t('admin.new-arrivals.save')}
                 type='submit'
             />
             <Toaster
-                message="La date d'arrivée a bien été enregistrée"
+                message={t('admin.new-arrivals.success')}
                 type='success'
                 display={success}
             />

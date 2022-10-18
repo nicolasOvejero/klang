@@ -2,6 +2,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../button/button.component';
 import User, { UserModel } from '../../user/user.component';
+import moment from 'moment';
 import './birthdays-carousel.style.scss';
 
 export type userCarouselProps = {
@@ -10,7 +11,12 @@ export type userCarouselProps = {
 
 function BirthdaysCarousel(props: userCarouselProps) {
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    moment.locale(i18n.language, {
+        week: {
+            dow: 1
+        }
+    });
     const users = props.users;
 
     return (

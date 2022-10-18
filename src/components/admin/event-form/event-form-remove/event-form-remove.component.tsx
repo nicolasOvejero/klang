@@ -8,6 +8,7 @@ import RequestError from '../../../../common/errors/request-error';
 import EventService from '../../../../common/services/event.service';
 import UserService from '../../../../common/services/user.service';
 import './event-form-remove.style.scss';
+import { useTranslation } from 'react-i18next';
 
 const defaultEventDeleteState = {
     idEvent: '',
@@ -22,6 +23,7 @@ function EventFormRemove() {
     const [events, setEvents] = useState<DropdownOption[]>([]);
     const [eventRemoveState, setEventRemoveState] = useState(defaultEventDeleteState);
     const { idEvent, subscribers, formHasError, formError, success } = eventRemoveState;
+    const { t } = useTranslation();
 
     const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
@@ -82,7 +84,7 @@ function EventFormRemove() {
             setEventRemoveState({
                 ...eventRemoveState,
                 formHasError: true,
-                formError: 'Impossible de supprimer les participants'
+                formError: t('admin.events.error-participants')
             });
         }
     }
@@ -122,7 +124,7 @@ function EventFormRemove() {
             setEventRemoveState({
                 ...eventRemoveState,
                 formHasError: true,
-                formError: 'Impossible de supprimer les participants'
+                formError: t('admin.events.error-delete')
             });
         }
     }
@@ -138,7 +140,7 @@ function EventFormRemove() {
             className='form-event-delete'
         >
             <Dropdown
-                label='Quel événement ?'
+                label={t('admin.events.event')}
                 value={idEvent}
                 name='idEvent'
                 required
@@ -155,12 +157,12 @@ function EventFormRemove() {
                 )
             }
             <Button
-                label='Supprimer'
+                label={t('admin.events.delete')}
                 type='submit'
                 disabled={!idEvent}
             />
             <Toaster
-                message="L'événement a bien été supprimé"
+                message={t('admin.events.success-delete')}
                 type='success'
                 display={success}
             />

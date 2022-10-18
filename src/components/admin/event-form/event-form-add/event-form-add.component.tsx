@@ -1,6 +1,7 @@
 import moment from 'moment';
 import 'moment/locale/fr';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import RequestError from '../../../../common/errors/request-error';
 import EventService from '../../../../common/services/event.service';
 import RequestService from '../../../../common/services/new-arrivals.service';
@@ -37,6 +38,7 @@ function EventFormAdd() {
         day, month, year,
         formHasError, formError, success
     } = eventAddState;
+    const { t } = useTranslation();
 
     const handleChange = (event: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -96,7 +98,7 @@ function EventFormAdd() {
             setEventAddState({
                 ...eventAddState,
                 formHasError: true,
-                formError: "Impossible d'ajouter l'événement"
+                formError: t('admin.birthdays.error')
             });
         }
 
@@ -108,7 +110,7 @@ function EventFormAdd() {
             className='form-event-add'
         >
             <InputForm
-                label="Image de l'endroit"
+                label={t('admin.events.image')}
                 type='text'
                 required
                 onChange={handleChange}
@@ -118,7 +120,7 @@ function EventFormAdd() {
                 errormessage={formError}
             />
             <InputForm
-                label="Type d'événement"
+                label={t('admin.events.type')}
                 type='text'
                 required
                 onChange={handleChange}
@@ -128,7 +130,7 @@ function EventFormAdd() {
                 errormessage={formError}
             />
             <InputForm
-                label="Horaire"
+                label={t('admin.events.schedule')}
                 type='text'
                 required
                 onChange={handleChange}
@@ -138,7 +140,7 @@ function EventFormAdd() {
                 errormessage={formError}
             />
             <InputForm
-                label="Ville"
+                label={t('admin.events.city')}
                 type='text'
                 required
                 onChange={handleChange}
@@ -148,7 +150,7 @@ function EventFormAdd() {
                 errormessage={formError}
             />
             <InputForm
-                label="Rue"
+                label={t('admin.events.street')}
                 type='text'
                 required
                 onChange={handleChange}
@@ -165,11 +167,11 @@ function EventFormAdd() {
                 endDateYear={moment().year()+10}
             />
             <Button
-                label='Enregistrer'
+                label={t('admin.events.save')}
                 type='submit'
             />
             <Toaster
-                message="Nouvel événement créé"
+                message={t('admin.events.success')}
                 type='success'
                 display={success}
             />

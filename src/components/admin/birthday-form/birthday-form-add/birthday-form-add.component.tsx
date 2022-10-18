@@ -8,6 +8,7 @@ import UserService from '../../../../common/services/user.service';
 import BirthdayService from '../../../../common/services/birthday.service';
 import moment from 'moment';
 import 'moment/locale/fr';
+import { useTranslation } from 'react-i18next';
 import './birthday-form-add.style.scss';
 
 const defaultBirthdayAddState = {
@@ -24,6 +25,7 @@ function BirthdayFormAdd() {
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [birthdayAddState, setBirthdayAddState] = useState(defaultBirthdayAddState);
     const { user, day, month, year, formHasError, formError, success } = birthdayAddState;
+    const { t } = useTranslation();
 
     const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
@@ -96,7 +98,7 @@ function BirthdayFormAdd() {
             setBirthdayAddState({
                 ...birthdayAddState,
                 formHasError: true,
-                formError: 'Une erreur est survenue'
+                formError: t('admin.birthdays.error')
             });
         }
     }
@@ -139,7 +141,7 @@ function BirthdayFormAdd() {
             className='form-birthday-add'
         >
             <Dropdown
-                label='Qui ?'
+                label={t('admin.birthdays.who')}
                 value={user}
                 name='user'
                 required
@@ -156,11 +158,11 @@ function BirthdayFormAdd() {
                 endDateYear={moment().year()}
             ></InputDate>
             <Button
-                label='Enregistrer'
+                label={t('admin.birthdays.save')}
                 type='submit'
             />
             <Toaster
-                message="La date d'aniversaire de a bien été enregistrée"
+                message={t('admin.birthdays.success')}
                 type='success'
                 display={success}
             />

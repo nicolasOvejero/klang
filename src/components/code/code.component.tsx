@@ -46,26 +46,17 @@ function Code() {
             return;
         }
 
-        try {
-            dispatch({
-                type: AUTH_ACTION_TYPES.SET_TEMP_AUTH,
-                payload: {
-                    isConnected: false,
-                    tempUser: {
-                        ...auth.tempUser,
-                        code
-                    }
+        dispatch({
+            type: AUTH_ACTION_TYPES.SET_TEMP_AUTH,
+            payload: {
+                isConnected: false,
+                tempUser: {
+                    ...auth.tempUser,
+                    code
                 }
-            });
-            navigate('/change-password');
-        } catch (error: any) {
-            console.error(error);
-            setCodeState({
-                ...codeState,
-                formError: t('login.errors.unknown'),
-                loading: false
-            });
-        }
+            }
+        });
+        navigate('/change-password');
     }
         
     return (

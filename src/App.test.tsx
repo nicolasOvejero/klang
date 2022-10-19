@@ -2,14 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import mockStore from './setupTests';
+import { createTestStore } from './setupTests';
 
-let store = mockStore({
-    auth: {
-        isConnected: false
-    },
-    lang: 'fr'
-});
+let store = createTestStore();
 
 const setup = () => {
     render(

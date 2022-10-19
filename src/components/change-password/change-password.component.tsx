@@ -8,7 +8,6 @@ import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import Button from '../button/button.component';
 import InputForm from '../input-form/input-form.component';
 import { UserModel } from '../user/user.component';
-import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
@@ -45,35 +44,29 @@ function ChangePassword() {
         lastname: string,
         firstname: string
     ) => {
-        try {
-            const existingProfiles = await UserService.getUsers({
-                filter: {
-                    mail: {
-                        eq: email
-                    }
-                }
-            })
-
-            if (existingProfiles.length > 0) {
-                disptachUser(existingProfiles[0]);
-                navigate('/');
-            } else {
-                const newProfile = await UserService.creatUser({
-                    input: {
-                        mail: email,
-                        firstname: firstname,
-                        lastname: lastname
-                    }
-                });
-
-                if (newProfile) {
-                    disptachUser(newProfile);
-                    navigate('/profile');
+        const existingProfiles = await UserService.getUsers({
+            filter: {
+                mail: {
+                    eq: email
                 }
             }
-        } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
+        });
+
+        if (existingProfiles.length > 0) {
+            disptachUser(existingProfiles[0]);
+            navigate('/');
+        } else {
+            const newProfile = await UserService.creatUser({
+                input: {
+                    mail: email,
+                    firstname: firstname,
+                    lastname: lastname
+                }
+            });
+
+            if (newProfile) {
+                disptachUser(newProfile);
+                navigate('/profile');
             }
         }
     }
@@ -91,7 +84,6 @@ function ChangePassword() {
         }
 
         if (password !== confirmPassword) {
-            console.error('Password mismatch');
             setResetState({
                 ...resetState,
                 formHasError: true,
@@ -139,8 +131,7 @@ function ChangePassword() {
                 user.signInUserSession.idToken.payload.family_name,
                 user.signInUserSession.idToken.payload.given_name,
             );
-       } catch (error) {
-            console.error(error);
+        } catch (error) {
             setResetState({
                 ...resetState,
                 formHasError: true,

@@ -13,7 +13,6 @@ export const langReducer = (
     state = LANG_INITIAL_STATE,
     action = {} as AnyAction
 ): LangState => {
-    console.log(action.type);
     if (action.type === LANG_ACTION_TYPES.SET_LANG) {
         return {
             ...action.payload,

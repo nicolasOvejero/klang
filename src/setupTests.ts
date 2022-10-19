@@ -2,15 +2,27 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
+import { configureStore } from '@reduxjs/toolkit';
 import '@testing-library/jest-dom';
-import configureStore from 'redux-mock-store';
 import { cleanup, Screen } from '@testing-library/react';
-
-const mockStore = configureStore();
+import { combineReducers } from 'redux';
+import { authReducer } from './store/auth/auth.reducer';
+import { langReducer } from './store/lang/lang.reducer';
+import { userReducer } from './store/user/user.reducer';
 
 afterEach(cleanup);
 
-export default mockStore;
+export function createTestStore() {
+    const store = configureStore({
+        reducer: combineReducers({
+            auth: authReducer,
+            user: userReducer,
+            lang: langReducer,
+        }),
+        middleware: (_) => { return [] }
+    });
+    return store;
+}
 
 jest.mock('react-i18next', () => ({
     // this mock makes sure any components using the translate hook can use it without a warning being shown
@@ -18,14 +30,19 @@ jest.mock('react-i18next', () => ({
         return {
             t: (str: string) => str,
             i18n: {
-                changeLanguage: () => new Promise(() => {}),
+                changeLanguage: () => new Promise(() => { }),
+                language: 'fr'
             },
         };
     },
     withTranslation: () => (Component: { defaultProps: any; }) => {
         Component.defaultProps = {
             ...Component.defaultProps,
-            t: () => ""
+            t: () => '',
+            i18n: {
+                changeLanguage: () => new Promise(() => { }),
+                language: 'fr'
+            },
         };
         return Component;
     },

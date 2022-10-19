@@ -59,13 +59,13 @@ describe('render input date', () => {
         expect(labelDay).not.toHaveClass('error');
         expect(labelDay).toHaveAttribute('for', 'day');
 
-        const labelDayDiv = within(labelDay).getByText('Jour');
+        const labelDayDiv = within(labelDay).getByText('inputs.day');
 
         expect(labelDayDiv).toBeInTheDocument();
         expect(labelDayDiv).toHaveClass('label-text');
         expect(labelDayDiv).not.toHaveClass('filled');
 
-        const inputEl = within(labelDay).getByLabelText('Jour');
+        const inputEl = within(labelDay).getByLabelText('inputs.day');
 
         expect(inputEl).toBeInTheDocument();
         expect(inputEl).toHaveValue('');
@@ -101,13 +101,13 @@ describe('render input date', () => {
         expect(labelMonth).not.toHaveClass('error');
         expect(labelMonth).toHaveAttribute('for', 'month');
 
-        const labelMonthDiv = within(labelMonth).getByText('Mois');
+        const labelMonthDiv = within(labelMonth).getByText('inputs.month');
 
         expect(labelMonthDiv).toBeInTheDocument();
         expect(labelMonthDiv).toHaveClass('label-text');
         expect(labelMonthDiv).not.toHaveClass('filled');
 
-        const inputEl = within(labelMonth).getByLabelText('Mois');
+        const inputEl = within(labelMonth).getByLabelText('inputs.month');
 
         expect(inputEl).toBeInTheDocument();
         expect(inputEl).toHaveValue('');
@@ -144,13 +144,13 @@ describe('render input date', () => {
         expect(labelYear).not.toHaveClass('error');
         expect(labelYear).toHaveAttribute('for', 'year');
 
-        const labelYearDiv = within(labelYear).getByText('Année');
+        const labelYearDiv = within(labelYear).getByText('inputs.year');
 
         expect(labelYearDiv).toBeInTheDocument();
         expect(labelYearDiv).toHaveClass('label-text');
         expect(labelYearDiv).not.toHaveClass('filled');
 
-        const inputEl = within(labelYear).getByLabelText('Année');
+        const inputEl = within(labelYear).getByLabelText('inputs.year');
 
         expect(inputEl).toBeInTheDocument();
         expect(inputEl).toHaveValue('');
@@ -190,12 +190,12 @@ describe('render input date', () => {
         expect(labelDay).toBeInTheDocument();
         expect(labelDay).toHaveClass('error');
 
-        const labelDayDiv = within(labelDay).getByText('Jour');
+        const labelDayDiv = within(labelDay).getByText('inputs.day');
 
         expect(labelDayDiv).toBeInTheDocument();
         expect(labelDayDiv).toHaveClass('filled');
 
-        const inputDayEl = within(labelDay).getByLabelText('Jour');
+        const inputDayEl = within(labelDay).getByLabelText('inputs.day');
 
         expect(inputDayEl).toBeInTheDocument();
         expect(inputDayEl).toHaveValue('1');
@@ -205,12 +205,12 @@ describe('render input date', () => {
         expect(labelMonth).toBeInTheDocument();
         expect(labelMonth).toHaveClass('error');
 
-        const labelMonthDiv = within(labelMonth).getByText('Mois');
+        const labelMonthDiv = within(labelMonth).getByText('inputs.month');
 
         expect(labelMonthDiv).toBeInTheDocument();
         expect(labelMonthDiv).toHaveClass('filled');
 
-        const inputMonthEl = within(labelMonth).getByLabelText('Mois');
+        const inputMonthEl = within(labelMonth).getByLabelText('inputs.month');
 
         expect(inputMonthEl).toBeInTheDocument();
         expect(inputMonthEl).toHaveValue('1');
@@ -220,12 +220,12 @@ describe('render input date', () => {
         expect(labelYear).toBeInTheDocument();
         expect(labelYear).toHaveClass('error');
 
-        const labelYearDiv = within(labelYear).getByText('Année');
+        const labelYearDiv = within(labelYear).getByText('inputs.year');
 
         expect(labelYearDiv).toBeInTheDocument();
         expect(labelYearDiv).toHaveClass('filled');
 
-        const inputYearEl = within(labelYear).getByLabelText('Année');
+        const inputYearEl = within(labelYear).getByLabelText('inputs.year');
 
         expect(inputYearEl).toBeInTheDocument();
         expect(inputYearEl).toHaveValue('2020');

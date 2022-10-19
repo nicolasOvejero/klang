@@ -38,7 +38,7 @@ function App() {
     const { i18n } = useTranslation();
 
     useEffect(() => {
-        moment.locale(lang || 'en', {
+        moment.updateLocale(lang || 'en', {
             week: {
                 dow: 1
             }

@@ -7,7 +7,8 @@ import mockStore from './setupTests';
 let store = mockStore({
     auth: {
         isConnected: false
-    }
+    },
+    lang: 'fr'
 });
 
 const setup = () => {
@@ -37,7 +38,7 @@ describe('render login page', () => {
     });
 
     it('title', () => {
-        const loginPageHeader = screen.getByText(/JE ME CONNECTE/i);
+        const loginPageHeader = screen.getByText(/login.title/i);
 
         expect(loginPageHeader).toBeInTheDocument();
         expect(loginPageHeader.nodeName).toEqual('H2');
@@ -45,7 +46,7 @@ describe('render login page', () => {
     });
 
     it('input for username', () => {
-        const firstConnectionLink = screen.getByText(/Nom d'utilisateur/i);
+        const firstConnectionLink = screen.getByText(/login.username/i);
 
         expect(firstConnectionLink).toBeInTheDocument();
         expect(firstConnectionLink.nodeName).toEqual('DIV');
@@ -53,7 +54,7 @@ describe('render login page', () => {
     });
 
     it('input for password', () => {
-        const firstConnectionLink = screen.getByText(/Mot de passe/i);
+        const firstConnectionLink = screen.getByText(/login.password/i);
 
         expect(firstConnectionLink).toBeInTheDocument();
         expect(firstConnectionLink.nodeName).toEqual('DIV');
@@ -61,7 +62,7 @@ describe('render login page', () => {
     });
 
     it('first time link', () => {
-        const firstConnectionLink = screen.getByText(/Première connexion ?/i);
+        const firstConnectionLink = screen.getByText(/login.first/i);
 
         expect(firstConnectionLink).toBeInTheDocument();
         expect(firstConnectionLink.nodeName).toEqual('A');
@@ -70,7 +71,7 @@ describe('render login page', () => {
     });
 
     it('connection button', () => {
-        const firstConnectionLink = screen.getByText(/^Connexion$/i);
+        const firstConnectionLink = screen.getByText(/^login.connection/i);
 
         expect(firstConnectionLink).toBeInTheDocument();
         expect(firstConnectionLink.nodeName).toEqual('BUTTON');

@@ -58,3 +58,15 @@ export function getByTagName(tagName: string, screen: Screen) {
         (_, element) => element?.tagName.toLowerCase() === tagName
     );
 }
+
+export function getAllByClass(className: string, screen: Screen) {
+    return screen.getAllByText(
+        (_, element) => element?.classList.contains(className) || false
+    );
+}
+
+export function getByClass(className: string, screen: Screen) {
+    return screen.getByText(
+        (_, element) => element?.classList.contains(className) || false
+    );
+}

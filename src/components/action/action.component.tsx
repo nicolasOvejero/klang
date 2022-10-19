@@ -63,15 +63,19 @@ class Action extends Component<ActionProps, { isOverflowMenuOpen: boolean }> {
                     className='icon'
                     onClick={() => this.setState({ isOverflowMenuOpen: !this.state.isOverflowMenuOpen })}
                 />
+                <div className={`overflow-menu ${this.state.isOverflowMenuOpen ? 'open' : 'close'}`}>
                 {
                     this.props.actions.map((action) => (
-                        <div key={action.label} className={`overflow-menu ${this.state.isOverflowMenuOpen ? 'open' : 'close'}`}>
-                            <p className='item' onClick={() => this.clickItem(action.action, action.mail)}>
-                                {action.label}
-                            </p>
-                        </div>
+                        <p
+                            key={action.label}
+                            className='item'
+                            onClick={() => this.clickItem(action.action, action.mail)}
+                        >
+                            {action.label}
+                        </p>
                     ))
                 }
+                </div>
             </div>
         )
     }

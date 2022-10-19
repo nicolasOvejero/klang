@@ -57,7 +57,6 @@ function FirstTime() {
             });
             navigate('/code');
         } catch (error: any) {
-            console.error(error);
             setFirstTimeState({
                 ...firstTimeState,
                 formError: t('login.errors.unknown'),

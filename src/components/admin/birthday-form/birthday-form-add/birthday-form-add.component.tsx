@@ -91,10 +91,6 @@ function BirthdayFormAdd() {
                 await saveNewBirthday(formatedDate);
             }
         } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
-
             setBirthdayAddState({
                 ...birthdayAddState,
                 formHasError: true,
@@ -124,9 +120,11 @@ function BirthdayFormAdd() {
                 }))
             );
         } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
+            setBirthdayAddState({
+                ...birthdayAddState,
+                formHasError: true,
+                formError: t('admin.birthdays.error')
+            });
         }
     }
 

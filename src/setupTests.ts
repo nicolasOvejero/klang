@@ -48,6 +48,11 @@ jest.mock('react-i18next', () => ({
     },
 }));
 
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.clearAllMocks();
+});
+
 export function getAllByTagName(tagName: string, screen: Screen) {
     return screen.getAllByText(
         (_, element) => element?.tagName.toLowerCase() === tagName

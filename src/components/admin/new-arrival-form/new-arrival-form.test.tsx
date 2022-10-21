@@ -1,18 +1,16 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { getByClass } from '../../../setupTests';
 import NewArrivalForm from './new-arrival-form.component';
 
 describe('render new-arrivals form', () => {
-    it('component add', async () => {
+    it('component add', () => {
         window.history.pushState({}, '', '/admin/new-arrivals/add');
-        await waitFor(() => {
-            render(
-                <BrowserRouter>
-                    <NewArrivalForm />
-                </BrowserRouter>
-            );
-        });
+        render(
+            <BrowserRouter>
+                <NewArrivalForm />
+            </BrowserRouter>
+        );
 
         const section = getByClass('new-arrival-form', screen);
         expect(section).toBeInTheDocument();
@@ -25,15 +23,13 @@ describe('render new-arrivals form', () => {
         expect(titleNotShown).not.toBeInTheDocument();
     });
 
-    it('component manage', async () => {
+    it('component manage', () => {
         window.history.pushState({}, '', '/admin/new-arrivals/manage');
-        await waitFor(() => {
-            render(
-                <BrowserRouter>
-                    <NewArrivalForm />
-                </BrowserRouter>
-            );
-        });
+        render(
+            <BrowserRouter>
+                <NewArrivalForm />
+            </BrowserRouter>
+        );
 
         const section = getByClass('new-arrival-form', screen);
         expect(section).toBeInTheDocument();

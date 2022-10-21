@@ -1,18 +1,16 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { getByClass } from '../../../setupTests';
 import BirthdayForm from './birthday-form.component';
 
 describe('render birthday form', () => {
-    it('component add', async () => {
+    it('component add', () => {
         window.history.pushState({}, '', '/admin/birthdays/add');
-        await waitFor(() => {
-            render(
-                <BrowserRouter>
-                    <BirthdayForm />
-                </BrowserRouter>
-            );
-        });
+        render(
+            <BrowserRouter>
+                <BirthdayForm />
+            </BrowserRouter>
+        );
 
         const section = getByClass('birthday-form', screen);
         expect(section).toBeInTheDocument();
@@ -25,15 +23,13 @@ describe('render birthday form', () => {
         expect(titleNotShown).not.toBeInTheDocument();
     });
 
-    it('component manage', async () => {
+    it('component manage', () => {
         window.history.pushState({}, '', '/admin/birthdays/manage');
-        await waitFor(() => {
-            render(
-                <BrowserRouter>
-                    <BirthdayForm />
-                </BrowserRouter>
-            );
-        });
+        render(
+            <BrowserRouter>
+                <BirthdayForm />
+            </BrowserRouter>
+        );
 
         const section = getByClass('birthday-form', screen);
         expect(section).toBeInTheDocument();

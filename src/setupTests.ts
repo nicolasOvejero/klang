@@ -46,6 +46,7 @@ jest.mock('react-i18next', () => ({
         };
         return Component;
     },
+    Trans: ({children}: any) => children
 }));
 
 afterEach(() => {

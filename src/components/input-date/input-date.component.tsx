@@ -1,6 +1,5 @@
 import Dropdown, { DropdownOption } from '../dropdown/dropdown.component';
 import moment from 'moment';
-import 'moment/locale/fr';
 import './input-date.style.scss';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';

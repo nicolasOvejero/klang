@@ -3,11 +3,9 @@ import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
 import InputDate from '../../../input-date/input-date.component';
-import RequestError from '../../../../common/errors/request-error';
 import UserService from '../../../../common/services/user.service';
 import BirthdayService from '../../../../common/services/birthday.service';
 import moment from 'moment';
-import 'moment/locale/fr';
 import { useTranslation } from 'react-i18next';
 import './birthday-form-add.style.scss';
 

@@ -4,11 +4,10 @@ import moment from 'moment';
 import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
-import RequestError from '../../../../common/errors/request-error';
 import EventService from '../../../../common/services/event.service';
 import UserService from '../../../../common/services/user.service';
-import './event-form-remove.style.scss';
 import { useTranslation } from 'react-i18next';
+import './event-form-remove.style.scss';
 
 const defaultEventDeleteState = {
     idEvent: '',
@@ -48,7 +47,6 @@ function EventFormRemove() {
                     }
                 }
             });
-
             setOriginialEvents(apiData);
 
             const items: any[] = (apiData?.listEvents?.items.filter((v) => v != null)) || [];
@@ -65,28 +63,22 @@ function EventFormRemove() {
                 }))
             );
         } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
+            setEventRemoveState({
+                ...eventRemoveState,
+                formHasError: true,
+                formError: t('admin.events.error')
+            });
         }
     }
 
     const deleteSubscribers = async () => {
-        try {
-            const eventValues = originalEvents?.listEvents?.items.find((event) => event?.id === idEvent);
+        const eventValues = originalEvents?.listEvents?.items.find((event) => event?.id === idEvent);
 
-            const mutations: any = eventValues?.participants?.items.map((p, i) => {
-                return `mutation${i}: deleteUsersEvents(input: {id: "${p?.id}"}) { id }`;
-            });
+        const mutations: any = eventValues?.participants?.items.map((p, i) => {
+            return `mutation${i}: deleteUsersEvents(input: {id: "${p?.id}"}) { id }`;
+        });
 
-            await UserService.bulkDeleteUsers(mutations);
-        } catch (error: unknown) {
-            setEventRemoveState({
-                ...eventRemoveState,
-                formHasError: true,
-                formError: t('admin.events.error-participants')
-            });
-        }
+        await UserService.bulkDeleteUsers(mutations);
     }
 
     const handlerSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -96,11 +88,11 @@ function EventFormRemove() {
             return;
         }
 
-        if (subscribers > 0) {
-            await deleteSubscribers();
-        }
-
         try {
+            if (subscribers > 0) {
+                await deleteSubscribers();
+            }
+
             await EventService.deleteEvent({
                 input: {
                     id: idEvent
@@ -118,9 +110,6 @@ function EventFormRemove() {
                 setEventRemoveState(defaultEventDeleteState);
             }, 2000)
         } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
             setEventRemoveState({
                 ...eventRemoveState,
                 formHasError: true,

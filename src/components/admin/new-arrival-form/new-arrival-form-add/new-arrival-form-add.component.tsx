@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect } from 'react';
 import { useState } from 'react';
 import moment from 'moment';
-import 'moment/locale/fr';
 import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import InputDate from '../../../input-date/input-date.component';
 import Button from '../../../button/button.component';

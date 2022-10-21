@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { ChangeEvent } from 'react';
 import { getAllByTagName } from '../../setupTests';
 import InputDate, { InputDateProps } from './input-date.component';
+import 'moment/locale/fr';
 
 const defaultInputDateProps: InputDateProps = {
     day: {

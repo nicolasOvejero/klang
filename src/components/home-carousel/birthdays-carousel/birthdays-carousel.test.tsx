@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { getByClass } from '../../../setupTests';
 import BirthdaysCarousel from './birthdays-carousel.component';
 
-describe('render borthdays carousel', () => {
+describe('render birthdays carousel', () => {
     it('default', () => {
         render(
             <BrowserRouter>

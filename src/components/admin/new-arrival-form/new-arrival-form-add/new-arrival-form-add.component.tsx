@@ -6,8 +6,7 @@ import Dropdown, { DropdownOption } from '../../../dropdown/dropdown.component';
 import InputDate from '../../../input-date/input-date.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
-import RequestService from '../../../../common/services/new-arrivals.service';
-import RequestError from '../../../../common/errors/request-error';
+import NewArrivalsService from '../../../../common/services/new-arrivals.service';
 import UserService from '../../../../common/services/user.service';
 import './new-arrival-form-add.style.scss';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +36,7 @@ function NewArrivalFormAdd() {
     }
 
     const upsertNewArrival = async (date: string) => {
-        const newArrivalsList = await RequestService.getNewArrivals({
+        const newArrivalsList = await NewArrivalsService.getNewArrivals({
             filter: {
                 date: {
                     eq: date
@@ -49,7 +48,7 @@ function NewArrivalFormAdd() {
             return newArrivalsList[0];
         }
 
-        const newNewArrivals = await RequestService.createNewArrivals({
+        const newNewArrivals = await NewArrivalsService.createNewArrivals({
             input: {
                 date: date
             }
@@ -89,10 +88,6 @@ function NewArrivalFormAdd() {
                 ...newArrivals,
                 formError: t('admin.new-arrivals.error')
             });
-
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
         }
     }
     
@@ -121,10 +116,6 @@ function NewArrivalFormAdd() {
                 ...newArrivals,
                 formError: t('admin.new-arrivals.error')
             });
-
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
         }
     }
 

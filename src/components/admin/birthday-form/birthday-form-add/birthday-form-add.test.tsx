@@ -5,7 +5,6 @@ import UserService from '../../../../common/services/user.service';
 import { getAllByTagName, getByClass } from '../../../../setupTests';
 import BirthdayFormAdd from './birthday-form-add.component';
 
-jest.setTimeout(30000);
 describe('render birthday form add', () => {
     it('component default', async () => {
         UserService.getUserLight = jest.fn().mockImplementation(

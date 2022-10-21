@@ -1,10 +1,8 @@
 import moment from 'moment';
-import 'moment/locale/fr';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import RequestError from '../../../../common/errors/request-error';
 import EventService from '../../../../common/services/event.service';
-import RequestService from '../../../../common/services/new-arrivals.service';
+import NewArrivalsService from '../../../../common/services/new-arrivals.service';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';
 import InputForm from '../../../input-form/input-form.component';
@@ -83,7 +81,7 @@ function EventFormAdd() {
         }
 
         try {
-            const newAddress = await RequestService.createAddress({
+            const newAddress = await NewArrivalsService.createAddress({
                 input: {
                     city: address_city,
                     street: address_street
@@ -92,16 +90,12 @@ function EventFormAdd() {
 
             newAddress && await saveEvent(newAddress);
         } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
             setEventAddState({
                 ...eventAddState,
                 formHasError: true,
                 formError: t('admin.birthdays.error')
             });
         }
-
     }
 
     return (

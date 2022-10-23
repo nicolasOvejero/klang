@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@aws-sdk/util-credentials": "^3.56.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -66,7 +67,15 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "@types/redux": "^3.6.0",
-    "@types/redux-logger": "^3.0.9",
-    "@aws-sdk/util-credentials": "^3.56.0"
+    "@types/redux-logger": "^3.0.9"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/common/**/*.ts*",
+      "src/components/**/*.ts*",
+      "src/routes/**/*.ts*",
+      "src/store/**/*.ts*",
+      "src/App.tsx"
+    ]
   }
 }

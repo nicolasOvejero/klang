@@ -2,16 +2,21 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBirthdayInput = {
-  id?: string | null,
-  date: string,
+export type DeleteUserInput = {
+  id: string,
 };
 
-export type ModelBirthdayConditionInput = {
-  date?: ModelStringInput | null,
-  and?: Array< ModelBirthdayConditionInput | null > | null,
-  or?: Array< ModelBirthdayConditionInput | null > | null,
-  not?: ModelBirthdayConditionInput | null,
+export type ModelUserConditionInput = {
+  mail?: ModelStringInput | null,
+  lastname?: ModelStringInput | null,
+  firstname?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  job?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+  birthdayUsersId?: ModelIDInput | null,
+  newArrivalsUsersId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,19 +59,20 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Birthday = {
-  __typename: "Birthday",
-  id: string,
-  date: string,
-  users?: ModelUserConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type User = {
@@ -124,6 +130,33 @@ export type Address = {
   updatedAt: string,
 };
 
+export type CreateBirthdayInput = {
+  id?: string | null,
+  date: string,
+};
+
+export type ModelBirthdayConditionInput = {
+  date?: ModelStringInput | null,
+  and?: Array< ModelBirthdayConditionInput | null > | null,
+  or?: Array< ModelBirthdayConditionInput | null > | null,
+  not?: ModelBirthdayConditionInput | null,
+};
+
+export type Birthday = {
+  __typename: "Birthday",
+  id: string,
+  date: string,
+  users?: ModelUserConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+};
+
 export type UpdateBirthdayInput = {
   id: string,
   date?: string | null,
@@ -177,22 +210,6 @@ export type ModelEventConditionInput = {
   eventAddressId?: ModelIDInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdateEventInput = {
   id: string,
   date?: string | null,
@@ -217,19 +234,6 @@ export type CreateUserInput = {
   newArrivalsUsersId?: string | null,
 };
 
-export type ModelUserConditionInput = {
-  mail?: ModelStringInput | null,
-  lastname?: ModelStringInput | null,
-  firstname?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  job?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-  birthdayUsersId?: ModelIDInput | null,
-  newArrivalsUsersId?: ModelIDInput | null,
-};
-
 export type UpdateUserInput = {
   id: string,
   mail?: string | null,
@@ -239,10 +243,6 @@ export type UpdateUserInput = {
   job?: string | null,
   birthdayUsersId?: string | null,
   newArrivalsUsersId?: string | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
 };
 
 export type CreateNewArrivalsInput = {
@@ -387,6 +387,120 @@ export type ModelUsersEventsFilterInput = {
   and?: Array< ModelUsersEventsFilterInput | null > | null,
   or?: Array< ModelUsersEventsFilterInput | null > | null,
   not?: ModelUsersEventsFilterInput | null,
+};
+
+export type ModelSubscriptionBirthdayFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  date?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionBirthdayFilterInput | null > | null,
+  or?: Array< ModelSubscriptionBirthdayFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionAddressFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  city?: ModelSubscriptionStringInput | null,
+  street?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAddressFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAddressFilterInput | null > | null,
+};
+
+export type ModelSubscriptionEventFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  date?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
+  type?: ModelSubscriptionStringInput | null,
+  schedule?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionEventFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEventFilterInput | null > | null,
+};
+
+export type ModelSubscriptionUserFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  mail?: ModelSubscriptionStringInput | null,
+  lastname?: ModelSubscriptionStringInput | null,
+  firstname?: ModelSubscriptionStringInput | null,
+  image?: ModelSubscriptionStringInput | null,
+  job?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionNewArrivalsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  date?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionNewArrivalsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionNewArrivalsFilterInput | null > | null,
+};
+
+export type ModelSubscriptionUsersEventsFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  eventID?: ModelSubscriptionIDInput | null,
+  userID?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionUsersEventsFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUsersEventsFilterInput | null > | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type DeleteUserMutation = {
+  deleteUser?:  {
+    __typename: "User",
+    id: string,
+    mail: string,
+    lastname?: string | null,
+    firstname: string,
+    image?: string | null,
+    job?: string | null,
+    events?:  {
+      __typename: "ModelUsersEventsConnection",
+      items:  Array< {
+        __typename: "UsersEvents",
+        id: string,
+        eventID: string,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
+  } | null,
 };
 
 export type CreateBirthdayMutationVariables = {
@@ -690,39 +804,6 @@ export type UpdateUserMutationVariables = {
 
 export type UpdateUserMutation = {
   updateUser?:  {
-    __typename: "User",
-    id: string,
-    mail: string,
-    lastname?: string | null,
-    firstname: string,
-    image?: string | null,
-    job?: string | null,
-    events?:  {
-      __typename: "ModelUsersEventsConnection",
-      items:  Array< {
-        __typename: "UsersEvents",
-        id: string,
-        eventID: string,
-        userID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    birthdayUsersId?: string | null,
-    newArrivalsUsersId?: string | null,
-  } | null,
-};
-
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type DeleteUserMutation = {
-  deleteUser?:  {
     __typename: "User",
     id: string,
     mail: string,
@@ -1403,6 +1484,10 @@ export type ListUsersEventsQuery = {
   } | null,
 };
 
+export type OnCreateBirthdaySubscriptionVariables = {
+  filter?: ModelSubscriptionBirthdayFilterInput | null,
+};
+
 export type OnCreateBirthdaySubscription = {
   onCreateBirthday?:  {
     __typename: "Birthday",
@@ -1428,6 +1513,10 @@ export type OnCreateBirthdaySubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateBirthdaySubscriptionVariables = {
+  filter?: ModelSubscriptionBirthdayFilterInput | null,
 };
 
 export type OnUpdateBirthdaySubscription = {
@@ -1457,6 +1546,10 @@ export type OnUpdateBirthdaySubscription = {
   } | null,
 };
 
+export type OnDeleteBirthdaySubscriptionVariables = {
+  filter?: ModelSubscriptionBirthdayFilterInput | null,
+};
+
 export type OnDeleteBirthdaySubscription = {
   onDeleteBirthday?:  {
     __typename: "Birthday",
@@ -1484,6 +1577,10 @@ export type OnDeleteBirthdaySubscription = {
   } | null,
 };
 
+export type OnCreateAddressSubscriptionVariables = {
+  filter?: ModelSubscriptionAddressFilterInput | null,
+};
+
 export type OnCreateAddressSubscription = {
   onCreateAddress?:  {
     __typename: "Address",
@@ -1493,6 +1590,10 @@ export type OnCreateAddressSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnUpdateAddressSubscriptionVariables = {
+  filter?: ModelSubscriptionAddressFilterInput | null,
 };
 
 export type OnUpdateAddressSubscription = {
@@ -1506,6 +1607,10 @@ export type OnUpdateAddressSubscription = {
   } | null,
 };
 
+export type OnDeleteAddressSubscriptionVariables = {
+  filter?: ModelSubscriptionAddressFilterInput | null,
+};
+
 export type OnDeleteAddressSubscription = {
   onDeleteAddress?:  {
     __typename: "Address",
@@ -1515,6 +1620,10 @@ export type OnDeleteAddressSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
 };
 
 export type OnCreateEventSubscription = {
@@ -1551,6 +1660,10 @@ export type OnCreateEventSubscription = {
   } | null,
 };
 
+export type OnUpdateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
 export type OnUpdateEventSubscription = {
   onUpdateEvent?:  {
     __typename: "Event",
@@ -1583,6 +1696,10 @@ export type OnUpdateEventSubscription = {
     updatedAt: string,
     eventAddressId?: string | null,
   } | null,
+};
+
+export type OnDeleteEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
 };
 
 export type OnDeleteEventSubscription = {
@@ -1619,6 +1736,10 @@ export type OnDeleteEventSubscription = {
   } | null,
 };
 
+export type OnCreateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+};
+
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
@@ -1645,6 +1766,10 @@ export type OnCreateUserSubscription = {
     birthdayUsersId?: string | null,
     newArrivalsUsersId?: string | null,
   } | null,
+};
+
+export type OnUpdateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
 };
 
 export type OnUpdateUserSubscription = {
@@ -1675,6 +1800,10 @@ export type OnUpdateUserSubscription = {
   } | null,
 };
 
+export type OnDeleteUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+};
+
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
@@ -1701,6 +1830,10 @@ export type OnDeleteUserSubscription = {
     birthdayUsersId?: string | null,
     newArrivalsUsersId?: string | null,
   } | null,
+};
+
+export type OnCreateNewArrivalsSubscriptionVariables = {
+  filter?: ModelSubscriptionNewArrivalsFilterInput | null,
 };
 
 export type OnCreateNewArrivalsSubscription = {
@@ -1730,6 +1863,10 @@ export type OnCreateNewArrivalsSubscription = {
   } | null,
 };
 
+export type OnUpdateNewArrivalsSubscriptionVariables = {
+  filter?: ModelSubscriptionNewArrivalsFilterInput | null,
+};
+
 export type OnUpdateNewArrivalsSubscription = {
   onUpdateNewArrivals?:  {
     __typename: "NewArrivals",
@@ -1757,6 +1894,10 @@ export type OnUpdateNewArrivalsSubscription = {
   } | null,
 };
 
+export type OnDeleteNewArrivalsSubscriptionVariables = {
+  filter?: ModelSubscriptionNewArrivalsFilterInput | null,
+};
+
 export type OnDeleteNewArrivalsSubscription = {
   onDeleteNewArrivals?:  {
     __typename: "NewArrivals",
@@ -1782,6 +1923,10 @@ export type OnDeleteNewArrivalsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnCreateUsersEventsSubscriptionVariables = {
+  filter?: ModelSubscriptionUsersEventsFilterInput | null,
 };
 
 export type OnCreateUsersEventsSubscription = {
@@ -1835,6 +1980,10 @@ export type OnCreateUsersEventsSubscription = {
   } | null,
 };
 
+export type OnUpdateUsersEventsSubscriptionVariables = {
+  filter?: ModelSubscriptionUsersEventsFilterInput | null,
+};
+
 export type OnUpdateUsersEventsSubscription = {
   onUpdateUsersEvents?:  {
     __typename: "UsersEvents",
@@ -1884,6 +2033,10 @@ export type OnUpdateUsersEventsSubscription = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type OnDeleteUsersEventsSubscriptionVariables = {
+  filter?: ModelSubscriptionUsersEventsFilterInput | null,
 };
 
 export type OnDeleteUsersEventsSubscription = {

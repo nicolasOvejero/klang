@@ -11,7 +11,8 @@ export default class BirthdayService {
     static async getBirthdays(variables: object): Promise<BirthdayModel[]> {
         const apiData = await API.graphql({
             query: listBithday,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListBirthdaysQuery>;
 
         if (apiData.errors) {
@@ -43,7 +44,8 @@ export default class BirthdayService {
     static async getBirthdaysLight(variables: object): Promise<{ id: string, date: string }[]> {
         const apiData = await API.graphql({
             query: listBithdayLight,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListBirthdaysLightQuery>;
 
         if (apiData.errors) {
@@ -61,7 +63,8 @@ export default class BirthdayService {
     static async createBirthday(variables: object): Promise<BirthdayModel | undefined> {
         const apiData = await API.graphql({
             query: createBirthday,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateBirthdayMutation>;
 
         if (apiData.errors) {

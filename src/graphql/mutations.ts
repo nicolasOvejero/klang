@@ -2,6 +2,35 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      mail
+      lastname
+      firstname
+      image
+      job
+      events {
+        items {
+          id
+          eventID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      birthdayUsersId
+      newArrivalsUsersId
+    }
+  }
+`;
 export const createBirthday = /* GraphQL */ `
   mutation CreateBirthday(
     $input: CreateBirthdayInput!
@@ -265,35 +294,6 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      id
-      mail
-      lastname
-      firstname
-      image
-      job
-      events {
-        items {
-          id
-          eventID
-          userID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      birthdayUsersId
-      newArrivalsUsersId
-    }
-  }
-`;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    deleteUser(input: $input, condition: $condition) {
       id
       mail
       lastname

@@ -72,6 +72,7 @@ export const listBithday = /* GraphQL */ `
     ) {
         listBirthdays(filter: $filter, limit: $limit, nextToken: $nextToken) {
         items {
+            id
             date
             users {
                 items {

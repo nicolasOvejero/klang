@@ -10,7 +10,8 @@ export default class UserService {
     static async getUsers(variables: object): Promise<UserModel[]> {
         const apiData = await API.graphql({
             query: listUsers,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListUsersQuery>;
 
         if (apiData.errors) {
@@ -37,7 +38,8 @@ export default class UserService {
     static async getUserLight(variables: object): Promise<{ id: string, lastname?: string | null, firstname: string }[]> {
         const apiData = await API.graphql({
             query: listUsersLight,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListUsersLightQuery>;
 
         if (apiData.errors) {
@@ -55,7 +57,8 @@ export default class UserService {
     static async creatUser(variables: object): Promise<UserModel | undefined> {
         const apiData = await API.graphql({
             query: createUser,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateUserMutation>;
 
         if (apiData.errors) {
@@ -80,7 +83,8 @@ export default class UserService {
     static async udpateUser(variables: object): Promise<UserModel | undefined> {
         const apiData = await API.graphql({
             query: updateUser,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<UpdateUserMutation>;
 
         if (apiData.errors) {
@@ -107,7 +111,8 @@ export default class UserService {
     } | undefined> {
         const apiData = await API.graphql({
             query: createUsersEvents,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateUsersEventsMutation>;
 
         if (apiData.errors) {
@@ -131,13 +136,14 @@ export default class UserService {
     }
 
     static async bulkDeleteUsers(mutations: any): Promise<void> {
-        const apiData = await API.graphql(
-            graphqlOperation(`
+        const apiData = await API.graphql({
+            ...graphqlOperation(`
                 mutation batchMutation {
                     ${mutations}
                 }
-            `)
-        ) as GraphQLResult;
+            `),
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
+        }) as GraphQLResult;
 
         if (apiData.errors) {
             throw new RequestError('bulk delete users', apiData.errors);

@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateBirthday = /* GraphQL */ `
-  subscription OnCreateBirthday {
-    onCreateBirthday {
+  subscription OnCreateBirthday($filter: ModelSubscriptionBirthdayFilterInput) {
+    onCreateBirthday(filter: $filter) {
       id
       date
       users {
@@ -28,8 +28,8 @@ export const onCreateBirthday = /* GraphQL */ `
   }
 `;
 export const onUpdateBirthday = /* GraphQL */ `
-  subscription OnUpdateBirthday {
-    onUpdateBirthday {
+  subscription OnUpdateBirthday($filter: ModelSubscriptionBirthdayFilterInput) {
+    onUpdateBirthday(filter: $filter) {
       id
       date
       users {
@@ -53,8 +53,8 @@ export const onUpdateBirthday = /* GraphQL */ `
   }
 `;
 export const onDeleteBirthday = /* GraphQL */ `
-  subscription OnDeleteBirthday {
-    onDeleteBirthday {
+  subscription OnDeleteBirthday($filter: ModelSubscriptionBirthdayFilterInput) {
+    onDeleteBirthday(filter: $filter) {
       id
       date
       users {
@@ -78,8 +78,8 @@ export const onDeleteBirthday = /* GraphQL */ `
   }
 `;
 export const onCreateAddress = /* GraphQL */ `
-  subscription OnCreateAddress {
-    onCreateAddress {
+  subscription OnCreateAddress($filter: ModelSubscriptionAddressFilterInput) {
+    onCreateAddress(filter: $filter) {
       id
       city
       street
@@ -89,8 +89,8 @@ export const onCreateAddress = /* GraphQL */ `
   }
 `;
 export const onUpdateAddress = /* GraphQL */ `
-  subscription OnUpdateAddress {
-    onUpdateAddress {
+  subscription OnUpdateAddress($filter: ModelSubscriptionAddressFilterInput) {
+    onUpdateAddress(filter: $filter) {
       id
       city
       street
@@ -100,8 +100,8 @@ export const onUpdateAddress = /* GraphQL */ `
   }
 `;
 export const onDeleteAddress = /* GraphQL */ `
-  subscription OnDeleteAddress {
-    onDeleteAddress {
+  subscription OnDeleteAddress($filter: ModelSubscriptionAddressFilterInput) {
+    onDeleteAddress(filter: $filter) {
       id
       city
       street
@@ -111,8 +111,8 @@ export const onDeleteAddress = /* GraphQL */ `
   }
 `;
 export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent {
-    onCreateEvent {
+  subscription OnCreateEvent($filter: ModelSubscriptionEventFilterInput) {
+    onCreateEvent(filter: $filter) {
       id
       date
       image
@@ -142,8 +142,8 @@ export const onCreateEvent = /* GraphQL */ `
   }
 `;
 export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent {
-    onUpdateEvent {
+  subscription OnUpdateEvent($filter: ModelSubscriptionEventFilterInput) {
+    onUpdateEvent(filter: $filter) {
       id
       date
       image
@@ -173,8 +173,8 @@ export const onUpdateEvent = /* GraphQL */ `
   }
 `;
 export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent {
-    onDeleteEvent {
+  subscription OnDeleteEvent($filter: ModelSubscriptionEventFilterInput) {
+    onDeleteEvent(filter: $filter) {
       id
       date
       image
@@ -204,8 +204,8 @@ export const onDeleteEvent = /* GraphQL */ `
   }
 `;
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
       id
       mail
       lastname
@@ -230,8 +230,8 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser {
-    onUpdateUser {
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
       id
       mail
       lastname
@@ -256,8 +256,8 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser {
-    onDeleteUser {
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
       id
       mail
       lastname
@@ -282,8 +282,10 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateNewArrivals = /* GraphQL */ `
-  subscription OnCreateNewArrivals {
-    onCreateNewArrivals {
+  subscription OnCreateNewArrivals(
+    $filter: ModelSubscriptionNewArrivalsFilterInput
+  ) {
+    onCreateNewArrivals(filter: $filter) {
       id
       date
       users {
@@ -307,8 +309,10 @@ export const onCreateNewArrivals = /* GraphQL */ `
   }
 `;
 export const onUpdateNewArrivals = /* GraphQL */ `
-  subscription OnUpdateNewArrivals {
-    onUpdateNewArrivals {
+  subscription OnUpdateNewArrivals(
+    $filter: ModelSubscriptionNewArrivalsFilterInput
+  ) {
+    onUpdateNewArrivals(filter: $filter) {
       id
       date
       users {
@@ -332,8 +336,10 @@ export const onUpdateNewArrivals = /* GraphQL */ `
   }
 `;
 export const onDeleteNewArrivals = /* GraphQL */ `
-  subscription OnDeleteNewArrivals {
-    onDeleteNewArrivals {
+  subscription OnDeleteNewArrivals(
+    $filter: ModelSubscriptionNewArrivalsFilterInput
+  ) {
+    onDeleteNewArrivals(filter: $filter) {
       id
       date
       users {
@@ -357,8 +363,10 @@ export const onDeleteNewArrivals = /* GraphQL */ `
   }
 `;
 export const onCreateUsersEvents = /* GraphQL */ `
-  subscription OnCreateUsersEvents {
-    onCreateUsersEvents {
+  subscription OnCreateUsersEvents(
+    $filter: ModelSubscriptionUsersEventsFilterInput
+  ) {
+    onCreateUsersEvents(filter: $filter) {
       id
       eventID
       userID
@@ -403,8 +411,10 @@ export const onCreateUsersEvents = /* GraphQL */ `
   }
 `;
 export const onUpdateUsersEvents = /* GraphQL */ `
-  subscription OnUpdateUsersEvents {
-    onUpdateUsersEvents {
+  subscription OnUpdateUsersEvents(
+    $filter: ModelSubscriptionUsersEventsFilterInput
+  ) {
+    onUpdateUsersEvents(filter: $filter) {
       id
       eventID
       userID
@@ -449,8 +459,10 @@ export const onUpdateUsersEvents = /* GraphQL */ `
   }
 `;
 export const onDeleteUsersEvents = /* GraphQL */ `
-  subscription OnDeleteUsersEvents {
-    onDeleteUsersEvents {
+  subscription OnDeleteUsersEvents(
+    $filter: ModelSubscriptionUsersEventsFilterInput
+  ) {
+    onDeleteUsersEvents(filter: $filter) {
       id
       eventID
       userID

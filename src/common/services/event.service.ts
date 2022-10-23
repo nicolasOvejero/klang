@@ -11,7 +11,8 @@ export default class EventService {
     static async getNextEvent(variables: object): Promise<EventModel | undefined> {
         const apiData = await API.graphql({
             query: getNextEvents,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListEventsQuery>;
 
         if (apiData.errors) {
@@ -49,7 +50,8 @@ export default class EventService {
     static async getEvents(variables: object): Promise<EventModel[]> {
         const apiData = await API.graphql({
             query: listEvents,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListEventsQuery>;
 
         if (apiData.errors) {
@@ -87,7 +89,8 @@ export default class EventService {
     static async getEventsLight(variables: object): Promise<ListEventsLightQuery | undefined> {
         const apiData = await API.graphql({
             query: listEventsLight,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListEventsLightQuery>;
 
         if (apiData.errors) {
@@ -105,7 +108,8 @@ export default class EventService {
     static async createEvent(variables: object): Promise<EventModel | undefined> {
         const apiData = await API.graphql({
             query: createEvent,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateEventMutation>;
 
         if (apiData.errors) {
@@ -133,7 +137,8 @@ export default class EventService {
     static async deleteEvent(variables: object): Promise<void> {
         const apiData = await API.graphql({
             query: deleteEvent,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<DeleteEventMutation>;
 
         if (apiData.errors) {
@@ -144,7 +149,8 @@ export default class EventService {
     static async findSubscriptionByUserIdAndEventId(variables: object): Promise<string[]> {
         const apiData = await API.graphql({
             query: subscriptionToEvent,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<SubscriptionToEventQuery>;
 
         if (apiData.errors) {

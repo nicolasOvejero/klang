@@ -12,7 +12,8 @@ export default class NewArrivalsService {
     static async getNewArrivals(variables: object): Promise<NewArrivalModel[]> {
         const apiData = await API.graphql({
             query: listNewArrivals,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<ListNewArrivalsQuery>;
 
         if (apiData.errors) {
@@ -44,7 +45,8 @@ export default class NewArrivalsService {
     static async createAddress(variables: object): Promise<Address | undefined> {
         const apiData = await API.graphql({
             query: createAddress,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateAddressMutation>;
 
         if (apiData.errors) {
@@ -66,7 +68,8 @@ export default class NewArrivalsService {
     static async createNewArrivals(variables: object): Promise<NewArrivalModel | undefined> {
         const apiData = await API.graphql({
             query: createNewArrivals,
-            variables
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult<CreateNewArrivalsMutation>;
 
         if (apiData.errors) {

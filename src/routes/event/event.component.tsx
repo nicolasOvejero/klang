@@ -32,6 +32,8 @@ export type EventModel = {
         street: string | undefined | null;
     };
     schedule?: string | null;
+    published: boolean;
+    createBy: UserModel;
 }
 
 type EventDefaultState = {
@@ -124,6 +126,9 @@ function Event() {
         try {
             const events = await EventService.getEvents({
                 filter: {
+                    published: {
+                        eq: true
+                    },
                     date: {
                         ge: startOfMonth, 
                         le: endOfMonth

@@ -177,6 +177,13 @@ export const listEvents = /* GraphQL */ `
                     street
                 }
                 schedule
+                published
+                createBy {
+                    id
+                    image
+                    lastname
+                    firstname
+                }
             }
             nextToken
         }
@@ -218,6 +225,13 @@ export const getNextEvents = /* GraphQL */ `
                     street
                 }
                 schedule
+                published
+                createBy {
+                    id
+                    image
+                    lastname
+                    firstname
+                }
             }
             nextToken
         }
@@ -251,6 +265,13 @@ export type ListEventsQuery = {
                 street?: string | null,
             } | null,
             schedule?: string | null,
+            published: boolean,
+            createBy: {
+                id: string,
+                lastname?: string | null,
+                firstname: string,
+                image?: string | null,
+            }
         } | null >,
         nextToken?: string | null,
     } | null,

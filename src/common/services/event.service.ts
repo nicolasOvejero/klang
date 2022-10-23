@@ -35,6 +35,13 @@ export default class EventService {
                     street: item?.address?.street || '',
                 },
                 schedule: item?.schedule || '',
+                published: item?.published || true,
+                createBy: {
+                    id: item?.createBy.id || '',
+                    lastname: item?.createBy.lastname || '',
+                    firstname: item?.createBy.firstname || '',
+                    image: item?.createBy.image || ''
+                },
                 participants: item?.participants?.items?.map((user) => {
                     return {
                         id: user?.user.id || '',
@@ -74,6 +81,13 @@ export default class EventService {
                     street: item?.address?.street || '',
                 },
                 schedule: item?.schedule || '',
+                published: item?.published || true,
+                createBy: {
+                    id: item?.createBy.id || '',
+                    lastname: item?.createBy.lastname || '',
+                    firstname: item?.createBy.firstname || '',
+                    image: item?.createBy.image || ''
+                },
                 participants: item?.participants?.items?.map((user) => {
                     return {
                         id: user?.user.id || '',
@@ -130,7 +144,14 @@ export default class EventService {
                 city: items.address?.city,
                 street: items.address?.street
             },
-            schedule: items.schedule
+            schedule: items.schedule,
+            published: items.published || false,
+            createBy: {
+                id: items.createBy?.id || '',
+                lastname: items.createBy?.lastname || '',
+                firstname: items.createBy?.firstname || '',
+                image: items.createBy?.image || '',
+            }
         }
     }
 

@@ -1,8 +1,11 @@
 import moment from 'moment';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import EventService from '../../../../common/services/event.service';
 import NewArrivalsService from '../../../../common/services/new-arrivals.service';
+import { userReducer } from '../../../../store/user/user.reducer';
+import { selectUserReducer } from '../../../../store/user/user.selector';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';
 import InputForm from '../../../input-form/input-form.component';
@@ -30,6 +33,7 @@ export type Address = {
 }
 
 function EventFormAdd() {
+    const user = useSelector(selectUserReducer);
     const [eventAddState, setEventAddState] = useState(defaultEventAddState);
     const { image, type, schedule,
         address_city, address_street,
@@ -57,9 +61,19 @@ function EventFormAdd() {
                 type,
                 schedule,
                 date: formatedDate,
-                eventAddressId: newAddress.id
+                eventAddressId: newAddress.id,
+                published: false,
+                eventCreateById: user.id
             }
         });
+
+/*
+https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg
+Visite du mont
+13h30 - 17h
+Tokyo
+Mont
+*/
 
         setEventAddState({
             ...defaultEventAddState,

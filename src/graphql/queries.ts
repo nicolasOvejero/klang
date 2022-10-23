@@ -15,6 +15,7 @@ export const getBirthday = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -109,9 +110,27 @@ export const getEvent = /* GraphQL */ `
         updatedAt
       }
       schedule
+      published
+      createBy {
+        id
+        mail
+        lastname
+        firstname
+        image
+        job
+        events {
+          nextToken
+        }
+        city
+        createdAt
+        updatedAt
+        birthdayUsersId
+        newArrivalsUsersId
+      }
       createdAt
       updatedAt
       eventAddressId
+      eventCreateById
     }
   }
 `;
@@ -146,9 +165,24 @@ export const listEvents = /* GraphQL */ `
           updatedAt
         }
         schedule
+        published
+        createBy {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          city
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
         createdAt
         updatedAt
         eventAddressId
+        eventCreateById
       }
       nextToken
     }
@@ -173,6 +207,7 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      city
       createdAt
       updatedAt
       birthdayUsersId
@@ -205,6 +240,7 @@ export const listUsers = /* GraphQL */ `
         events {
           nextToken
         }
+        city
         createdAt
         updatedAt
         birthdayUsersId
@@ -227,6 +263,7 @@ export const getNewArrivals = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -289,9 +326,24 @@ export const getUsersEvents = /* GraphQL */ `
           updatedAt
         }
         schedule
+        published
+        createBy {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          city
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
         createdAt
         updatedAt
         eventAddressId
+        eventCreateById
       }
       user {
         id
@@ -303,6 +355,7 @@ export const getUsersEvents = /* GraphQL */ `
         events {
           nextToken
         }
+        city
         createdAt
         updatedAt
         birthdayUsersId
@@ -330,9 +383,11 @@ export const listUsersEvents = /* GraphQL */ `
           image
           type
           schedule
+          published
           createdAt
           updatedAt
           eventAddressId
+          eventCreateById
         }
         user {
           id
@@ -341,6 +396,7 @@ export const listUsersEvents = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId

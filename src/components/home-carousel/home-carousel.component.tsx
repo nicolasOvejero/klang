@@ -132,8 +132,13 @@ function HomeCarousel() {
         try {
             const nextEvent = await EventService.getNextEvent({
                 limit: 1,
-                date: {
-                    ge: currentDay
+                filter: {
+                    published: {
+                        eq: true
+                    },
+                    date: {
+                        ge: currentDay
+                    }
                 }
             });
 

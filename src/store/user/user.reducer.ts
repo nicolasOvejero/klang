@@ -6,6 +6,7 @@ export type UserState = {
     firstname: string;
     lastname: string;
     mail: string;
+    city: string;
     image?: string;
     job?: string;
 }
@@ -15,6 +16,7 @@ export const USER_INITIAL_STATE = {
     firstname: '',
     lastname: '',
     mail: '',
+    city: '',
     image: undefined,
     job: undefined,
 }

@@ -15,6 +15,7 @@ export const onCreateBirthday = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -40,6 +41,7 @@ export const onUpdateBirthday = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -65,6 +67,7 @@ export const onDeleteBirthday = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -135,9 +138,27 @@ export const onCreateEvent = /* GraphQL */ `
         updatedAt
       }
       schedule
+      published
+      createBy {
+        id
+        mail
+        lastname
+        firstname
+        image
+        job
+        events {
+          nextToken
+        }
+        city
+        createdAt
+        updatedAt
+        birthdayUsersId
+        newArrivalsUsersId
+      }
       createdAt
       updatedAt
       eventAddressId
+      eventCreateById
     }
   }
 `;
@@ -166,9 +187,27 @@ export const onUpdateEvent = /* GraphQL */ `
         updatedAt
       }
       schedule
+      published
+      createBy {
+        id
+        mail
+        lastname
+        firstname
+        image
+        job
+        events {
+          nextToken
+        }
+        city
+        createdAt
+        updatedAt
+        birthdayUsersId
+        newArrivalsUsersId
+      }
       createdAt
       updatedAt
       eventAddressId
+      eventCreateById
     }
   }
 `;
@@ -197,9 +236,27 @@ export const onDeleteEvent = /* GraphQL */ `
         updatedAt
       }
       schedule
+      published
+      createBy {
+        id
+        mail
+        lastname
+        firstname
+        image
+        job
+        events {
+          nextToken
+        }
+        city
+        createdAt
+        updatedAt
+        birthdayUsersId
+        newArrivalsUsersId
+      }
       createdAt
       updatedAt
       eventAddressId
+      eventCreateById
     }
   }
 `;
@@ -222,6 +279,7 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      city
       createdAt
       updatedAt
       birthdayUsersId
@@ -248,6 +306,7 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
+      city
       createdAt
       updatedAt
       birthdayUsersId
@@ -274,6 +333,7 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      city
       createdAt
       updatedAt
       birthdayUsersId
@@ -296,6 +356,7 @@ export const onCreateNewArrivals = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -323,6 +384,7 @@ export const onUpdateNewArrivals = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -350,6 +412,7 @@ export const onDeleteNewArrivals = /* GraphQL */ `
           firstname
           image
           job
+          city
           createdAt
           updatedAt
           birthdayUsersId
@@ -386,9 +449,24 @@ export const onCreateUsersEvents = /* GraphQL */ `
           updatedAt
         }
         schedule
+        published
+        createBy {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          city
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
         createdAt
         updatedAt
         eventAddressId
+        eventCreateById
       }
       user {
         id
@@ -400,6 +478,7 @@ export const onCreateUsersEvents = /* GraphQL */ `
         events {
           nextToken
         }
+        city
         createdAt
         updatedAt
         birthdayUsersId
@@ -434,9 +513,24 @@ export const onUpdateUsersEvents = /* GraphQL */ `
           updatedAt
         }
         schedule
+        published
+        createBy {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          city
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
         createdAt
         updatedAt
         eventAddressId
+        eventCreateById
       }
       user {
         id
@@ -448,6 +542,7 @@ export const onUpdateUsersEvents = /* GraphQL */ `
         events {
           nextToken
         }
+        city
         createdAt
         updatedAt
         birthdayUsersId
@@ -482,9 +577,24 @@ export const onDeleteUsersEvents = /* GraphQL */ `
           updatedAt
         }
         schedule
+        published
+        createBy {
+          id
+          mail
+          lastname
+          firstname
+          image
+          job
+          city
+          createdAt
+          updatedAt
+          birthdayUsersId
+          newArrivalsUsersId
+        }
         createdAt
         updatedAt
         eventAddressId
+        eventCreateById
       }
       user {
         id
@@ -496,6 +606,7 @@ export const onDeleteUsersEvents = /* GraphQL */ `
         events {
           nextToken
         }
+        city
         createdAt
         updatedAt
         birthdayUsersId

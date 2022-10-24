@@ -4,8 +4,8 @@ import { getNextEvents, listEvents, listEventsLight, ListEventsLightQuery, ListE
 import { EventModel } from "../../routes/event/event.component";
 import RequestError from "../errors/request-error";
 import moment from 'moment';
-import { createEvent, deleteEvent } from "../../graphql/mutations";
-import { CreateEventMutation, DeleteEventMutation } from "../../API";
+import { createEvent, deleteEvent, updateEvent } from "../../graphql/mutations";
+import { CreateEventMutation, DeleteEventMutation, UpdateEventMutation } from "../../API";
 
 export default class EventService {
     static async getNextEvent(variables: object): Promise<EventModel[]> {
@@ -131,6 +131,42 @@ export default class EventService {
         }
 
         const items = apiData.data?.createEvent;
+        if (!items || !apiData.data) {
+            return undefined;
+        }
+
+        return {
+            id: items.id,
+            date: moment(items.date).toDate(),
+            image: items.image,
+            type: items.type,
+            address: {
+                city: items.address?.city,
+                street: items.address?.street
+            },
+            schedule: items.schedule,
+            published: items.published || false,
+            createBy: {
+                id: items.createBy?.id || '',
+                lastname: items.createBy?.lastname || '',
+                firstname: items.createBy?.firstname || '',
+                image: items.createBy?.image || '',
+            }
+        }
+    }
+
+    static async updateEvent(variables: object): Promise<EventModel | undefined> {
+        const apiData = await API.graphql({
+            query: updateEvent,
+            variables,
+            authMode: 'AMAZON_COGNITO_USER_POOLS'
+        }) as GraphQLResult<UpdateEventMutation>;
+
+        if (apiData.errors) {
+            throw new RequestError('update event', apiData.errors);
+        }
+
+        const items = apiData.data?.updateEvent;
         if (!items || !apiData.data) {
             return undefined;
         }

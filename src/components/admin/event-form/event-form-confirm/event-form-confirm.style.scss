@@ -1,0 +1,43 @@
+@import '../../../../common/common.style.scss';
+
+.form-event-confirm {
+    flex: 1 0 0;
+    width: 100%;
+
+    table {
+        border: {
+            collapse: collapse;
+            spacing: 0;
+        }
+        width: 100%;
+
+        td, th {
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            text-align: start;
+        }
+
+        tbody tr {
+            transition: all 0.25s ease-in-out;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid darken($grey-light, 30);
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-large) {
+    .form-event-confirm {
+    }
+}
+
+@media screen and (max-width: $breakpoint-medium) {
+    .form-event-confirm {
+    }
+}
+
+@media screen and (max-width: $breakpoint-small) {
+    .form-event-confirm {
+    }
+}

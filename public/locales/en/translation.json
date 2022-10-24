@@ -97,7 +97,8 @@
             "delete": "Delete",
             "birthdays": "Birthdays",
             "events": "Events",
-            "new-arrivals": "New arrivals"
+            "new-arrivals": "New arrivals",
+            "confirm-events": "Confirmation"
         },
         "birthdays": {
             "title-add": "Add new birthday",

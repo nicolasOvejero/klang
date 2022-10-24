@@ -6,6 +6,7 @@ type AsideActionPros = {
     title: string;
     pathAdd: string;
     pathDelete?: string;
+    pathConfirm?: string;
     color: 'primary' | 'secondary';
     handleClickItem?: () => void;
 }
@@ -23,6 +24,13 @@ function AsideAction(props: AsideActionPros) {
                 props.pathDelete && (
                     <Link to={ props.pathDelete } className='link' onClick={props.handleClickItem}>
                         {t('admin.menu.delete')}
+                    </Link>
+                )
+            }
+            {
+                props.pathConfirm && (
+                    <Link to={ props.pathConfirm } className='link' onClick={props.handleClickItem}>
+                        {t('admin.menu.confirm-events')}
                     </Link>
                 )
             }

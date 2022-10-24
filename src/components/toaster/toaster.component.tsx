@@ -2,7 +2,7 @@ import './toaster.style.scss';
 
 type ToasterProp = {
     message: string;
-    type: 'success';
+    type: 'success' | 'error';
     display: boolean;
 }
 

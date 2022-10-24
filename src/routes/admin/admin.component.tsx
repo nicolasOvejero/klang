@@ -28,6 +28,7 @@ function Admin() {
                     title={t('admin.menu.events')}
                     pathAdd='/admin/events/add'
                     pathDelete='/admin/events/delete'
+                    pathConfirm='/admin/events/confirm'
                     color='secondary'
                 ></AsideAction>
                 <AsideAction

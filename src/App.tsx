@@ -31,6 +31,7 @@ import { selectLangReducer } from './store/lang/lang.selector';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './App.scss';
+import EventFormConfirm from './components/admin/event-form/event-form-confirm/event-form-confirm.component';
 
 function App() {
     const auth = useSelector(selectAuthReducer);
@@ -77,6 +78,7 @@ function App() {
                         <Route path='events' element={<EventForm />}>
                             <Route path='add' element={<EventFormAdd />} />
                             <Route path='delete' element={<EventFormRemove />} />
+                            <Route path='confirm' element={<EventFormConfirm />} />
                         </Route>
                         <Route path='new-arrivals' element={<NewArrivalForm />}>
                             <Route path='add' element={<NewArrivalFormAdd />} />

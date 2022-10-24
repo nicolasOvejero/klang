@@ -98,7 +98,8 @@
             "delete": "Supprimer",
             "birthdays": "Anniversaires",
             "events": "Événements",
-            "new-arrivals": "Nouveaux arrivants"
+            "new-arrivals": "Nouveaux arrivants",
+            "confirm-events": "Confirmation"
         },
         "birthdays": {
             "title-add": "Ajouter un anniversaire",
@@ -124,7 +125,9 @@
             "success-delete": "L'événement a bien été supprimé",
             "error": "Une erreur est survenue",
             "error-participants": "Impossible de supprimer les participants",
-            "error-delete": "Impossible de supprimer l'événement"
+            "error-delete": "Impossible de supprimer l'événement",
+            "success-confirm": "Événement confirmé ! Il est maintenant disponible pour tous les utilisateurs",
+            "error-confirm": "Impossible de confirmer l'événement"
         },
         "new-arrivals": {
             "title-add": "Ajouter un nouvelle arrivant",

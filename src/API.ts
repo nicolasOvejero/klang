@@ -2,22 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type DeleteUserInput = {
-  id: string,
+export type CreateBirthdayInput = {
+  id?: string | null,
+  date: string,
 };
 
-export type ModelUserConditionInput = {
-  mail?: ModelStringInput | null,
-  lastname?: ModelStringInput | null,
-  firstname?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  job?: ModelStringInput | null,
-  city?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-  birthdayUsersId?: ModelIDInput | null,
-  newArrivalsUsersId?: ModelIDInput | null,
+export type ModelBirthdayConditionInput = {
+  date?: ModelStringInput | null,
+  and?: Array< ModelBirthdayConditionInput | null > | null,
+  or?: Array< ModelBirthdayConditionInput | null > | null,
+  not?: ModelBirthdayConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -60,20 +54,19 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
+export type Birthday = {
+  __typename: "Birthday",
+  id: string,
+  date: string,
+  users?: ModelUserConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
 };
 
 export type User = {
@@ -133,33 +126,6 @@ export type Address = {
   street?: string | null,
   createdAt: string,
   updatedAt: string,
-};
-
-export type CreateBirthdayInput = {
-  id?: string | null,
-  date: string,
-};
-
-export type ModelBirthdayConditionInput = {
-  date?: ModelStringInput | null,
-  and?: Array< ModelBirthdayConditionInput | null > | null,
-  or?: Array< ModelBirthdayConditionInput | null > | null,
-  not?: ModelBirthdayConditionInput | null,
-};
-
-export type Birthday = {
-  __typename: "Birthday",
-  id: string,
-  date: string,
-  users?: ModelUserConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
 };
 
 export type UpdateBirthdayInput = {
@@ -226,6 +192,22 @@ export type ModelBooleanInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type UpdateEventInput = {
   id: string,
   date?: string | null,
@@ -253,6 +235,20 @@ export type CreateUserInput = {
   newArrivalsUsersId?: string | null,
 };
 
+export type ModelUserConditionInput = {
+  mail?: ModelStringInput | null,
+  lastname?: ModelStringInput | null,
+  firstname?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  job?: ModelStringInput | null,
+  city?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+  birthdayUsersId?: ModelIDInput | null,
+  newArrivalsUsersId?: ModelIDInput | null,
+};
+
 export type UpdateUserInput = {
   id: string,
   mail?: string | null,
@@ -263,6 +259,10 @@ export type UpdateUserInput = {
   city?: string | null,
   birthdayUsersId?: string | null,
   newArrivalsUsersId?: string | null,
+};
+
+export type DeleteUserInput = {
+  id: string,
 };
 
 export type CreateNewArrivalsInput = {
@@ -498,40 +498,6 @@ export type ModelSubscriptionUsersEventsFilterInput = {
   userID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionUsersEventsFilterInput | null > | null,
   or?: Array< ModelSubscriptionUsersEventsFilterInput | null > | null,
-};
-
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type DeleteUserMutation = {
-  deleteUser?:  {
-    __typename: "User",
-    id: string,
-    mail: string,
-    lastname?: string | null,
-    firstname: string,
-    image?: string | null,
-    job?: string | null,
-    events?:  {
-      __typename: "ModelUsersEventsConnection",
-      items:  Array< {
-        __typename: "UsersEvents",
-        id: string,
-        eventID: string,
-        userID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    city: string,
-    createdAt: string,
-    updatedAt: string,
-    birthdayUsersId?: string | null,
-    newArrivalsUsersId?: string | null,
-  } | null,
 };
 
 export type CreateBirthdayMutationVariables = {
@@ -899,6 +865,40 @@ export type UpdateUserMutationVariables = {
 
 export type UpdateUserMutation = {
   updateUser?:  {
+    __typename: "User",
+    id: string,
+    mail: string,
+    lastname?: string | null,
+    firstname: string,
+    image?: string | null,
+    job?: string | null,
+    events?:  {
+      __typename: "ModelUsersEventsConnection",
+      items:  Array< {
+        __typename: "UsersEvents",
+        id: string,
+        eventID: string,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    city: string,
+    createdAt: string,
+    updatedAt: string,
+    birthdayUsersId?: string | null,
+    newArrivalsUsersId?: string | null,
+  } | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type DeleteUserMutation = {
+  deleteUser?:  {
     __typename: "User",
     id: string,
     mail: string,

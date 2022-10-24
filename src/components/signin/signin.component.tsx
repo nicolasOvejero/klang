@@ -42,7 +42,8 @@ function Signin() {
     const getUserProfile = async (
         email: string,
         lastname: string,
-        firstname: string
+        firstname: string,
+        city: string
     ) => {
         try {
             const existingProfiles = await UserService.getUsers({
@@ -60,8 +61,9 @@ function Signin() {
                 const newProfile = await UserService.creatUser({
                     input: {
                         mail: email,
-                        firstname: firstname,
-                        lastname: lastname
+                        firstname,
+                        lastname,
+                        city
                     }
                 });
 
@@ -132,6 +134,7 @@ function Signin() {
                 user.signInUserSession.idToken.payload.email,
                 user.signInUserSession.idToken.payload.family_name,
                 user.signInUserSession.idToken.payload.given_name,
+                user.signInUserSession.idToken.payload['custom:city'],
             );
         } catch (error: any) {
             if (error.message === 'Password reset required for the user') {

@@ -37,7 +37,7 @@ type Event
       { allow: groups, groups: ["admin", "eventCreation", "eventValidation"] }
     ]
   ) {
-  id: ID! @primaryKey(sortKeyFields: ["date"])
+  id: ID! @primaryKey
   date: AWSDate!
   image: String
   participants: [User] @manyToMany(relationName: "UsersEvents")

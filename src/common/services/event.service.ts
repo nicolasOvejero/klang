@@ -8,7 +8,7 @@ import { createEvent, deleteEvent } from "../../graphql/mutations";
 import { CreateEventMutation, DeleteEventMutation } from "../../API";
 
 export default class EventService {
-    static async getNextEvent(variables: object): Promise<EventModel | undefined> {
+    static async getNextEvent(variables: object): Promise<EventModel[]> {
         const apiData = await API.graphql({
             query: getNextEvents,
             variables,
@@ -21,7 +21,7 @@ export default class EventService {
 
         const items = apiData.data?.listEvents?.items;
         if (!items) {
-            return undefined;
+            return [];
         }
 
         return items.map((item) => {
@@ -51,7 +51,7 @@ export default class EventService {
                     }
                 })
             }
-        })[0];
+        });
     }
 
     static async getEvents(variables: object): Promise<EventModel[]> {

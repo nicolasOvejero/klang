@@ -106,7 +106,11 @@ function HomeCarousel() {
                 birthdays
                     .filter((date) => {
                         const mdate = moment(date?.date);
-                        return mdate.date() >= moment().date() && mdate.month() >= moment().month();
+                        const dateToCompare = moment().set('date', mdate.date()).set('month', mdate.month());
+                        if (moment().month() >= mdate.month()) {
+                            dateToCompare.add(1, 'year')
+                        }
+                        return dateToCompare.isAfter(moment());
                     })
                     .flatMap((b) =>
                         b.users?.map((u) => {
@@ -131,7 +135,6 @@ function HomeCarousel() {
 
         try {
             const nextEvent = await EventService.getNextEvent({
-                limit: 1,
                 filter: {
                     published: {
                         eq: true
@@ -142,7 +145,11 @@ function HomeCarousel() {
                 }
             });
 
-            setEvent(nextEvent);
+            setEvent(
+                nextEvent
+                    .sort((a, b) => moment(a?.date).diff(moment(b?.date)))
+                    .shift()
+            );
 
             getNewArrivals();
 

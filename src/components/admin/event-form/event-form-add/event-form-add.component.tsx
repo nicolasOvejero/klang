@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import EventService from '../../../../common/services/event.service';
 import NewArrivalsService from '../../../../common/services/new-arrivals.service';
-import { userReducer } from '../../../../store/user/user.reducer';
 import { selectUserReducer } from '../../../../store/user/user.selector';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';

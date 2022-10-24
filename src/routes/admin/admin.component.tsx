@@ -4,9 +4,12 @@ import defaultBackground from '../../assets/admin-bg.png';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ChevDown } from '../../assets/icons/chevron-down.svg';
+import { useSelector } from 'react-redux';
+import { selectAuthReducer } from '../../store/auth/auth.selector';
 import './admin.style.scss';
 
 function Admin() {
+    const auth = useSelector(selectAuthReducer);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { t } = useTranslation();
     const isMatchUsers = useMatch('/admin/users/*');
@@ -28,7 +31,7 @@ function Admin() {
                     title={t('admin.menu.events')}
                     pathAdd='/admin/events/add'
                     pathDelete='/admin/events/delete'
-                    pathConfirm='/admin/events/confirm'
+                    pathConfirm={auth.user?.groups.includes('eventValidation') ? '/admin/events/confirm' : undefined}
                     color='secondary'
                 ></AsideAction>
                 <AsideAction

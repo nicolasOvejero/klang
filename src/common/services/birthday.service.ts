@@ -81,4 +81,31 @@ export default class BirthdayService {
             date: moment(items.date).toDate()
         }
     }
+
+    static async assertBirthdayId(date: string): Promise<string> {
+        const birthdays = await BirthdayService.getBirthdaysLight({
+            filter: {
+                date: {
+                    eq: date
+                }
+            }
+        });
+
+        if (birthdays.length > 0) {
+            return birthdays[0].id;
+        } else {
+            const newBirthday = await BirthdayService.createBirthday({
+                input: {
+                    date
+                }
+                
+            });
+
+            if (!newBirthday || !newBirthday.id) {
+                throw new Error('assert birthday id : can not create new birthday');
+            }
+
+            return newBirthday.id;        
+        }
+    }
 }

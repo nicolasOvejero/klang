@@ -10,6 +10,7 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "klang": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

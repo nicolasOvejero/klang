@@ -61,7 +61,16 @@
               "userPoolId": "authklang051e245e"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-11-01T13:17:06.050Z",
+                "description": ""
+              }
+            }
+          ]
         }
       }
     }

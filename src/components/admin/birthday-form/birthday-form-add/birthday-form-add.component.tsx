@@ -36,10 +36,6 @@ function BirthdayFormAdd() {
     }
 
     const saveNewBirthdayToUser = async (birthdayId: string | undefined) => {
-        if (!birthdayId) {
-            throw new Error('No birthday ID found');
-        }
-
         await UserService.udpateUser({
             input: {
                 id: user, 
@@ -56,16 +52,6 @@ function BirthdayFormAdd() {
         }, 2000);
     }
 
-    const saveNewBirthday = async (date: string) => {
-        const newBirthday = await BirthdayService.createBirthday({
-            input: {
-                date
-            }
-        });
-
-        newBirthday && await saveNewBirthdayToUser(newBirthday.id);        
-    }
-
     const handlerSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -75,19 +61,8 @@ function BirthdayFormAdd() {
         
         try {
             const formatedDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
-            const birthdays = await BirthdayService.getBirthdaysLight({
-                filter: {
-                    date: {
-                        eq: formatedDate
-                    }
-                }
-            });
-
-            if (birthdays.length > 0) {
-                await saveNewBirthdayToUser(birthdays[0]?.id);
-            } else {
-                await saveNewBirthday(formatedDate);
-            }
+            const birthdayId = await BirthdayService.assertBirthdayId(formatedDate);
+            await saveNewBirthdayToUser(birthdayId);
         } catch (error: unknown) {
             setBirthdayAddState({
                 ...birthdayAddState,

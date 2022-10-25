@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
 import './signin.style.scss';
+import BirthdayService from '../../common/services/birthday.service';
 
 const defaultSignInState = {
     username: '',
@@ -43,7 +44,8 @@ function Signin() {
         email: string,
         lastname: string,
         firstname: string,
-        city: string
+        city: string,
+        birthday: string
     ) => {
         try {
             const existingProfiles = await UserService.getUsers({
@@ -58,13 +60,20 @@ function Signin() {
                 disptachUser(existingProfiles[0]);
                 navigate('/');
             } else {
+                const toSave = {
+                    mail: email,
+                    firstname,
+                    lastname,
+                    city,
+                    birthdayUsersId: ''
+                };
+                if (birthday) {
+                    const birthdayId = await BirthdayService.assertBirthdayId(birthday);
+                    toSave.birthdayUsersId = birthdayId;
+                }
+
                 const newProfile = await UserService.creatUser({
-                    input: {
-                        mail: email,
-                        firstname,
-                        lastname,
-                        city
-                    }
+                    input: toSave
                 });
 
                 if (newProfile) {
@@ -130,11 +139,12 @@ function Signin() {
                     }
                 }
             });
-            await getUserProfile(
+             await getUserProfile(
                 user.signInUserSession.idToken.payload.email,
                 user.signInUserSession.idToken.payload.family_name,
                 user.signInUserSession.idToken.payload.given_name,
                 user.signInUserSession.idToken.payload['custom:city'],
+                user.signInUserSession.idToken.payload.birthdate,
             );
         } catch (error: any) {
             if (error.message === 'Password reset required for the user') {

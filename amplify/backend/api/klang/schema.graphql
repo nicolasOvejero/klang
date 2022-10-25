@@ -48,9 +48,7 @@ type Event
   createBy: User @hasOne
 }
 
-type User
-  @model
-  @auth(rules: [{ allow: private, operations: [read, update, create] }]) {
+type User @model @auth(rules: [{ allow: private }]) {
   id: ID! @primaryKey
   mail: String!
   lastname: String

@@ -1,14 +1,27 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import NewArrivalsService from '../../../../common/services/new-arrivals.service';
-import { getAllByTagName, getByClass } from '../../../../setupTests';
+import { createTestStore, getAllByTagName, getByClass } from '../../../../setupTests';
 import EventFormAdd from './event-form-add.component';
 import moment from 'moment';
 import EventService from '../../../../common/services/event.service';
+import { Provider } from 'react-redux';
+import { USER_ACTION_TYPES } from '../../../../store/user/user.types';
+
+let store = createTestStore();
+
+store.dispatch({
+    type: USER_ACTION_TYPES.SET_USER,
+    payload: {
+        id: 'u-1'
+    }
+});
 
 describe('render event form add', () => {
     it('component default', () => {
         render(
-            <EventFormAdd />
+            <Provider store={store}>
+                <EventFormAdd />
+            </Provider>
         );
 
         const mainDiv = getByClass('form-event-add', screen);
@@ -57,7 +70,9 @@ describe('render event form add', () => {
         );
 
         render(
-            <EventFormAdd />
+            <Provider store={store}>
+                <EventFormAdd />
+            </Provider>
         );
 
         const button = screen.getByText(/admin.events.save/i);
@@ -74,7 +89,9 @@ describe('render event form add', () => {
         );
 
         render(
-            <EventFormAdd />
+            <Provider store={store}>
+                <EventFormAdd />
+            </Provider>
         );
 
         setFields();
@@ -111,7 +128,9 @@ describe('render event form add', () => {
         );
 
         render(
-            <EventFormAdd />
+            <Provider store={store}>
+                <EventFormAdd />
+            </Provider>
         );
 
         setFields();
@@ -120,29 +139,32 @@ describe('render event form add', () => {
         const button = screen.getByText(/admin.events.save/i);
         await waitFor(async () => {
             fireEvent.click(button);
+        });
 
-            expect(NewArrivalsService.createAddress).toHaveBeenCalledTimes(1);
-            expect(NewArrivalsService.createAddress).toHaveBeenCalledWith({
+        expect(NewArrivalsService.createAddress).toHaveBeenCalledTimes(1);
+        expect(NewArrivalsService.createAddress).toHaveBeenCalledWith({
+            input: {
+                city: 'Montreal',
+                street: 'Rue Sainte Catherine Ouest',
+            }
+        });
+
+        await waitFor(() => {
+            expect(EventService.createEvent).toBeCalledTimes(1);
+            expect(EventService.createEvent).toBeCalledWith({
                 input: {
-                    city: 'Montreal',
-                    street: 'Rue Sainte Catherine Ouest'
+                    image: 'test-image',
+                    type: 'Type trop cool',
+                    schedule: 'de 14h - 00h',
+                    date: formatedDate,
+                    eventAddressId: 'ad-1',
+                    eventCreateById: 'u-1',
+                    published: false,
                 }
             });
 
-            await waitFor(() => {
-                expect(EventService.createEvent).toBeCalledTimes(1);
-                expect(EventService.createEvent).toBeCalledWith({
-                    input: {
-                        image: 'test-image',
-                        type: 'Type trop cool',
-                        schedule: 'de 14h - 00h',
-                        date: formatedDate,
-                        eventAddressId: 'ad-1'
-                    }
-                });
-            })
-        });
-        checkError();
+            checkError();
+        })
     });
 
     it('component submit success', async () => {
@@ -159,7 +181,9 @@ describe('render event form add', () => {
         );
 
         render(
-            <EventFormAdd />
+            <Provider store={store}>
+                <EventFormAdd />
+            </Provider>
         );
 
         setFields();
@@ -168,31 +192,33 @@ describe('render event form add', () => {
         const button = screen.getByText(/admin.events.save/i);
         await waitFor(async () => {
             fireEvent.click(button);
+        });
 
-            expect(NewArrivalsService.createAddress).toHaveBeenCalledTimes(1);
-            expect(NewArrivalsService.createAddress).toHaveBeenCalledWith({
+        expect(NewArrivalsService.createAddress).toHaveBeenCalledTimes(1);
+        expect(NewArrivalsService.createAddress).toHaveBeenCalledWith({
+            input: {
+                city: 'Montreal',
+                street: 'Rue Sainte Catherine Ouest'
+            }
+        });
+
+        await waitFor(() => {
+            expect(EventService.createEvent).toBeCalledTimes(1);
+            expect(EventService.createEvent).toBeCalledWith({
                 input: {
-                    city: 'Montreal',
-                    street: 'Rue Sainte Catherine Ouest'
+                    image: 'test-image',
+                    type: 'Type trop cool',
+                    schedule: 'de 14h - 00h',
+                    date: formatedDate,
+                    eventAddressId: 'ad-1',
+                    eventCreateById: 'u-1',
+                    published: false,
                 }
             });
 
-            await waitFor(() => {
-                expect(EventService.createEvent).toBeCalledTimes(1);
-                expect(EventService.createEvent).toBeCalledWith({
-                    input: {
-                        image: 'test-image',
-                        type: 'Type trop cool',
-                        schedule: 'de 14h - 00h',
-                        date: formatedDate,
-                        eventAddressId: 'ad-1'
-                    }
-                });
-            })
+            const success = screen.getByText(/admin.events.success/i);
+            expect(success).not.toHaveClass('hidden');
         });
-
-        const success = screen.getByText(/admin.events.success/i);
-        expect(success).not.toHaveClass('hidden');
     });
 
     function setFields() {

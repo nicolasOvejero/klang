@@ -66,14 +66,6 @@ function EventFormAdd() {
             }
         });
 
-/*
-https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg
-Visite du mont
-13h30 - 17h
-Tokyo
-Mont
-*/
-
         setEventAddState({
             ...defaultEventAddState,
             success: true

@@ -7,13 +7,12 @@ import { AUTH_ACTION_TYPES } from '../../store/auth/auth.types';
 import { Link, useNavigate } from 'react-router-dom';
 import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import { UserModel } from '../user/user.component';
-import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
-import './signin.style.scss';
 import BirthdayService from '../../common/services/birthday.service';
+import './signin.style.scss';
 
 const defaultSignInState = {
     username: '',
@@ -40,51 +39,45 @@ function Signin() {
         });
     }
 
-    const getUserProfile = async (
+    const setUserProfile = async (
         email: string,
         lastname: string,
         firstname: string,
         city: string,
         birthday: string
     ) => {
-        try {
-            const existingProfiles = await UserService.getUsers({
-                filter: {
-                    mail: {
-                        eq: email
-                    }
-                }
-            })
-
-            if (existingProfiles.length > 0) {
-                disptachUser(existingProfiles[0]);
-                navigate('/');
-            } else {
-                const toSave = {
-                    mail: email,
-                    firstname,
-                    lastname,
-                    city,
-                    birthdayUsersId: ''
-                };
-                if (birthday) {
-                    const birthdayId = await BirthdayService.assertBirthdayId(birthday);
-                    toSave.birthdayUsersId = birthdayId;
-                }
-
-                const newProfile = await UserService.creatUser({
-                    input: toSave
-                });
-
-                if (newProfile) {
-                    disptachUser(newProfile);
-                    navigate('/profile');
+        const existingProfiles = await UserService.getUsers({
+            filter: {
+                mail: {
+                    eq: email
                 }
             }
-        } catch (error: unknown) {
-            if (error instanceof RequestError) {
-                console.error(error.errors);
-            }
+        });
+        if (existingProfiles.length > 0) {
+            disptachUser(existingProfiles[0]);
+            navigate('/');
+            return;
+        }
+
+        const toSave = {
+            mail: email,
+            firstname,
+            lastname,
+            city,
+            birthdayUsersId: ''
+        };
+        if (birthday) {
+            const birthdayId = await BirthdayService.assertBirthdayId(birthday);
+            toSave.birthdayUsersId = birthdayId;
+        }
+
+        const newProfile = await UserService.creatUser({
+            input: toSave
+        });
+
+        if (newProfile) {
+            disptachUser(newProfile);
+            navigate('/profile');
         }
     }
 
@@ -139,7 +132,7 @@ function Signin() {
                     }
                 }
             });
-             await getUserProfile(
+            await setUserProfile(
                 user.signInUserSession.idToken.payload.email,
                 user.signInUserSession.idToken.payload.family_name,
                 user.signInUserSession.idToken.payload.given_name,

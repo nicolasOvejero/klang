@@ -35,7 +35,7 @@ export default class EventService {
                     street: item?.address?.street || '',
                 },
                 schedule: item?.schedule || '',
-                published: item?.published || true,
+                published: item?.published === undefined ? true : item?.published,
                 createBy: {
                     id: item?.createBy.id || '',
                     lastname: item?.createBy.lastname || '',
@@ -81,7 +81,7 @@ export default class EventService {
                     street: item?.address?.street || '',
                 },
                 schedule: item?.schedule || '',
-                published: item?.published || true,
+                published: item?.published === undefined ? true : item?.published,
                 createBy: {
                     id: item?.createBy.id || '',
                     lastname: item?.createBy.lastname || '',
@@ -130,27 +130,27 @@ export default class EventService {
             throw new RequestError('create event', apiData.errors);
         }
 
-        const items = apiData.data?.createEvent;
-        if (!items || !apiData.data) {
+        const item = apiData.data?.createEvent;
+        if (!item) {
             return undefined;
         }
 
         return {
-            id: items.id,
-            date: moment(items.date).toDate(),
-            image: items.image,
-            type: items.type,
+            id: item.id,
+            date: moment(item.date).toDate(),
+            image: item.image,
+            type: item.type,
             address: {
-                city: items.address?.city,
-                street: items.address?.street
+                city: item.address?.city,
+                street: item.address?.street
             },
-            schedule: items.schedule,
-            published: items.published || false,
+            schedule: item.schedule,
+            published: item.published === null || item.published === undefined ? true : item.published,
             createBy: {
-                id: items.createBy?.id || '',
-                lastname: items.createBy?.lastname || '',
-                firstname: items.createBy?.firstname || '',
-                image: items.createBy?.image || '',
+                id: item.createBy?.id || '',
+                lastname: item.createBy?.lastname || '',
+                firstname: item.createBy?.firstname || '',
+                image: item.createBy?.image || '',
             }
         }
     }
@@ -166,27 +166,27 @@ export default class EventService {
             throw new RequestError('update event', apiData.errors);
         }
 
-        const items = apiData.data?.updateEvent;
-        if (!items || !apiData.data) {
+        const item = apiData.data?.updateEvent;
+        if (!item || !apiData.data) {
             return undefined;
         }
 
         return {
-            id: items.id,
-            date: moment(items.date).toDate(),
-            image: items.image,
-            type: items.type,
+            id: item.id,
+            date: moment(item.date).toDate(),
+            image: item.image,
+            type: item.type,
             address: {
-                city: items.address?.city,
-                street: items.address?.street
+                city: item.address?.city,
+                street: item.address?.street
             },
-            schedule: items.schedule,
-            published: items.published || false,
+            schedule: item.schedule,
+            published: item.published === null || item.published === undefined ? true : item.published,
             createBy: {
-                id: items.createBy?.id || '',
-                lastname: items.createBy?.lastname || '',
-                firstname: items.createBy?.firstname || '',
-                image: items.createBy?.image || '',
+                id: item.createBy?.id || '',
+                lastname: item.createBy?.lastname || '',
+                firstname: item.createBy?.firstname || '',
+                image: item.createBy?.image || '',
             }
         }
     }
@@ -214,11 +214,11 @@ export default class EventService {
             throw new RequestError('find subscription by user ID and event ID', apiData.errors);
         }
 
-        const items = apiData.data?.listUsersEvents.items;
-        if (!items || !apiData.data) {
+        const items = apiData.data?.listUsersEvents?.items;
+        if (!items) {
             return [];
         }
 
-        return apiData.data.listUsersEvents.items.map((v) => v.id);
+        return items.map((v) => v.id);
     }
 }

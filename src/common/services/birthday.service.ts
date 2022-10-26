@@ -36,7 +36,7 @@ export default class BirthdayService {
                         image: user?.image || '',
                         mail: user?.mail || '',
                     }
-                })
+                }) || []
             }
         });
     }
@@ -101,7 +101,7 @@ export default class BirthdayService {
                 
             });
 
-            if (!newBirthday || !newBirthday.id) {
+            if (!newBirthday?.id) {
                 throw new Error('assert birthday id : can not create new birthday');
             }
 

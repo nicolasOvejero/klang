@@ -66,7 +66,7 @@ export default class UserService {
         }
 
         const items = apiData.data?.createUser;
-        if (!items || !apiData.data) {
+        if (!items) {
             return undefined;
         }
 
@@ -137,11 +137,7 @@ export default class UserService {
 
     static async bulkDeleteUsers(mutations: any): Promise<void> {
         const apiData = await API.graphql({
-            ...graphqlOperation(`
-                mutation batchMutation {
-                    ${mutations}
-                }
-            `),
+            ...graphqlOperation(`mutation batchMutation {${mutations}}`),
             authMode: 'AMAZON_COGNITO_USER_POOLS'
         }) as GraphQLResult;
 

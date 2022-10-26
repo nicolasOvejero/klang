@@ -195,7 +195,7 @@ function HomeCarousel() {
         try {
             const subscription = await UserService.createUsersEvents({
                 input: {
-                    eventID: eventId, 
+                    eventID: eventId,
                     userID: userId
                 }
             });

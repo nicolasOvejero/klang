@@ -53,15 +53,15 @@ export default class NewArrivalsService {
             throw new RequestError('create address', apiData.errors);
         }
 
-        const items = apiData.data?.createAddress;
-        if (!items || !apiData.data) {
+        const item = apiData.data?.createAddress;
+        if (!item) {
             return undefined;
         }
 
         return {
-            id: items.id,
-            city: items.city,
-            street: items.street
+            id: item.id,
+            city: item.city,
+            street: item.street
         }
     }
 

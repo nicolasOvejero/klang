@@ -8,7 +8,7 @@ type ButtonProps = {
     color?: 'primary' | 'secondary';  
 }
 
-function Button(props: ButtonProps) {
+const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     return (
         <button
             disabled={props.disabled}

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectAuthReducer } from '../../store/auth/auth.selector';
 import './admin.style.scss';
 
-function Admin() {
+const Admin: React.FC = () => {
     const auth = useSelector(selectAuthReducer);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { t } = useTranslation();

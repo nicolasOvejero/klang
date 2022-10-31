@@ -11,7 +11,7 @@ type AsideActionPros = {
     handleClickItem?: () => void;
 }
 
-function AsideAction(props: AsideActionPros) {
+const AsideAction: React.FC<AsideActionPros> = (props: AsideActionPros) => {
     const { t } = useTranslation();
 
     return (

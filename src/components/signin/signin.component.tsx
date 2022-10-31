@@ -22,7 +22,7 @@ const defaultSignInState = {
     loading: false
 };
 
-function Signin() {
+const Signin: React.FC = () => {
     const [signInState, setSignInState] = useState(defaultSignInState);
     const { username, password, formHasError, formError, loading } = signInState;
     const dispatch = useDispatch();

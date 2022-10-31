@@ -21,7 +21,7 @@ const defaultResetState = {
     loading: false
 };
 
-function ChangePassword() {
+const ChangePassword: React.FC = () => {
     const [resetState, setResetState] = useState(defaultResetState);
     const { password, confirmPassword, formHasError, formError, loading } = resetState;
     const dispatch = useDispatch();

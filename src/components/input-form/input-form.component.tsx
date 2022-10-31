@@ -8,7 +8,8 @@ type FormInputProps = {
     icon?: FC;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-function InputForm({ label, haserror, errormessage, ...otherProps }: FormInputProps) {
+const InputForm: React.FC<FormInputProps> =
+    ({ label, haserror, errormessage, ...otherProps }: FormInputProps) => {
     return (
         <label htmlFor={otherProps.name} className={`label ${haserror ? 'error' : ''}`}>
             {

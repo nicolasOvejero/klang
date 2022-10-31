@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useMatch } from 'react-router-dom';
 import './new-arrival-form.style.scss';
 
-function NewArrivalForm() {
+const NewArrivalForm: React.FC = () => {
     const isMatchNewArrivalsAdd = useMatch('/admin/new-arrivals/add');
     const { t } = useTranslation();
 

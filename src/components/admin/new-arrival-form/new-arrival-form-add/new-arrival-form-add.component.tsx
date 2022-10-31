@@ -19,7 +19,7 @@ const defaultNewArrivalsAddState = {
     success: false
 };
 
-function NewArrivalFormAdd() {
+const NewArrivalFormAdd: React.FC = () => {
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [newArrivals, setNewArrivals] = useState(defaultNewArrivalsAddState);
     const { user, day, month, year, formError, success } = newArrivals;

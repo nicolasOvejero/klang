@@ -16,7 +16,7 @@ type MobileMenuProps = {
     signOut: () => void;
 }
 
-function MobileMenu(props: MobileMenuProps) {
+const MobileMenu: React.FC<MobileMenuProps> = (props: MobileMenuProps) => {
     const { t, i18n } = useTranslation();
     const dispatch = useDispatch();
 

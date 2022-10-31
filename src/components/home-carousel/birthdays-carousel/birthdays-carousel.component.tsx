@@ -5,11 +5,11 @@ import User, { UserModel } from '../../user/user.component';
 import moment from 'moment';
 import './birthdays-carousel.style.scss';
 
-export type userCarouselProps = {
+export type UserCarouselProps = {
     users: UserModel[];
 }
 
-function BirthdaysCarousel(props: userCarouselProps) {
+const BirthdaysCarousel: React.FC<UserCarouselProps> = (props: UserCarouselProps) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     moment.updateLocale(i18n.language, {

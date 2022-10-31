@@ -17,7 +17,7 @@ export type UserModel = {
     showActions?: boolean;
 }
 
-function User({ user }: { user: UserModel }) {
+const User: React.FC<{ user: UserModel }> = ({ user }: { user: UserModel }) => {
     const { t } = useTranslation();
 
     return (

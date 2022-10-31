@@ -16,7 +16,7 @@ const defaultCodeState = {
     loading: false
 };
 
-function Code() {
+const Code: React.FC = () => {
     const auth = useSelector(selectAuthReducer);
     const [codeState, setCodeState] = useState(defaultCodeState);
     const navigate = useNavigate();

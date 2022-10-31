@@ -14,7 +14,7 @@ export type NewArrivalModel = {
     users: UserModel[];
 }
 
-function NewArrivals() {
+const NewArrivals: React.FC = () => {
     const [newArrivales, setNewArrivales] = useState<NewArrivalModel[]>([]);
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();

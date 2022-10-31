@@ -46,7 +46,7 @@ const defaultState = {
     success: false
 } 
 
-function Event() {
+const Event: React.FC = () => {
     const user = useSelector(selectUserReducer);
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<EventModel>();

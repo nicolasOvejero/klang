@@ -18,7 +18,7 @@ export type BirthdayModel = {
     users?: UserModel[];
 }
 
-function Birthday() {
+const Birthday: React.FC = () => {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<BirthdayModel>();
     const [birthdays, setBirthdays] = useState<BirthdayModel[]>([]);

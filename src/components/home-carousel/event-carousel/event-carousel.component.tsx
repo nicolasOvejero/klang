@@ -14,7 +14,7 @@ import { ReactComponent as Clock } from '../../../assets/icons/clock.svg';
 import { ReactComponent as Pin } from '../../../assets/icons/map-pin.svg';
 import './event-carousel.style.scss';
 
-export type eventCarouselProps = {
+export type EventCarouselProps = {
     event: EventModel;
     subscriptionClickHandler: (eventId: string, userId: string, callback: () => void) => void;
 }
@@ -29,7 +29,7 @@ const defaultState = {
     success: false
 } 
 
-function EventCarousel(props: eventCarouselProps) {
+const EventCarousel: React.FC<EventCarouselProps> = (props: EventCarouselProps) => {
     const user = useSelector(selectUserReducer);
     const [state, setState] = useState<EventCarouselDefaultState>(defaultState);
     const navigate = useNavigate();
@@ -119,26 +119,31 @@ function EventCarousel(props: eventCarouselProps) {
                             ></Button>
                         </div>
                         <div className='right-container'>
+                            <h3 className='event-title'>
+                                {t('home.events.participants')}
+                            </h3>
+                            { !!event.participants?.length && (
+                                <div className='participants'>
+                                {
+                                        event.participants?.map((user) => {
+                                            user['size'] = 'small';
+                                            user['background'] = 'bg-grey';
+                                            return (
+                                                <div key={user.id} className='users-item'>
+                                                    <User user={user}></User>
+                                                </div>
+                                            );
+                                        })
+                                }
+                                </div>
+                            )}
                             {
-                                event.participants && event.participants.length > 0 && (
-                                    <h3 className='event-title'>
-                                        {t('home.events.participants')}
-                                    </h3>
+                                !event.participants?.length && (
+                                    <p className='no-participant'>
+                                        {t('home.events.no-participants')}
+                                    </p>
                                 )
                             }
-                            <div className='participants'>
-                                {
-                                    event.participants?.map((user) => {
-                                        user['size'] = 'small';
-                                        user['background'] = 'bg-grey';
-                                        return (
-                                            <div key={user.id} className='users-item'>
-                                                <User user={user}></User>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ import { USER_ACTION_TYPES } from '../../store/user/user.types';
 import { ReactComponent as Menu } from '../../assets/icons/menu.svg';
 import './navigation.style.scss';
 
-function Navigation() {
+const Navigation: React.FC = () => {
     const auth = useSelector(selectAuthReducer);
     const { t } = useTranslation();
     const [menuOpen, setMenuOpen] = useState(false);

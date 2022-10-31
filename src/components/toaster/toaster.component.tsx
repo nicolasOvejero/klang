@@ -6,7 +6,7 @@ type ToasterProp = {
     display: boolean;
 }
 
-function Toaster(props: ToasterProp) {
+const Toaster: React.FC<ToasterProp> = (props: ToasterProp) => {
     return (
         <div className={`toaster ${props.type} ${!props.display ? 'hidden' : ''}`}>
             {props.message}

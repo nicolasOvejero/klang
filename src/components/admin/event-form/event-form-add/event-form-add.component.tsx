@@ -31,7 +31,7 @@ export type Address = {
     street: string | null | undefined;
 }
 
-function EventFormAdd() {
+const EventFormAdd: React.FC = () => {
     const user = useSelector(selectUserReducer);
     const [eventAddState, setEventAddState] = useState(defaultEventAddState);
     const { image, type, schedule,

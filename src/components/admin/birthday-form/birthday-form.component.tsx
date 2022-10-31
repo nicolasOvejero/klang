@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useMatch } from 'react-router-dom';
 import './birthday-form.style.scss';
 
-function BirthdayForm() {
+const BirthdayForm: React.FC = () => {
     const isMatchBirthdayAdd = useMatch('/admin/birthdays/add');
     const { t } = useTranslation();
 

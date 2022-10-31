@@ -91,6 +91,12 @@
                     grid-template-rows: repeat(2, 1fr);
                     gap: 0.5rem;
                 }
+
+                .no-participant {
+                    color: $primary;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                }
             }
         }
     }
@@ -214,6 +220,7 @@
 
             &-title {
                 font-size: 1.5rem;
+                margin: 1rem;
             }
 
             &-info-container {
@@ -251,6 +258,10 @@
                     .participants {
                         grid-template-columns: 1fr;
                         grid-template-rows: 1fr;
+                    }
+
+                    .no-participant {
+                        font-size: 1rem;
                     }
                 }
             }

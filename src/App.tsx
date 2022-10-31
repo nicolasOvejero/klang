@@ -14,9 +14,6 @@ import AdminGuardedRoute from './routes/admin-guarded-route.component';
 import Admin from './routes/admin/admin.component';
 import BirthdayForm from './components/admin/birthday-form/birthday-form.component';
 import BirthdayFormAdd from './components/admin/birthday-form/birthday-form-add/birthday-form-add.component';
-import UsersForm from './components/admin/users-form/users-form.component';
-import UsersFormAdd from './components/admin/users-form/users-form-add/users-form-add.component';
-import UsersFormRemove from './components/admin/users-form/users-form-remove/users-form-remove.component';
 import EventForm from './components/admin/event-form/event-form.component';
 import EventFormRemove from './components/admin/event-form/event-form-remove/event-form-remove.component';
 import EventFormAdd from './components/admin/event-form/event-form-add/event-form-add.component';
@@ -68,10 +65,6 @@ function App() {
                     </AdminGuardedRoute>
                 }>
                     <Route path='admin' element={<Admin />}>
-                        <Route path='users' element={<UsersForm />}>
-                            <Route path='add' element={<UsersFormAdd />} />
-                            <Route path='delete' element={<UsersFormRemove />} />
-                        </Route>
                         <Route path='birthdays' element={<BirthdayForm />}>
                             <Route path='add' element={<BirthdayFormAdd />} />
                         </Route>

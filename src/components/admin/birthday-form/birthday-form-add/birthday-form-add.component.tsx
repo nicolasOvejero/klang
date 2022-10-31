@@ -19,7 +19,7 @@ const defaultBirthdayAddState = {
     success: false
 };
 
-function BirthdayFormAdd() {
+const BirthdayFormAdd: React.FC = () => {
     const [users, setUsers] = useState<DropdownOption[]>([]);
     const [birthdayAddState, setBirthdayAddState] = useState(defaultBirthdayAddState);
     const { user, day, month, year, formHasError, formError, success } = birthdayAddState;

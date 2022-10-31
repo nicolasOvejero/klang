@@ -13,7 +13,7 @@ type DropdownProps = {
     errormessage?: string;
 } & SelectHTMLAttributes<HTMLSelectElement>;
 
-function Dropdown(props: DropdownProps) {
+const Dropdown: React.FC<DropdownProps> = (props: DropdownProps) => {
     return (
         <label htmlFor={props.name} className={`label ${ props.haserror ? 'error': ''}`}>
             <select

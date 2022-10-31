@@ -6,11 +6,11 @@ import moment from 'moment';
 import { Trans, useTranslation } from 'react-i18next';
 import './new-arrival-carousel.style.scss';
 
-export type newArrivalsCarouselProps = {
+export type NewArrivalsCarouselProps = {
     newArrivals: NewArrivalModel[];
 }
 
-function NewArrivalsCarousel(props: newArrivalsCarouselProps) {
+const NewArrivalsCarousel: React.FC<NewArrivalsCarouselProps> = (props: NewArrivalsCarouselProps) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     moment.updateLocale(i18n.language, {

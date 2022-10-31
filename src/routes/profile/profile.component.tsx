@@ -23,7 +23,7 @@ const defaultProfileState = {
     loading: false
 };
 
-function Profile() {
+const Profile: React.FC = () => {
     const user = useSelector(selectUserReducer);
     const dispatch = useDispatch();
     const { t } = useTranslation();

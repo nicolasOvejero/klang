@@ -13,7 +13,7 @@ const defaultSignUpState = {
     loading: false
 };
 
-function Signup() {
+const Signup: React.FC = () => {
     const [signUpState, setSignUpState] = useState(defaultSignUpState);
     const { username, email, password, confirmPassword, formError, formPasswordError, loading } = signUpState;
 

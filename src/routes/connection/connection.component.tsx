@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import './connection.style.scss';
 
-function Connection() {
+const Connection: React.FC = () => {
     return (
         <article className='connection'>
             <img

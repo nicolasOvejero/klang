@@ -15,7 +15,7 @@ const defaultFirstTimeState = {
     loading: false
 };
 
-function FirstTime() {
+const FirstTime: React.FC = () => {
     const [firstTimeState, setFirstTimeState] = useState(defaultFirstTimeState);
     const navigate = useNavigate();
     const dispatch = useDispatch();

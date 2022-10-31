@@ -15,7 +15,7 @@ import { ReactComponent as ChevRight } from '../../assets/icons/chevron-right.sv
 import { ReactComponent as ChevLeft } from '../../assets/icons/chevron-left.svg';
 import './home-carousel.style.scss';
 
-function HomeCarousel() {
+const HomeCarousel: React.FC = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [event, setEvent] = useState<EventModel>();
     const [newArrival, setNewArrival] = useState<NewArrivalModel[]>([]);

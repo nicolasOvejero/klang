@@ -24,7 +24,7 @@ export type InputDateProps = {
     endDateYear: number;
 }
 
-function InputDate(props: InputDateProps) {
+const InputDate: React.FC<InputDateProps> = (props: InputDateProps) => {
     const { t } = useTranslation();
     const arrayDays: DropdownOption[] =  [{
         value: '',

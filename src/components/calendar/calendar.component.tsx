@@ -11,7 +11,7 @@ type CalendarPops = {
     daySelectedHandler: (day: any) => void;
 }
 
-function Calendar(props: CalendarPops) {
+const Calendar: React.FC<CalendarPops> = (props: CalendarPops) => {
     const { i18n } = useTranslation();
     moment.updateLocale(i18n.language, {
         week: {

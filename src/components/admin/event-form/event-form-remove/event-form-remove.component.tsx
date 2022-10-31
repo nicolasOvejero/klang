@@ -17,7 +17,7 @@ const defaultEventDeleteState = {
     success: false
 };
 
-function EventFormRemove() {
+const EventFormRemove: React.FC = () => {
     const [originalEvents, setOriginialEvents] = useState<ListEventsLightQuery | undefined>(undefined);
     const [events, setEvents] = useState<DropdownOption[]>([]);
     const [eventRemoveState, setEventRemoveState] = useState(defaultEventDeleteState);

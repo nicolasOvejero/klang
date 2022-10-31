@@ -7,7 +7,7 @@ import { EventModel } from '../../../../routes/event/event.component';
 import EventService from '../../../../common/services/event.service';
 import './event-form-confirm.style.scss';
 
-function EventFormConfirm() {
+const EventFormConfirm: React.FC = () => {
     const [events, setEvents] = useState<EventModel[]>([]);
     const [success, setSuccess] = useState<boolean>(false);
     const [showToaster, setShowToaster] = useState<boolean>(false);

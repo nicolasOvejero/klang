@@ -34,7 +34,8 @@
             "address": "Address :",
             "subscribe": "I register",
             "participants": "The participants",
-            "button": "See more events"
+            "button": "See more events",
+            "no-participants": "Become the first participant !"
         },
         "new-arrivals": {
             "title": "Who are the<br /> next arrivals ?",

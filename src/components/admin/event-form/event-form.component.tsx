@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet, useMatch } from 'react-router-dom';
 import './event-form.style.scss';
 
-function EventForm() {
+const EventForm: React.FC = () => {
     const isMatchEventsAdd = useMatch('/admin/events/add');
     const isMatchEventsDelete = useMatch('/admin/events/delete');
     const { t } = useTranslation();

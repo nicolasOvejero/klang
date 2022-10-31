@@ -58,12 +58,15 @@ function Event() {
     const showEventDescription = (selectedDay: EventModel) => {
         setIsInfoOpen(true);
         setSelectedDate(selectedDay);
-        if (selectedDay.participants?.find((p) => p.id === user.id)) {
-            setEventState({
-                ...eventState,
-                disableSubscription: true,
-            })
-        }
+
+
+        const disableSubscription = !!selectedDay.participants?.find((p) => p.id === user.id) ||
+            moment(selectedDay.date).isBefore(moment());
+
+        setEventState({
+            ...eventState,
+            disableSubscription,
+        });
     }
 
     const handleClose = () => {

@@ -1,4 +1,4 @@
-@import '../../common/common.style.scss';
+@import "../../common/common.style.scss";
 
 $image-height: 5.5rem;
 $image-height-small: 4rem;
@@ -76,14 +76,14 @@ $image-height-medium: 5rem;
 
     &.bg-grey {
         background-color: darken($grey-light, 8);
-        border-radius: 2rem;
-        padding: 0.5rem;
+        border-radius: 0.3rem;
+        padding: 0.35rem;
     }
 
     &.bg-white {
         background-color: lighten($white, 100);
-        border-radius: 2rem;
-        padding: 0.5rem;
+        border-radius: 0.3rem;
+        padding: 0.35rem;
     }
 }
 

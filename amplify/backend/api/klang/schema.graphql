@@ -1,73 +1,45 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
+	globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-type Birthday
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admin"] }
-    ]
-  ) {
-  id: ID! @primaryKey
-  date: AWSDate!
-  users: [User] @hasMany
+type Birthday @model @auth(rules: [{ allow: private }]) {
+	id: ID! @primaryKey
+	date: AWSDate!
+	users: [User] @hasMany
 }
 
-type Address
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admin"] }
-    ]
-  ) {
-  id: ID!
-  city: String
-  street: String
+type Address @model @auth(rules: [{ allow: private, operations: [read] }, { allow: groups, groups: ["admin"] }]) {
+	id: ID!
+	city: String
+	street: String
 }
 
-type Event
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admin", "eventCreation", "eventValidation"] }
-    ]
-  ) {
-  id: ID! @primaryKey
-  date: AWSDate!
-  image: String
-  participants: [User] @manyToMany(relationName: "UsersEvents")
-  type: String
-  address: Address @hasOne
-  schedule: String
-  published: Boolean
-  createBy: User @hasOne
+type Event @model @auth(rules: [{ allow: private, operations: [read] }, { allow: groups, groups: ["admin", "eventCreation", "eventValidation"] }]) {
+	id: ID! @primaryKey
+	date: AWSDate!
+	image: String
+	participants: [User] @manyToMany(relationName: "UsersEvents")
+	type: String
+	address: Address @hasOne
+	schedule: String
+	published: Boolean
+	createBy: User @hasOne
 }
 
 type User @model @auth(rules: [{ allow: private }]) {
-  id: ID! @primaryKey
-  mail: String!
-  lastname: String
-  firstname: String!
-  image: String
-  job: String
-  events: [Event] @manyToMany(relationName: "UsersEvents")
-  city: String!
+	id: ID! @primaryKey
+	mail: String!
+	lastname: String
+	firstname: String!
+	image: String
+	job: String
+	events: [Event] @manyToMany(relationName: "UsersEvents")
+	city: String!
 }
 
-type NewArrivals
-  @model
-  @auth(
-    rules: [
-      { allow: private, operations: [read] }
-      { allow: groups, groups: ["admin"] }
-    ]
-  ) {
-  id: ID! @primaryKey
-  date: AWSDate!
-  users: [User] @hasMany
+type NewArrivals @model @auth(rules: [{ allow: private, operations: [read] }, { allow: groups, groups: ["admin"] }]) {
+	id: ID! @primaryKey
+	date: AWSDate!
+	users: [User] @hasMany
 }

@@ -1,10 +1,10 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { listUsers, listUsersLight, ListUsersLightQuery, ListUsersQuery } from "../../components/custom-queries";
-import { UserModel } from "../../components/user/user.component";
 import RequestError from "../errors/request-error";
 import { GraphQLResult } from "@aws-amplify/api";
 import { createUser, createUsersEvents, updateUser } from "../../graphql/mutations";
 import { CreateUserMutation, CreateUsersEventsMutation, UpdateUserMutation } from "../../API";
+import { UserModel } from "../../models/user.model";
 
 export default class UserService {
     static async getUsers(variables: object): Promise<UserModel[]> {

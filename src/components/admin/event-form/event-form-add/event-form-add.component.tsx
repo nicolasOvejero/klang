@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import EventService from '../../../../common/services/event.service';
 import NewArrivalsService from '../../../../common/services/new-arrivals.service';
+import { Address } from '../../../../models/address.model';
 import { selectUserReducer } from '../../../../store/user/user.selector';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';
@@ -25,12 +26,6 @@ const defaultEventAddState = {
 	formHasError: false,
 	formError: '',
 	success: false,
-};
-
-export type Address = {
-	id: string;
-	city: string | null | undefined;
-	street: string | null | undefined;
 };
 
 const EventFormAdd: React.FC = () => {

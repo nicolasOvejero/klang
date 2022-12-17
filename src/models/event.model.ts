@@ -1,4 +1,4 @@
-import { UserModel } from '../components/user/user.component';
+import { UserModel } from "./user.model";
 
 export type EventModel = {
 	id: string;

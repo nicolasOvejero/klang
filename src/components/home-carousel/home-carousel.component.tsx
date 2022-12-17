@@ -1,28 +1,63 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import EventCarousel from './event-carousel/event-carousel.component';
-import { NewArrivalModel } from '../../routes/new-arrivals/new-arrivals.component';
 import NewArrivalsCarousel from './new-arrival-carousel/new-arrival-carousel.component';
 import BirthdaysCarousel from './birthdays-carousel/birthdays-carousel.component';
 import Loader from '../loader/loader.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
-import EventService from '../../common/services/event.service';
-import NewArrivalsService from '../../common/services/new-arrivals.service';
-import BirthdayService from '../../common/services/birthday.service';
 import { ReactComponent as ChevRight } from '../../assets/icons/chevron-right.svg';
 import { ReactComponent as ChevLeft } from '../../assets/icons/chevron-left.svg';
-import { EventModel } from '../../models/event.model';
+import { useGetUserBirthdays } from '../../hooks/useGetBirthdays';
+import { useGetNextEvent } from '../../hooks/useGetNextEvent';
+import { useGetNewArrivals } from '../../hooks/useGetNewArrivals';
 import './home-carousel.style.scss';
 
 const HomeCarousel: React.FC = () => {
-	const [users, setUsers] = useState<any[]>([]);
-	const [event, setEvent] = useState<EventModel>();
-	const [newArrival, setNewArrival] = useState<NewArrivalModel[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
 	const [carouselPos, setCarouselPos] = useState(0);
 	const [carouselLength, setCarouselLength] = useState(0);
 	const viewsContainer = useRef<HTMLDivElement>(null);
+
+	const currentDay = moment().format('YYYY-MM-DD');
+	const currentMonth = moment().format('MM');
+	const nextMonth = moment().add(1, 'M').format('MM');
+	const { userBirthdays, isLoading: isLoadingUser } = useGetUserBirthdays({
+		limit: 6,
+		filter: {
+			or: [
+				{
+					date: {
+						contains: `-${currentMonth}-`,
+					},
+				},
+				{
+					date: {
+						contains: `-${nextMonth}-`,
+					},
+				},
+			],
+		},
+	});
+	const { event, isLoading: isLoadingEvent } = useGetNextEvent({
+		filter: {
+			published: {
+				eq: true,
+			},
+			date: {
+				ge: currentDay,
+			},
+		},
+	});
+	const { newArrivals, isLoading: isLoadingNewArrivals } = useGetNewArrivals({
+		limit: 6,
+		filter: {
+			date: {
+				ge: currentDay,
+			},
+		},
+	});
+
+	const isLoading = isLoadingUser || isLoadingEvent || isLoadingNewArrivals;
 
 	const nextView = () => {
 		if (!viewsContainer.current?.children) {
@@ -64,11 +99,14 @@ const HomeCarousel: React.FC = () => {
 		children[carouselPos].classList.add('out-right');
 		children[carouselPos].classList.remove('current');
 
+		console.log(carouselPos, carouselLength);
 		const prevPos = carouselPos - 1 < 0 ? carouselLength - 1 : carouselPos - 1;
 		setCarouselPos(prevPos);
+		console.log(prevPos);
 
 		children[prevPos].classList.add('hidden');
 		children[prevPos].classList.add('out-left');
+		children[prevPos].classList.remove('out-right');
 		children[prevPos].classList.add('current');
 
 		setTimeout(() => {
@@ -79,114 +117,6 @@ const HomeCarousel: React.FC = () => {
 				children[prevPos].classList.remove('out-left');
 			}, 20);
 		}, 20);
-	};
-
-	const getBirthdays = async () => {
-		const currentMonth = moment().format('MM');
-		const nextMonth = moment().add(1, 'M').format('MM');
-
-		try {
-			const birthdays = await BirthdayService.getBirthdays({
-				limit: 6,
-				filter: {
-					or: [
-						{
-							date: {
-								contains: `-${currentMonth}-`,
-							},
-						},
-						{
-							date: {
-								contains: `-${nextMonth}-`,
-							},
-						},
-					],
-				},
-			});
-
-			setUsers(
-				birthdays
-					.filter((date) => {
-						const mdate = moment(date?.date);
-						const dateToCompare = moment().set('date', mdate.date()).set('month', mdate.month());
-						if (moment().month() >= mdate.month()) {
-							dateToCompare.add(1, 'year');
-						}
-						return dateToCompare.isAfter(moment());
-					})
-					.flatMap((b) =>
-						b.users
-							?.map((u) => {
-								u.birthday = moment(b.date).format('DD MMMM');
-								return u;
-							})
-							.flat()
-					)
-					.sort((a, b) => moment(a?.birthday).diff(moment(b?.birthday)))
-			);
-
-			getNextEvent();
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		}
-	};
-
-	const getNextEvent = async () => {
-		const currentDay = moment().format('YYYY-MM-DD');
-
-		try {
-			const nextEvent = await EventService.getNextEvent({
-				filter: {
-					published: {
-						eq: true,
-					},
-					date: {
-						ge: currentDay,
-					},
-				},
-			});
-
-			setEvent(nextEvent.sort((a, b) => moment(a?.date).diff(moment(b?.date))).shift());
-
-			getNewArrivals();
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		}
-	};
-
-	const getNewArrivals = async () => {
-		const currentDay = moment().format('YYYY-MM-DD');
-
-		try {
-			const newArrivals = await NewArrivalsService.getNewArrivals({
-				limit: 6,
-				filter: {
-					date: {
-						ge: currentDay,
-					},
-				},
-			});
-
-			setNewArrival(newArrivals);
-			setIsLoading(false);
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		} finally {
-			setTimeout(() => {
-				if (viewsContainer.current?.children.length) {
-					setCarouselLength(viewsContainer.current.children.length);
-					viewsContainer.current.children[0].classList.add('current');
-					viewsContainer.current.children[0].classList.remove('hidden');
-					viewsContainer.current.children[0].classList.remove('out-right');
-				}
-			}, 20);
-		}
 	};
 
 	const subscribeEvent = async (eventId: string, userId: string, callback: () => void) => {
@@ -206,9 +136,11 @@ const HomeCarousel: React.FC = () => {
 					image: subscription.user.image,
 				});
 
-				setEvent({
+				/*
+ 				setEvent({
 					...event,
 				});
+				*/
 				callback();
 			}
 		} catch (error: unknown) {
@@ -219,16 +151,20 @@ const HomeCarousel: React.FC = () => {
 	};
 
 	useEffect(() => {
-		getBirthdays();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		if (viewsContainer.current?.children.length) {
+			setCarouselLength(viewsContainer.current.children.length);
+			viewsContainer.current.children[0].classList.add('current');
+			viewsContainer.current.children[0].classList.remove('hidden');
+			viewsContainer.current.children[0].classList.remove('out-right');
+		}
+	}, [isLoading]);
 
 	return (
 		<section className='carousel-container'>
 			<div className='carousel-panel'>
 				{isLoading && <Loader size='big' />}
 				{!isLoading && (
-					<Fragment>
+					<>
 						{carouselLength > 1 && (
 							<ChevLeft
 								className='navigation-buttons'
@@ -239,14 +175,14 @@ const HomeCarousel: React.FC = () => {
 							className='views'
 							ref={viewsContainer}
 						>
-							{users && users.length > 0 && <BirthdaysCarousel users={users} />}
+							{userBirthdays && userBirthdays.length > 0 && <BirthdaysCarousel users={userBirthdays} />}
 							{event && (
 								<EventCarousel
 									event={event}
 									subscriptionClickHandler={subscribeEvent}
 								/>
 							)}
-							{newArrival && newArrival.length > 0 && <NewArrivalsCarousel newArrivals={newArrival} />}
+							{newArrivals && newArrivals.length > 0 && <NewArrivalsCarousel newArrivals={newArrivals} />}
 						</div>
 						{carouselLength > 1 && (
 							<ChevRight
@@ -254,7 +190,7 @@ const HomeCarousel: React.FC = () => {
 								onClick={nextView}
 							/>
 						)}
-					</Fragment>
+					</>
 				)}
 			</div>
 		</section>

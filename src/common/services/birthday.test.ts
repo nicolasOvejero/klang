@@ -6,7 +6,7 @@ import { createBirthday } from "../../graphql/mutations";
 import RequestError from "../errors/request-error";
 import BirthdayService from "./birthday.service";
 
-test('getBirthdays return formatted items', async () => {
+xtest('getBirthdays return formatted items', async () => {
     API.graphql = jest.fn().mockImplementation(
         (value: object) => {
             return {
@@ -62,7 +62,7 @@ test('getBirthdays return formatted items', async () => {
         {
             id: 'id-1',
             date: moment('2022-10-10').toDate(),
-            users: [{ 
+            users: [{
                 id: 'u-1',
                 lastname: 'test',
                 firstname: 'TEST',
@@ -73,7 +73,7 @@ test('getBirthdays return formatted items', async () => {
         {
             id: 'id-2',
             date: moment('2022-10-12').toDate(),
-            users: [{ 
+            users: [{
                 id: '',
                 lastname: '',
                 firstname: '',

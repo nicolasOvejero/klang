@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { BirthdayModel } from '../../models/birthday.model';
 import { EventModel } from '../../models/event.model';
-import { BirthdayModel } from '../../routes/birthday/birthday.component';
 import './calendar.style.scss';
 
 type CalendarPops = {

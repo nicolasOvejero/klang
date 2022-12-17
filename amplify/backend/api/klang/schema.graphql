@@ -15,7 +15,10 @@ type Address @model @auth(rules: [{ allow: private, operations: [read] }, { allo
 	street: String
 }
 
-type Event @model @auth(rules: [{ allow: private, operations: [read] }, { allow: groups, groups: ["admin", "eventCreation", "eventValidation"] }]) {
+type Event
+	@count
+	@model
+	@auth(rules: [{ allow: private, operations: [read] }, { allow: groups, groups: ["admin", "eventCreation", "eventValidation"] }]) {
 	id: ID! @primaryKey
 	date: AWSDate!
 	image: String

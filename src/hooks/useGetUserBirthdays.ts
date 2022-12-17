@@ -54,22 +54,20 @@ export const useGetUserBirthdays = (variables: object): UseGetUserBirthdays => {
 	}
 
 	const userBirthdays = items
-		.map((item) => {
-			return {
-				id: item.id,
-				date: moment(item.date).toDate(),
-				users:
-					item.users?.items?.map((user) => {
-						return {
-							id: user?.id || '',
-							lastname: user?.lastname || '',
-							firstname: user?.firstname || '',
-							image: user?.image || '',
-							mail: user?.mail || '',
-						};
-					}) || [],
-			};
-		})
+		.map((item) => ({
+			id: item.id,
+			date: moment(item.date).toDate(),
+			users:
+				item.users?.items?.map((user) => {
+					return {
+						id: user?.id || '',
+						lastname: user?.lastname || '',
+						firstname: user?.firstname || '',
+						image: user?.image || '',
+						mail: user?.mail || '',
+					};
+				}) || [],
+		}))
 		.filter((date: BirthdayModel) => {
 			const mdate = moment(date?.date);
 			const dateToCompare = moment().set('date', mdate.date()).set('month', mdate.month());

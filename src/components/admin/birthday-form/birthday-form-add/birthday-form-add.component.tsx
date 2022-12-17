@@ -3,13 +3,13 @@ import Dropdown from '../../../dropdown/dropdown.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
 import InputDate from '../../../input-date/input-date.component';
-import UserService from '../../../../common/services/user.service';
-import BirthdayService from '../../../../common/services/birthday.service';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useUseGetUsersLight } from '../../../../hooks/useGetUsersLight';
 import Loader from '../../../loader/loader.component';
+import { useUpdateUser } from '../../../../hooks/useUpdateUser';
 import './birthday-form-add.style.scss';
+import { assertBirthdayId } from '../../../../utils/birthday/assertBirthdayId';
 
 const defaultBirthdayAddState = {
 	user: '',
@@ -24,15 +24,19 @@ const defaultBirthdayAddState = {
 const BirthdayFormAdd: React.FC = () => {
 	const [birthdayAddState, setBirthdayAddState] = useState(defaultBirthdayAddState);
 	const { user, day, month, year, formHasError, formError, success } = birthdayAddState;
-	const { t } = useTranslation();
 
-	const { users, isLoading } = useUseGetUsersLight({
-		filter: {
-			birthdayUsersId: {
-				attributeExists: false,
+	const { t } = useTranslation();
+	const { updateUser, isLoading: isLoadingUpdate } = useUpdateUser();
+	const { users, isLoading } = useUseGetUsersLight(
+		{
+			filter: {
+				birthdayUsersId: {
+					attributeExists: false,
+				},
 			},
 		},
-	});
+		isLoadingUpdate
+	);
 
 	const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		const { name, value } = event.target;
@@ -45,7 +49,7 @@ const BirthdayFormAdd: React.FC = () => {
 	};
 
 	const saveNewBirthdayToUser = async (birthdayId: string | undefined) => {
-		await UserService.udpateUser({
+		await updateUser({
 			input: {
 				id: user,
 				birthdayUsersId: birthdayId,
@@ -70,7 +74,7 @@ const BirthdayFormAdd: React.FC = () => {
 
 		try {
 			const formatedDate = `${year}-${('0' + month).slice(-2)}-${('0' + day).slice(-2)}`;
-			const birthdayId = await BirthdayService.assertBirthdayId(formatedDate);
+			const birthdayId = await assertBirthdayId(formatedDate);
 			await saveNewBirthdayToUser(birthdayId);
 		} catch (error: unknown) {
 			setBirthdayAddState({
@@ -81,7 +85,7 @@ const BirthdayFormAdd: React.FC = () => {
 		}
 	};
 
-	if (isLoading) {
+	if (isLoading || isLoadingUpdate) {
 		return <Loader></Loader>;
 	}
 

@@ -1,13 +1,6 @@
 import { GraphQLResult } from '@aws-amplify/api';
 import { API } from 'aws-amplify';
-import {
-	getNextEvents,
-	listEventsLight,
-	ListEventsLightQuery,
-	ListEventsQuery,
-	subscriptionToEvent,
-	SubscriptionToEventQuery,
-} from '../../components/custom-queries';
+import { listEventsLight, ListEventsLightQuery, subscriptionToEvent, SubscriptionToEventQuery } from '../../components/custom-queries';
 import RequestError from '../errors/request-error';
 import moment from 'moment';
 import { createEvent, deleteEvent, updateEvent } from '../../graphql/mutations';
@@ -15,53 +8,6 @@ import { CreateEventMutation, DeleteEventMutation, UpdateEventMutation } from '.
 import { EventModel } from '../../models/event.model';
 
 export default class EventService {
-	static async getNextEvent(variables: object): Promise<EventModel[]> {
-		const apiData = (await API.graphql({
-			query: getNextEvents,
-			variables,
-			authMode: 'AMAZON_COGNITO_USER_POOLS',
-		})) as GraphQLResult<ListEventsQuery>;
-
-		if (apiData.errors) {
-			throw new RequestError('get next event', apiData.errors);
-		}
-
-		const items = apiData.data?.listEvents?.items;
-		if (!items) {
-			return [];
-		}
-
-		return items.map((item) => {
-			return {
-				id: item?.id || '',
-				date: moment(item?.date).toDate(),
-				image: item?.image || '',
-				type: item?.type || '',
-				address: {
-					city: item?.address?.city || '',
-					street: item?.address?.street || '',
-				},
-				schedule: item?.schedule || '',
-				published: item?.published === undefined ? true : item?.published,
-				createBy: {
-					id: item?.createBy.id || '',
-					lastname: item?.createBy.lastname || '',
-					firstname: item?.createBy.firstname || '',
-					image: item?.createBy.image || '',
-				},
-				participants: item?.participants?.items?.map((user) => {
-					return {
-						id: user?.user.id || '',
-						lastname: user?.user.lastname || '',
-						firstname: user?.user.firstname || '',
-						image: user?.user.image || '',
-					};
-				}),
-				description: item?.description || '',
-			};
-		});
-	}
-
 	static async getEventsLight(variables: object): Promise<ListEventsLightQuery | undefined> {
 		const apiData = (await API.graphql({
 			query: listEventsLight,

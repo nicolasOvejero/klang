@@ -3,9 +3,9 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import EventService from '../../../../common/services/event.service';
-import NewArrivalsService from '../../../../common/services/new-arrivals.service';
 import { Address } from '../../../../models/address.model';
 import { selectUserReducer } from '../../../../store/user/user.selector';
+import { createAddressMutation } from '../../../../utils/address/createAddressMutation';
 import Button from '../../../button/button.component';
 import InputDate from '../../../input-date/input-date.component';
 import InputForm from '../../../input-form/input-form.component';
@@ -31,7 +31,8 @@ const defaultEventAddState = {
 const EventFormAdd: React.FC = () => {
 	const user = useSelector(selectUserReducer);
 	const [eventAddState, setEventAddState] = useState(defaultEventAddState);
-	const { image, type, schedule, address_city, address_street, day, month, year, description, formHasError, formError, success } = eventAddState;
+	const { image, type, schedule, address_city, address_street, day, month, year, description, formHasError, formError, success } =
+		eventAddState;
 	const { t } = useTranslation();
 
 	const handleChange = (event: ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
@@ -77,7 +78,7 @@ const EventFormAdd: React.FC = () => {
 		}
 
 		try {
-			const newAddress = await NewArrivalsService.createAddress({
+			const newAddress = await createAddressMutation({
 				input: {
 					city: address_city,
 					street: address_street,

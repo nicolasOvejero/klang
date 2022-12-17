@@ -10,26 +10,28 @@ export type UseGetUsersLightModel = {
 	isLoading: boolean;
 };
 
-export const useUseGetUsersLight = (variables: object): UseGetUsersLightModel => {
+export const useUseGetUsersLight = (variables: object, needToRefresh: boolean): UseGetUsersLightModel => {
 	const [results, setResults] = useState<GraphQLResult<ListUsersQuery>>({});
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		(
-			API.graphql({
-				query: listUsers,
-				variables,
-				authMode: 'AMAZON_COGNITO_USER_POOLS',
-			}) as Promise<GraphQLResult<any>>
-		)
-			.then((apiData: GraphQLResult<ListUsersQuery>) => {
-				setResults(apiData);
-				setIsLoading(false);
-			})
-			//TODO Improve to return error
-			.catch(() => {});
+		if (!needToRefresh) {
+			(
+				API.graphql({
+					query: listUsers,
+					variables,
+					authMode: 'AMAZON_COGNITO_USER_POOLS',
+				}) as Promise<GraphQLResult<any>>
+			)
+				.then((apiData: GraphQLResult<ListUsersQuery>) => {
+					setResults(apiData);
+					setIsLoading(false);
+				})
+				//TODO Improve to return error
+				.catch(() => {});
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [needToRefresh]);
 
 	if (isLoading) {
 		return {

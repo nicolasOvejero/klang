@@ -5,11 +5,11 @@ import Dropdown from '../../../dropdown/dropdown.component';
 import InputDate from '../../../input-date/input-date.component';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
-import NewArrivalsService from '../../../../common/services/new-arrivals.service';
-import UserService from '../../../../common/services/user.service';
 import { useTranslation } from 'react-i18next';
 import { useUseGetUsersLight } from '../../../../hooks/useGetUsersLight';
 import Loader from '../../../loader/loader.component';
+import { useUpdateUser } from '../../../../hooks/useUpdateUser';
+import { upsertNewArrival } from '../../../../utils/new-arrival/upsertNewArrival';
 import './new-arrival-form-add.style.scss';
 
 const defaultNewArrivalsAddState = {
@@ -26,13 +26,17 @@ const NewArrivalFormAdd: React.FC = () => {
 	const { user, day, month, year, formError, success } = newArrivals;
 	const { t } = useTranslation();
 
-	const { users, isLoading } = useUseGetUsersLight({
-		filter: {
-			newArrivalsUsersId: {
-				attributeExists: false,
+	const { updateUser, isLoading: isLoadingUpdate } = useUpdateUser();
+	const { users, isLoading } = useUseGetUsersLight(
+		{
+			filter: {
+				newArrivalsUsersId: {
+					attributeExists: false,
+				},
 			},
 		},
-	});
+		isLoadingUpdate
+	);
 
 	const handleSelecteChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		const { name, value } = event.target;
@@ -41,28 +45,6 @@ const NewArrivalFormAdd: React.FC = () => {
 			[name]: value,
 			formError: '',
 		});
-	};
-
-	const upsertNewArrival = async (date: string) => {
-		const newArrivalsList = await NewArrivalsService.getNewArrivals({
-			filter: {
-				date: {
-					eq: date,
-				},
-			},
-		});
-
-		if (newArrivalsList && newArrivalsList.length > 0) {
-			return newArrivalsList[0];
-		}
-
-		const newNewArrivals = await NewArrivalsService.createNewArrivals({
-			input: {
-				date: date,
-			},
-		});
-
-		return newNewArrivals;
 	};
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -77,7 +59,7 @@ const NewArrivalFormAdd: React.FC = () => {
 		try {
 			const newArrivalValue = await upsertNewArrival(givenDate);
 
-			await UserService.udpateUser({
+			await updateUser({
 				input: {
 					id: user,
 					newArrivalsUsersId: newArrivalValue?.id,
@@ -99,7 +81,7 @@ const NewArrivalFormAdd: React.FC = () => {
 		}
 	};
 
-	if (isLoading) {
+	if (isLoading || isLoadingUpdate) {
 		return <Loader></Loader>;
 	}
 

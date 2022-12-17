@@ -10,9 +10,9 @@ import UserService from '../../common/services/user.service';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Lock } from '../../assets/icons/lock.svg';
-import BirthdayService from '../../common/services/birthday.service';
 import { UserModel } from '../../models/user.model';
 import './signin.style.scss';
+import { assertBirthdayId } from '../../utils/birthday/assertBirthdayId';
 
 const defaultSignInState = {
 	username: '',
@@ -61,7 +61,7 @@ const Signin: React.FC = () => {
 			birthdayUsersId: '',
 		};
 		if (birthday) {
-			const birthdayId = await BirthdayService.assertBirthdayId(birthday);
+			const birthdayId = await assertBirthdayId(birthday);
 			toSave.birthdayUsersId = birthdayId;
 		}
 

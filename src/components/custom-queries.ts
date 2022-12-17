@@ -184,6 +184,7 @@ export const listEvents = /* GraphQL */ `
                     lastname
                     firstname
                 }
+                description
             }
             nextToken
         }
@@ -232,6 +233,7 @@ export const getNextEvents = /* GraphQL */ `
                     lastname
                     firstname
                 }
+                description
             }
             nextToken
         }
@@ -271,7 +273,8 @@ export type ListEventsQuery = {
                 lastname?: string | null,
                 firstname: string,
                 image?: string | null,
-            }
+            },
+            description?: string | null,
         } | null >,
         nextToken?: string | null,
     } | null,

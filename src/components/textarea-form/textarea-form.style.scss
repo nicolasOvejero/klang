@@ -1,0 +1,67 @@
+@import '../../common/common.style.scss';
+
+.textarea {
+	font-size: 1.25rem;
+	height: 4rem;
+	letter-spacing: 1px;
+	margin-bottom: 2rem;
+	width: 100%;
+}
+
+.label-textarea {
+	display: block;
+	letter-spacing: 4px;
+	position: relative;
+	cursor: text;
+	font-size: 1rem;
+	letter-spacing: 4px;
+	margin-bottom: 0.5rem;
+
+	&-text {
+		color: $text-color-dark;
+		cursor: text;
+		font-size: 1rem;
+		-moz-transform: translate(0.4rem, -6rem);
+		-ms-transform: translate(0.4rem, -6rem);
+		-webkit-transform: translate(0.4rem, -6rem);
+		transform: translate(0.4rem, -6rem);
+		transition: all 0.2s;
+	}
+
+	textarea {
+		&:focus + .label-textarea-text {
+			color: $text-color-dark;
+			font-size: 0.75rem;
+			-moz-transform: translateY(-7.4rem);
+			-ms-transform: translateY(-7.4rem);
+			-webkit-transform: translateY(-7.4rem);
+			transform: translateY(-7.4rem);
+		}
+
+		+ .label-textarea-text.filled {
+			color: $text-color-dark;
+			font-size: 0.75rem;
+			-moz-transform: translateY(-7.4rem);
+			-ms-transform: translateY(-7.4rem);
+			-webkit-transform: translateY(-7.4rem);
+			transform: translateY(-7.4rem);
+		}
+	}
+
+	&.error {
+		textarea {
+			border-color: red;
+			color: red;
+		}
+
+		.error-textarea {
+			color: red;
+			font-size: 0.6rem;
+			letter-spacing: 1px;
+			-moz-transform: translateY(-3.2rem);
+			-ms-transform: translateY(-3.2rem);
+			-webkit-transform: translateY(-3.2rem);
+			transform: translateY(-3.2rem);
+		}
+	}
+}

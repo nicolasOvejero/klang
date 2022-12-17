@@ -1,182 +1,187 @@
 @import '../common/common.style.scss';
 
 .label {
-    display: block;
-    letter-spacing: 4px;
-    height: 1.5rem;
-    position: relative;
+	display: block;
+	letter-spacing: 4px;
+	height: 1.5rem;
+	position: relative;
 
-    svg {
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 1.3rem;
+	svg {
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 1.3rem;
 
-        & + input, & + select {
-            margin-left: 8%;
-            width: 92%;
+		& + input,
+		& + select {
+			margin-left: 8%;
+			width: 92%;
 
-            & + .label-text {
-                padding-left: 8%;
-            }
-        }
+			& + .label-text {
+				padding-left: 8%;
+			}
+		}
 
-        & ~ .error-text {
-            margin-left: 8%;
-        }
-    }
+		& ~ .error-text {
+			margin-left: 8%;
+		}
+	}
 
-    &-text {
-        color: $text-color-dark;
-        cursor: text;
-        font-size: 1rem;
-        -moz-transform: translateY(-1.5rem);
-        -ms-transform: translateY(-1.5rem);
-        -webkit-transform: translateY(-1.5rem);
-        transform: translateY(-1.5rem);
-        transition: all 0.2s;
-    }
+	&-text {
+		color: $text-color-dark;
+		cursor: text;
+		font-size: 1rem;
+		-moz-transform: translateY(-1.5rem);
+		-ms-transform: translateY(-1.5rem);
+		-webkit-transform: translateY(-1.5rem);
+		transform: translateY(-1.5rem);
+		transition: all 0.2s;
+	}
 
-    select, input {
-        color: $text-color-dark;
-        background-color: transparent;
-        border: 0;
-        border-bottom: 1px solid $border-color;
-        color: $text-color;
-        font-size: 1.25rem;
-        letter-spacing: 1px;
-        outline: 0;
-        transition: all 0.2s;
-        width: 100%;
+	select,
+	input {
+		color: $text-color-dark;
+		background-color: transparent;
+		border: 0;
+		border-bottom: 1px solid $border-color;
+		color: $text-color;
+		font-size: 1.25rem;
+		letter-spacing: 1px;
+		outline: 0;
+		transition: all 0.2s;
+		width: 100%;
 
-        &:focus+.label-text {
-            color: $text-color-dark;
-            font-size: 0.75rem;
-            -moz-transform: translateY(-2.75rem);
-            -ms-transform: translateY(-2.75rem);
-            -webkit-transform: translateY(-2.75rem);
-            transform: translateY(-2.75rem);
-        }
+		&:focus + .label-text {
+			color: $text-color-dark;
+			font-size: 0.75rem;
+			-moz-transform: translateY(-2.75rem);
+			-ms-transform: translateY(-2.75rem);
+			-webkit-transform: translateY(-2.75rem);
+			transform: translateY(-2.75rem);
+		}
 
-        +.label-text.filled {
-            color: $text-color-dark;
-            font-size: 0.75rem;
-            -moz-transform: translateY(-2.75rem);
-            -ms-transform: translateY(-2.75rem);
-            -webkit-transform: translateY(-2.75rem);
-            transform: translateY(-2.75rem);
-        }
-    }
+		+ .label-text.filled {
+			color: $text-color-dark;
+			font-size: 0.75rem;
+			-moz-transform: translateY(-2.75rem);
+			-ms-transform: translateY(-2.75rem);
+			-webkit-transform: translateY(-2.75rem);
+			transform: translateY(-2.75rem);
+		}
+	}
 
-    &.error {
-        select, input {
-            border-color: red;
-            color: red;
-        }
+	&.error {
+		select,
+		input {
+			border-color: red;
+			color: red;
+		}
 
-        .error-text {
-            color: red;
-            font-size: 0.60rem;
-            letter-spacing: 1px;
-            -moz-transform: translateY(-1rem);
-            -ms-transform: translateY(-1rem);
-            -webkit-transform: translateY(-1rem);
-            transform: translateY(-1rem);
-        }
-    }
+		.error-text {
+			color: red;
+			font-size: 0.6rem;
+			letter-spacing: 1px;
+			-moz-transform: translateY(-1rem);
+			-ms-transform: translateY(-1rem);
+			-webkit-transform: translateY(-1rem);
+			transform: translateY(-1rem);
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-large) {
-    .label {
-        height: 1.25rem;
+	.label {
+		height: 1.25rem;
 
-        &-text {
-            font-size: 0.85rem;
-            -moz-transform: translateY(-1.25rem);
-            -ms-transform: translateY(-1.25rem);
-            -webkit-transform: translateY(-1.25rem);
-            transform: translateY(-1.25rem);
-        }
+		&-text {
+			font-size: 0.85rem;
+			-moz-transform: translateY(-1.25rem);
+			-ms-transform: translateY(-1.25rem);
+			-webkit-transform: translateY(-1.25rem);
+			transform: translateY(-1.25rem);
+		}
 
-        select, input {
-            font-size: 0.85rem;
+		select,
+		input {
+			font-size: 0.85rem;
 
-            &:focus+.label-text {
-                color: $text-color-dark;
-                font-size: 0.75rem;
-                -moz-transform: translateY(-2.15rem);
-                -ms-transform: translateY(-2.15rem);
-                -webkit-transform: translateY(-2.15rem);
-                transform: translateY(-2.15rem);
-            }
+			&:focus + .label-text {
+				color: $text-color-dark;
+				font-size: 0.75rem;
+				-moz-transform: translateY(-2.15rem);
+				-ms-transform: translateY(-2.15rem);
+				-webkit-transform: translateY(-2.15rem);
+				transform: translateY(-2.15rem);
+			}
 
-            +.label-text.filled {
-                color: $text-color-dark;
-                font-size: 0.75rem;
-                -moz-transform: translateY(-2.15rem);
-                -ms-transform: translateY(-2.15rem);
-                -webkit-transform: translateY(-2.15rem);
-                transform: translateY(-2.15rem);
-            }
-        }
-    }
+			+ .label-text.filled {
+				color: $text-color-dark;
+				font-size: 0.75rem;
+				-moz-transform: translateY(-2.15rem);
+				-ms-transform: translateY(-2.15rem);
+				-webkit-transform: translateY(-2.15rem);
+				transform: translateY(-2.15rem);
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .label {
-        height: 1rem;
+	.label {
+		height: 1rem;
 
-        svg {
-            width: 1.3rem;
-    
-            &+input,
-            &+select {
-                margin-left: 10%;
-                width: 90%;
-    
-                &+.label-text {
-                    padding-left: 10%;
-                }
-            }
-    
-            &~.error-text {
-                margin-left: 10%;
-            }
-        }
+		svg {
+			width: 1.3rem;
 
-        &-text {
-            font-size: 0.75rem;
-        }
+			& + input,
+			& + select {
+				margin-left: 10%;
+				width: 90%;
 
-        select, input {
-            font-size: 0.75rem;
+				& + .label-text {
+					padding-left: 10%;
+				}
+			}
 
-            &:focus+.label-text {
-                color: $text-color-dark;
-                font-size: 0.65rem;
-                -moz-transform: translateY(-2rem);
-                -ms-transform: translateY(-2rem);
-                -webkit-transform: translateY(-2rem);
-                transform: translateY(-2rem);
-            }
+			& ~ .error-text {
+				margin-left: 10%;
+			}
+		}
 
-            +.label-text.filled {
-                color: $text-color-dark;
-                font-size: 0.65rem;
-                -moz-transform: translateY(-2rem);
-                -ms-transform: translateY(-2rem);
-                -webkit-transform: translateY(-2rem);
-                transform: translateY(-2rem);
-            }
-        }
+		&-text {
+			font-size: 0.75rem;
+		}
 
-        &.error {
-            .error-text {
-                -moz-transform: translateY(-0.9rem);
-                -ms-transform: translateY(-0.9rem);
-                -webkit-transform: translateY(-0.9rem);
-                transform: translateY(-0.9rem);
-            }
-        }
-    }
+		select,
+		input {
+			font-size: 0.75rem;
+
+			&:focus + .label-text {
+				color: $text-color-dark;
+				font-size: 0.65rem;
+				-moz-transform: translateY(-2rem);
+				-ms-transform: translateY(-2rem);
+				-webkit-transform: translateY(-2rem);
+				transform: translateY(-2rem);
+			}
+
+			+ .label-text.filled {
+				color: $text-color-dark;
+				font-size: 0.65rem;
+				-moz-transform: translateY(-2rem);
+				-ms-transform: translateY(-2rem);
+				-webkit-transform: translateY(-2rem);
+				transform: translateY(-2rem);
+			}
+		}
+
+		&.error {
+			.error-text {
+				-moz-transform: translateY(-0.9rem);
+				-ms-transform: translateY(-0.9rem);
+				-webkit-transform: translateY(-0.9rem);
+				transform: translateY(-0.9rem);
+			}
+		}
+	}
 }

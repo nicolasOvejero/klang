@@ -703,6 +703,7 @@ export type CreateEventMutation = {
     updatedAt: string,
     eventAddressId?: string | null,
     eventCreateById?: string | null,
+    description?: string | null,
   } | null,
 };
 
@@ -762,6 +763,7 @@ export type UpdateEventMutation = {
     updatedAt: string,
     eventAddressId?: string | null,
     eventCreateById?: string | null,
+    description?: string | null,
   } | null,
 };
 

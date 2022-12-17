@@ -25,6 +25,7 @@ type Event @model @auth(rules: [{ allow: private, operations: [read] }, { allow:
 	schedule: String
 	published: Boolean
 	createBy: User @hasOne
+	description: String
 }
 
 type User @model @auth(rules: [{ allow: private }]) {

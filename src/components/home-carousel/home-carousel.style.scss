@@ -1,175 +1,184 @@
 @import '../../common/common.style.scss';
 
 .carousel-container {
-    flex: 1 0 0;
+	flex: 1 0 0;
 
-    .carousel-panel {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-        margin: 0 -1rem;
-        padding: 1rem 2rem;
+	.carousel-panel {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+		margin: 0 -1rem;
+		padding: 1rem 2rem;
 
-        .views {
-            flex: 1 0 0;
-            height: 100%;
-            position: relative;
-            width: 100%;
+		.views {
+			flex: 1 0 0;
+			height: 100%;
+			position: relative;
+			width: 100%;
 
-            .container {
-                display: flex;
-                flex-direction: column;
-                margin: 0 auto;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                position: absolute;
-                height: 100%;
-                width: 95%;
-                transform: translateX(150%);
-                transition: all 0.7s ease-in-out;
+			.container {
+				bottom: 0;
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				left: 0;
+				margin: 0 auto;
+				position: absolute;
+				right: 0;
+				top: 0;
+				transform: translateX(150%);
+				transition: all 0.7s ease-in-out;
+				width: 95%;
 
-                &.current {
-                    transform: translateX(0);
-                }
+				&.current {
+					transform: translateX(0);
+				}
 
-                &.out-left {
-                    transform: translateX(-150%);
-                }
+				&.out-left {
+					transform: translateX(-150%);
+				}
 
-                &.out-right {
-                    transform: translateX(150%);
-                }
+				&.out-right {
+					transform: translateX(150%);
+				}
 
-                &.hidden {
-                    display: none;
-                }
+				&.hidden {
+					display: none;
+				}
 
-                .title {
-                    color: $text-color-light;
-                    letter-spacing: 6px;
-                    margin-bottom: 1rem;
-                    font-size: 2.5rem;
-                    text-align: center;
-                }
+				.title {
+					color: $text-color-light;
+					letter-spacing: 6px;
+					margin-bottom: 1rem;
+					font-size: 2rem;
+					text-align: center;
+				}
 
-                .content {
-                    flex: 1 0 0;
-                }
+				.content {
+					flex: 1 0 0;
+					overflow: auto;
+				}
 
-                .button {
-                    font-size: 1.25rem;
-                    height: 3.5rem;
-                    margin: auto;
-                }
-            }
-        }
+				.button {
+					font-size: 1.25rem;
+					height: 3.5rem;
+					margin: auto;
+				}
+			}
+		}
 
-        .navigation-buttons {
-            align-items: center;
-            border: 1px solid $text-color-light;
-            border-radius: 50%;
-            color: $text-color;
-            display: flex;
-            justify-content: center;
-            height: 3.5rem;
-            padding: 0.5rem;
-            transition: all 0.2s ease;
-            width: 3.5rem;
+		.navigation-buttons {
+			align-items: center;
+			border: 1px solid $text-color-light;
+			border-radius: 50%;
+			color: $text-color;
+			display: flex;
+			justify-content: center;
+			height: 3.5rem;
+			padding: 0.5rem;
+			transition: all 0.2s ease;
+			width: 3.5rem;
 
-            &:hover {
-                cursor: pointer;
-                border-width: 3px;
-            }
-        }
+			&:hover {
+				cursor: pointer;
+				border-width: 3px;
+			}
+		}
 
-        .loader-container {
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
+		.loader-container {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-large) {
-    .carousel-container {
-        .carousel-panel {
-            padding: 0.5rem 1.5rem;
+	.carousel-container {
+		.carousel-panel {
+			padding: 0.5rem 1.5rem;
 
-            .views {
-                .container {
-                    .title {
-                        font-size: 2rem;
-                    }
+			.views {
+				.container {
+					.title {
+						font-size: 2rem;
+					}
 
-                    .button {
-                        font-size: 1.25rem;
-                        height: auto;
-                    }
-                }
-            }
+					.button {
+						font-size: 1.25rem;
+						height: auto;
+					}
+				}
+			}
 
-            .navigation-buttons {
-                height: 3rem;
-                width: 3rem;
-            }
-        }
-    }
+			.navigation-buttons {
+				height: 3rem;
+				width: 3rem;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .carousel-container {
-        .carousel-panel {
-            padding: 0rem 1rem;
+	.carousel-container {
+		.carousel-panel {
+			padding: 0rem 1rem;
 
-            .views {
-                .container {
-                    .title {
-                        letter-spacing: 5px;
-                        margin-bottom: 0.5rem;
-                        font-size: 1.5rem;
-                    }
+			.views {
+				.container {
+					.title {
+						letter-spacing: 5px;
+						margin-bottom: 0.5rem;
+						font-size: 1.5rem;
+					}
 
-                    .button {
-                        font-size: 1rem;
-                        margin-top: 1rem;
-                    }
-                }
-            }
+					.button {
+						font-size: 1rem;
+						margin-top: 1rem;
+					}
+				}
+			}
 
-            .navigation-buttons {
-                padding: 0.25rem;
-                height: 2.5rem;
-                width: 2.5rem;
-            }
-        }
-    }
+			.navigation-buttons {
+				padding: 0.25rem;
+				height: 2.5rem;
+				width: 2.5rem;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .carousel-container {
-        .carousel-panel {
-            margin: 0 -1rem;
-            padding: 0rem 0.5rem;
+	.carousel-container {
+		.carousel-panel {
+			margin: 0 -1rem;
+			padding: 0rem 0.5rem;
 
-            .views {
-                .container {
-                    .title {
-                        letter-spacing: 4px;
-                        margin-bottom: 0.5rem;
-                        font-size: 1.5rem;
-                    }
-                }
-            }
+			.views {
+				.container {
+					.content {
+						overflow: inherit;
+					}
 
-            .navigation-buttons {
-                padding: 0.25rem;
-                height: 2rem;
-                width: 2rem;
-            }
-        }
-    }
+					.title {
+						letter-spacing: 4px;
+						margin-bottom: 0.5rem;
+						font-size: 1.5rem;
+					}
+
+					.button {
+						margin-top: 0.75rem;
+					}
+				}
+			}
+
+			.navigation-buttons {
+				padding: 0.25rem;
+				height: 2rem;
+				width: 2rem;
+			}
+		}
+	}
 }

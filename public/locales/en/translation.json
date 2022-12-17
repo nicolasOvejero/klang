@@ -35,7 +35,8 @@
             "subscribe": "I register",
             "participants": "The participants",
             "button": "See more events",
-            "no-participants": "Become the first participant !"
+            "no-participants": "Become the first participant !",
+            "description": "Event description :"
         },
         "new-arrivals": {
             "title": "Who are the<br /> next arrivals ?",
@@ -125,7 +126,9 @@
             "success-delete": "The event has been successfully deleted",
             "error": "An error has occurred",
             "error-participants": "Unable to delete participants",
-            "error-delete": "Unable to delete event"
+            "error-delete": "Unable to delete event",
+            "description": "Event description"
+
         },
         "new-arrivals": {
             "title-add": "Add a new arrival",

@@ -1,389 +1,417 @@
-@import "../../common/common.style.scss";
+@import '../../common/common.style.scss';
 
 .body.events {
-    .event {
-        &-container {
-            align-items: center;
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: repeat(2, 1fr);
-            height: 90%;
-            padding: 0 2rem 0 5rem;
-            position: relative;
+	.event {
+		&-container {
+			align-items: center;
+			display: grid;
+			gap: 2rem;
+			grid-template-columns: repeat(2, 1fr);
+			height: 90%;
+			padding: 0 2rem 0 5rem;
+			position: relative;
 
-            .calendar {
-                padding: 0 2rem;
-                max-width: 85%;
-            }
-        }
+			.calendar {
+				padding: 0 2rem;
+				max-width: 85%;
+			}
+		}
 
-        &-image {
-            display: grid;
-            grid-template-rows: 1fr;
+		&-image {
+			display: grid;
+			grid-template-rows: 1fr;
 
-            .image-1 {
-                justify-self: start;
-                height: 12rem;
-            }
+			.image-1 {
+				justify-self: start;
+				height: 12rem;
+			}
 
-            .image-2 {
-                justify-self: end;
-                height: 8rem;
-                margin: -6rem 6rem -2rem 0;
-            }
+			.image-2 {
+				justify-self: end;
+				height: 8rem;
+				margin: -6rem 6rem -2rem 0;
+			}
 
-            .image-3 {
-                height: 13rem;
-                justify-self: center;
-            }
-        }
+			.image-3 {
+				height: 13rem;
+				justify-self: center;
+			}
+		}
 
-        &-informations {
-            background-color: $grey-light;
-            border-bottom-right-radius: 1rem;
-            border-top-right-radius: 1rem;
-            box-shadow: -2px 0px 7px 2px darken($grey-light, 10);
-            display: flex;
-            flex-direction: column;
-            height: 90%;
-            padding: 0.5rem;
-            position: absolute;
-            left: -50%;
-            transition: all 1s ease-in-out;
-            top: 5%;
-            width: 50%;
-            z-index: 10;
+		&-informations {
+			background-color: $grey-light;
+			border-bottom-right-radius: 1rem;
+			border-top-right-radius: 1rem;
+			box-shadow: -2px 0px 7px 2px darken($grey-light, 10);
+			bottom: 5%;
+			display: flex;
+			flex-direction: column;
+			height: 85vh;
+			padding: 0.5rem;
+			position: absolute;
+			left: -50%;
+			transition: all 1s ease-in-out;
+			width: 50%;
+			z-index: 10;
 
-            &.open {
-                left: 0;
-            }
+			&.open {
+				left: 0;
+			}
 
-            .close {
-                color: $text-color-dark;
-                height: 2.5rem;
-                margin: {
-                    bottom: 0.5rem;
-                    right: 0.5rem;
-                    top: 0.5rem;
-                }
-                position: absolute;
-                right: 1rem;
-                text-align: end;
-                width: 2.5rem;
-                z-index: 2;
+			.close {
+				color: $text-color-dark;
+				height: 2.5rem;
+				margin: {
+					bottom: 0.5rem;
+					right: 0.5rem;
+					top: 0.5rem;
+				}
+				position: absolute;
+				right: 1rem;
+				text-align: end;
+				width: 2.5rem;
+				z-index: 2;
 
-                &:hover {
-                    cursor: pointer;
-                }
-            }
+				&:hover {
+					cursor: pointer;
+				}
+			}
 
-            .header {
-                align-items: center;
-                display: flex;
-                margin-bottom: 1rem;
+			.header {
+				align-items: center;
+				display: flex;
+				margin-bottom: 1rem;
 
-                .date {
-                    color: $text-color;
-                    font-size: 2.5rem;
-                    margin-left: 3rem;
-                    text-transform: capitalize;
-                }
-            }
+				.date {
+					color: $text-color;
+					font-size: 2.5rem;
+					margin-left: 3rem;
+					text-transform: capitalize;
+				}
+			}
 
-            .image {
-                background: {
-                    position: center;
-                    repeat: no-repeat;
-                    size: cover;
-                }
-                border-radius: 0.3rem;
-                height: 25%;
-                margin-bottom: 1rem;
-                width: 100%;
-            }
+			.image {
+				background: {
+					position: center;
+					repeat: no-repeat;
+					size: cover;
+				}
+				border-radius: 0.3rem;
+				min-height: 25%;
+				max-height: 25%;
+				margin-bottom: 1rem;
+				width: 100%;
+			}
 
-            .info-grid {
-                align-items: center;
-                display: grid;
-                gap: 0.5rem 0rem;
-                grid-template-columns: 1.5fr 3fr;
-                margin-bottom: 0.5rem;
+			.info-grid {
+				align-items: center;
+				display: grid;
+				gap: 0.5rem 0rem;
+				grid-template-columns: 1.5fr 3fr;
 
-                .head {
-                    font-size: 1.15rem;
+				.address,
+				.type,
+				.schedule {
+					font-size: 1rem;
+				}
+			}
 
-                    &-icon {
-                        color: $primary;
-                        height: 1rem;
-                    }
-                }
+			.description-container,
+			.info-grid {
+				.head {
+					font-size: 1rem;
 
-                .address,
-                .type,
-                .schedule {
-                    font-size: 1rem;
-                }
-            }
+					&-icon {
+						color: $primary;
+						height: 1rem;
+						padding: 0 0.2rem;
+					}
+				}
+			}
 
-            .users {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                max-height: 35%;
-                margin-top: 0.5rem;
-                overflow: auto;
+			.description-container {
+				margin-top: 0.5rem;
 
-                .user:not(:last-child) {
-                    margin-bottom: 1rem;
-                }
-            }
+				.description {
+					font-size: 1rem;
+					font-style: italic;
+					margin: 0.3rem 0;
+					max-height: 4rem;
+					overflow: auto;
+					white-space: pre;
+				}
+			}
 
-            hr {
-                margin: 0.25rem 0;
-            }
+			.users {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				margin-top: 0.5rem;
+				overflow: auto;
 
-            .no-users {
-                align-items: center;
-                display: flex;
-                height: 25%;
-                justify-content: center;
-                width: 100%;
-            }
-        }
-    }
+				.user:not(:last-child) {
+					margin-bottom: 1rem;
+				}
+			}
+
+			hr {
+				margin: 0.25rem 0;
+			}
+
+			.no-users {
+				align-items: center;
+				display: flex;
+				height: 25%;
+				justify-content: center;
+				width: 100%;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-large) {
-    .body.events {
-        .event {
-            &-container {
-                gap: 0;
-                grid-template-columns: repeat(2, 1fr);
-                padding: 0 1rem 0 1.5rem;
+	.body.events {
+		.event {
+			&-container {
+				gap: 0;
+				grid-template-columns: repeat(2, 1fr);
+				padding: 0 1rem 0 1.5rem;
 
-                .calendar {
-                    padding: 0 1rem;
-                }
-            }
+				.calendar {
+					padding: 0 1rem;
+				}
+			}
 
-            &-image {
-                .image-1 {
-                    height: 11rem;
-                }
+			&-image {
+				.image-1 {
+					height: 11rem;
+				}
 
-                .image-2 {
-                    height: 7rem;
-                    margin: -4rem 2rem -2rem 0;
-                }
+				.image-2 {
+					height: 7rem;
+					margin: -4rem 2rem -2rem 0;
+				}
 
-                .image-3 {
-                    height: 12rem;
-                }
-            }
+				.image-3 {
+					height: 12rem;
+				}
+			}
 
-            &-informations {
-                height: 85%;
-                top: 10%;
+			&-informations {
+				height: 85%;
+				top: 10%;
 
-                .close {
-                    height: 2rem;
-                    margin: 0;
-                    width: 2rem;
-                }
+				.close {
+					height: 2rem;
+					margin: 0;
+					width: 2rem;
+				}
 
-                .header {
-                    .date {
-                        font-size: 1.5rem;
-                    }
-                }
+				.header {
+					.date {
+						font-size: 1.5rem;
+					}
+				}
 
-                .image {
-                    margin-bottom: 0.75rem;
-                }
+				.image {
+					margin-bottom: 0.75rem;
+				}
 
-                .info-grid {
-                    grid-template-columns: 2fr 3fr;
+				.info-grid {
+					grid-template-columns: 2fr 3fr;
 
-                    .head {
-                        font-size: 1rem;
+					.head {
+						font-size: 1rem;
 
-                        &-icon {
-                            height: 0.9rem;
-                        }
-                    }
+						&-icon {
+							height: 0.9rem;
+						}
+					}
 
-                    .address,
-                    .type,
-                    .schedule {
-                        font-size: 0.85rem;
-                    }
-                }
+					.address,
+					.type,
+					.schedule {
+						font-size: 0.85rem;
+					}
+				}
 
-                .users {
-                    .user:not(:last-child) {
-                        margin-bottom: 0.75rem;
-                    }
-                }
-            }
-        }
-    }
+				.users {
+					.user:not(:last-child) {
+						margin-bottom: 0.75rem;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .body.events {
-        .event {
-            &-container {
-                gap: 0;
-                grid-template-columns: repeat(2, 1fr);
-                padding: 0 1rem 0 1rem;
+	.body.events {
+		.event {
+			&-container {
+				gap: 0;
+				grid-template-columns: repeat(2, 1fr);
+				padding: 0 1rem 0 1rem;
 
-                .calendar {
-                    padding: 0 0.5rem;
-                    max-width: 90%;
-                }
-            }
+				.calendar {
+					padding: 0 0.5rem;
+					max-width: 90%;
+				}
+			}
 
-            &-image {
-                .image-1 {
-                    height: 9rem;
-                }
+			&-image {
+				.image-1 {
+					height: 9rem;
+				}
 
-                .image-2 {
-                    margin: -3rem 1rem -2rem 0;
-                }
+				.image-2 {
+					margin: -3rem 1rem -2rem 0;
+				}
 
-                .image-3 {
-                    height: 9rem;
-                }
-            }
+				.image-3 {
+					height: 9rem;
+				}
+			}
 
-            &-informations {
-                height: 80%;
+			&-informations {
+				height: 80%;
 
-                .close {
-                    height: 2rem;
-                    right: 0.5rem;
-                    top: 0.7rem;
-                    width: 2rem;
-                }
+				.close {
+					height: 2rem;
+					right: 0.5rem;
+					top: 0.7rem;
+					width: 2rem;
+				}
 
-                .header {
-                    .date {
-                        font-size: 1.25rem;
-                        margin-left: 1.5rem;
-                    }
-                }
+				.header {
+					.date {
+						font-size: 1.25rem;
+						margin-left: 1.5rem;
+					}
+				}
 
-                .image {
-                    height: 30%;
-                    margin-bottom: 0.5rem;
-                }
+				.image {
+					height: 30%;
+					margin-bottom: 0.5rem;
+				}
 
-                .info-grid {
-                    .head {
-                        font-size: 0.75rem;
+				.info-grid {
+					.address,
+					.type,
+					.schedule {
+						font-size: 0.75rem;
+					}
+				}
 
-                        &-icon {
-                            height: 0.7rem;
-                        }
-                    }
+				.description-container,
+				.info-grid {
+					.head {
+						font-size: 0.75rem;
 
-                    .address,
-                    .type,
-                    .schedule {
-                        font-size: 0.75rem;
-                    }
-                }
+						&-icon {
+							height: 0.7rem;
+						}
+					}
+				}
 
-                .users {
-                    grid-template-columns: repeat(2, 1fr);
-                    max-height: 40%;
+				.description-container {
+					margin-top: 0.25rem;
 
-                    .user:not(:last-child) {
-                        margin-bottom: 0.5rem;
-                    }
-                }
-            }
-        }
-    }
+					.description {
+						font-size: 0.75rem;
+						max-height: 5rem;
+					}
+				}
+
+				.users {
+					grid-template-columns: repeat(2, 1fr);
+					max-height: 40%;
+
+					.user:not(:last-child) {
+						margin-bottom: 0.5rem;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .body.events {
-        .event {
-            &-container {
-                gap: 0;
-                grid-template-columns: 1fr;
-                padding: 0 0.5rem 0 0.5rem;
+	.body.events {
+		.event {
+			&-container {
+				gap: 0;
+				grid-template-columns: 1fr;
+				padding: 0 0.5rem 0 0.5rem;
 
-                .calendar {
-                    padding: 0;
-                    max-width: 100%;
-                    grid-row: 1;
-                }
-            }
+				.calendar {
+					padding: 0;
+					max-width: 100%;
+					grid-row: 1;
+				}
+			}
 
-            &-image {
-                grid-row: 2;
+			&-image {
+				grid-row: 2;
 
-                .image-1 {
-                    height: 7rem;
-                }
+				.image-1 {
+					height: 7rem;
+				}
 
-                .image-2 {
-                    height: 6rem;
-                    margin: -5rem 1rem -3rem 0;
-                }
+				.image-2 {
+					height: 6rem;
+					margin: -5rem 1rem -3rem 0;
+				}
 
-                .image-3 {
-                    height: 7rem;
-                }
-            }
+				.image-3 {
+					height: 7rem;
+				}
+			}
 
-            &-informations {
-                border-bottom-left-radius: 0;
-                border-top-right-radius: 2rem;
-                border-top-left-radius: 2rem;
-                bottom: -95%;
-                height: 95%;
-                left: 0;
-                right: 0;
-                top: auto;
-                width: 100%;
+			&-informations {
+				border-bottom-left-radius: 0;
+				border-top-right-radius: 2rem;
+				border-top-left-radius: 2rem;
+				bottom: -95%;
+				height: 100%;
+				left: 0;
+				right: 0;
+				top: auto;
+				width: 100%;
 
-                &.open {
-                    right: auto;
-                    bottom: 0%;
-                }
+				&.open {
+					right: auto;
+					bottom: 0%;
+				}
 
-                .close {
-                    height: 1.5rem;
-                    right: 1rem;
-                    top: 0.5rem;
-                    text-align: start;
-                    width: 1.5rem;
-                }
+				.close {
+					height: 1.5rem;
+					right: 1rem;
+					top: 0.5rem;
+					text-align: start;
+					width: 1.5rem;
+				}
 
-                .header {
-                    flex-direction: column-reverse;
-                    margin-top: 0.5rem;
+				.header {
+					flex-direction: column-reverse;
+					margin-top: 0.5rem;
 
-                    .date {
-                        font-size: 1rem;
-                        margin: {
-                            bottom: 0.5rem;
-                            left: 0;
-                        }
-                    }
+					.date {
+						font-size: 1rem;
+						margin: {
+							bottom: 0.5rem;
+							left: 0;
+						}
+					}
 
-                    .button {
-                        width: 100%;
-                    }
-                }
+					.button {
+						width: 100%;
+					}
+				}
 
-                .info-grid {
-                    grid-template-columns: 2.5fr 3fr;
-                }
-            }
-        }
-    }
+				.info-grid {
+					grid-template-columns: 2.5fr 3fr;
+				}
+			}
+		}
+	}
 }

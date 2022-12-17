@@ -1,11 +1,11 @@
 import { GraphQLResult } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import { getNextEvents, listEvents, listEventsLight, ListEventsLightQuery, ListEventsQuery, subscriptionToEvent, SubscriptionToEventQuery } from "../../components/custom-queries";
-import { EventModel } from "../../routes/event/event.component";
 import RequestError from "../errors/request-error";
 import moment from 'moment';
 import { createEvent, deleteEvent, updateEvent } from "../../graphql/mutations";
 import { CreateEventMutation, DeleteEventMutation, UpdateEventMutation } from "../../API";
+import { EventModel } from '../../models/event.model';
 
 export default class EventService {
     static async getNextEvent(variables: object): Promise<EventModel[]> {
@@ -49,7 +49,8 @@ export default class EventService {
                         firstname: user?.user.firstname || '',
                         image: user?.user.image || ''
                     }
-                })
+                }),
+                description: item?.description || '',
             }
         });
     }
@@ -95,7 +96,8 @@ export default class EventService {
                         firstname: user?.user.firstname || '',
                         image: user?.user.image || ''
                     }
-                })
+                }),
+                description: item?.description || '',
             }
         });
     }
@@ -151,7 +153,8 @@ export default class EventService {
                 lastname: item.createBy?.lastname || '',
                 firstname: item.createBy?.firstname || '',
                 image: item.createBy?.image || '',
-            }
+            },
+            description: item.description || '',
         }
     }
 
@@ -187,7 +190,8 @@ export default class EventService {
                 lastname: item.createBy?.lastname || '',
                 firstname: item.createBy?.firstname || '',
                 image: item.createBy?.image || '',
-            }
+            },
+            description: item.description || '',
         }
     }
 

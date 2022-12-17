@@ -1,270 +1,299 @@
-@import "../../../common/common.style.scss";
+@import '../../../common/common.style.scss';
 
 .event-carousel {
-    .event {
-        &-container {
-            height: 100%;
+	.event {
+		&-container {
+			height: 100%;
 
-            .image {
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                border-radius: 0.3rem;
-                height: 40%;
-                margin-bottom: 2rem;
-                position: relative;
-                width: 100%;
+			.image {
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+				border-radius: 0.3rem;
+				height: 30%;
+				margin-bottom: 2rem;
+				position: relative;
+				width: 100%;
 
-                .event-title-container {
-                    background-color: rgba($white, 0.8);
-                    border-radius: 0.3rem;
-                    display: inline-block;
-                    font-weight: bold;
-                    margin: auto;
-                    padding: 0.5rem;
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 60%;
+				.event-title-container {
+					background-color: rgba($white, 0.8);
+					border-radius: 0.3rem;
+					display: inline-block;
+					font-weight: bold;
+					margin: auto;
+					padding: 0.5rem;
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					transform: translate(-50%, -50%);
+					width: 60%;
 
-                    .title {
-                        color: $text-color;
-                        margin: 0 !important;
-                    }
-                }
-            }
-        }
+					.title {
+						color: $text-color;
+						margin: 0 !important;
+					}
+				}
+			}
+		}
 
-        &-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
+		&-title {
+			font-size: 1.75rem;
+			margin-bottom: 1.5rem;
+		}
 
-        &-info-container {
-            display: flex;
-            flex-direction: row;
+		&-info-container {
+			display: flex;
+			flex-direction: row;
 
-            .left-container {
-                flex: 1 0 0;
-                width: 50%;
+			.left-container {
+				flex: 1 0 0;
+				width: 50%;
 
-                .info-container {
-                    display: grid;
-                    grid-template-columns: 1.5fr 5fr;
-                    gap: 1rem 0rem;
+				.info-container {
+					display: grid;
+					grid-template-columns: 1.5fr 5fr;
+					gap: 0.5rem 0rem;
+				}
 
-                    .label,
-                    .value {
-                        font-size: 1.25rem;
-                        letter-spacing: 0;
-                    }
+				.description-container,
+				.info-container {
+					.label,
+					.value {
+						font-size: 1rem;
+						letter-spacing: 0;
+					}
 
-                    .label {
-                        align-items: center;
-                        display: flex;
+					.label {
+						align-items: center;
+						display: flex;
 
-                        &-icon {
-                            color: $primary;
-                            height: 1.5rem;
-                        }
+						&-icon {
+							color: $primary;
+							height: 1.5rem;
+						}
 
-                        span {
-                            margin-left: 1.75rem;
-                        }
-                    }
-                }
+						span {
+							margin-left: 1.75rem;
+						}
+					}
+				}
 
-                .button {
-                    margin-top: 2rem !important;
-                    width: 90%;
-                }
-            }
+				.description-container {
+					margin-top: 1rem;
 
-            .right-container {
-                flex: 1 0 0;
-                width: 50%;
+					.value {
+						display: -webkit-box;
+						font-style: italic;
+						line-clamp: 3;
+						-webkit-line-clamp: 3;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: pre;
+					}
+				}
 
-                .participants {
-                    display: grid;
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                    grid-template-rows: repeat(2, 1fr);
-                    gap: 0.5rem;
-                }
+				.button {
+					margin-top: 2rem !important;
+					width: 90%;
+				}
+			}
 
-                .no-participant {
-                    color: $primary;
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                }
-            }
-        }
-    }
+			.right-container {
+				flex: 1 0 0;
+				width: 50%;
+
+				.participants {
+					display: grid;
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+					grid-template-rows: repeat(2, 1fr);
+					gap: 0.5rem;
+				}
+
+				.no-participant {
+					color: $primary;
+					font-size: 1.5rem;
+					font-weight: bold;
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-large) {
-    .event-carousel {
-        .event {
-            &-container {
-                .image {
-                    height: 40%;
-                    margin-bottom: 0.75rem;
+	.event-carousel {
+		.event {
+			&-container {
+				.image {
+					height: 40%;
+					margin-bottom: 0.75rem;
 
-                    .event-title-container {
-                        width: 60%;
+					.event-title-container {
+						width: 60%;
 
-                        .title {
-                            font-size: 1.5rem;
-                        }
-                    }
-                }
-            }
+						.title {
+							font-size: 1.5rem;
+						}
+					}
+				}
+			}
 
-            &-title {
-                font-size: 1.75rem;
-            }
+			&-title {
+				font-size: 1.75rem;
+			}
 
-            &-info-container {
-                .left-container {
-                    width: 50%;
+			&-info-container {
+				.left-container {
+					width: 50%;
 
-                    .info-container {
-                        grid-template-columns: 2.5fr 5fr;
+					.info-container {
+						grid-template-columns: 2.5fr 5fr;
 
-                        .label,
-                        .value {
-                            font-size: 1rem;
-                        }
+						.label,
+						.value {
+							font-size: 1rem;
+						}
 
-                        .label {
-                            &-icon {
-                                height: 1rem;
-                            }
-                        }
-                    }
+						.label {
+							&-icon {
+								height: 1rem;
+							}
+						}
+					}
 
-                    .button {
-                        width: 95%;
-                    }
-                }
-            }
-        }
-    }
+					.button {
+						width: 95%;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-medium) {
-    .event-carousel {
-        .event {
-            &-container {
-                .image {
-                    height: 33%;
-                    margin: {
-                        bottom: 0.5rem;
-                        left: -8%;
-                    }
-                    width: 116%;
+	.event-carousel {
+		.event {
+			&-container {
+				.image {
+					height: 33%;
+					margin: {
+						bottom: 0.5rem;
+						left: -8%;
+					}
+					width: 116%;
 
-                    .event-title-container {
-                        width: 70%;
-                    }
-                }
-            }
+					.event-title-container {
+						width: 70%;
+					}
+				}
+			}
 
-            &-info-container {
-                flex-direction: column;
+			&-info-container {
+				flex-direction: column;
 
-                .left-container {
-                    width: 100%;
+				.left-container {
+					width: 100%;
 
-                    .info-container {
-                        gap: 0.35rem;
+					.info-container {
+						gap: 0.35rem;
 
-                        .label,
-                        .value {
-                            font-size: 0.95rem;
-                        }
-                    }
+						.label,
+						.value {
+							font-size: 0.95rem;
+						}
+					}
 
-                    .button {
-                        margin-bottom: 1rem !important;
-                        width: 100%;
-                    }
-                }
+					.button {
+						margin-bottom: 1rem !important;
+						width: 100%;
+					}
+				}
 
-                .right-container {
-                    width: 100%;
-                }
-            }
-        }
-    }
+				.right-container {
+					width: 100%;
+				}
+			}
+		}
+	}
 }
 
 @media screen and (max-width: $breakpoint-small) {
-    .event-carousel {
-        .event {
-            &-container {
-                .image {
-                    margin-left: -12.5%;
-                    width: 125%;
+	.event-carousel {
+		.event {
+			&-container {
+				.image {
+					height: 25vh;
+					margin-bottom: 1rem;
 
-                    .event-title-container {
-                        padding: 0.5rem;
-                        width: 80%;
+					.event-title-container {
+						width: 70%;
 
-                        .title {
-                            font-size: 1.25rem;
-                        }
-                    }
-                }
-            }
+						.title {
+							color: $text-color;
+							margin: 0 !important;
+						}
+					}
+				}
+			}
 
-            &-title {
-                font-size: 1.5rem;
-                margin: 1rem;
-            }
+			&-title {
+				font-size: 1rem;
+				margin: 1rem;
+			}
 
-            &-info-container {
-                height: 66%;
-                overflow-y: auto;
-                overflow-x: hidden;
+			&-info-container {
+				height: 53vh;
+				overflow-y: auto;
+				overflow-x: hidden;
 
-                .left-container {
-                    .info-container {
-                        grid-template-columns: 1fr;
-                        gap: 0;
+				.left-container {
+					.info-container {
+						grid-template-columns: 1fr;
+						gap: 0.3rem;
+					}
 
-                        .label,
-                        .value {
-                            font-size: 1rem;
-                        }
+					.description-container,
+					.info-container {
+						.label,
+						.value {
+							font-size: 1rem;
+						}
 
-                        .value {
-                            margin-bottom: 0.5rem;
-                        }
+						.label {
+							&-icon {
+								height: 1.5rem;
+							}
 
-                        .label {
-                            &-icon {
-                                height: 1rem;
-                            }
-                        }
-                    }
+							span {
+								margin-left: 1.5rem;
+							}
+						}
+					}
 
-                    .button {
-                        width: 99%;
-                    }
-                }
+					.description-container {
+						margin-top: 0.3rem;
 
-                .right-container {
-                    .participants {
-                        grid-template-columns: 1fr;
-                        grid-template-rows: 1fr;
-                    }
+						.value {
+							margin-top: 0.3rem;
+						}
+					}
 
-                    .no-participant {
-                        font-size: 1rem;
-                    }
-                }
-            }
-        }
-    }
+					.button {
+						width: 99%;
+					}
+				}
+
+				.right-container {
+					.participants {
+						grid-template-columns: 1fr;
+						grid-template-rows: 1fr;
+					}
+
+					.no-participant {
+						font-size: 1rem;
+					}
+				}
+			}
+		}
+	}
 }

@@ -36,7 +36,8 @@
             "subscribe": "Je m'inscris",
             "participants": "Les participants",
             "button": "Voir plus d'événements",
-            "no-participants": "Devient le premier participant !"
+            "no-participants": "Devient le premier participant !",
+            "description": "Description de l'événement :"
         },
         "new-arrivals": {
             "title": "Qui sont les <br />prochains arrivants ?",
@@ -128,7 +129,8 @@
             "error-participants": "Impossible de supprimer les participants",
             "error-delete": "Impossible de supprimer l'événement",
             "success-confirm": "Événement confirmé ! Il est maintenant disponible pour tous les utilisateurs",
-            "error-confirm": "Impossible de confirmer l'événement"
+            "error-confirm": "Impossible de confirmer l'événement",
+            "description": "Description de l'événement"
         },
         "new-arrivals": {
             "title-add": "Ajouter un nouvelle arrivant",

@@ -29,6 +29,7 @@ export const useGetNextEvent = (variables: object): UseGetNextEventModel => {
 			})
 			//TODO Improve to return error
 			.catch(() => {});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (isLoading) {

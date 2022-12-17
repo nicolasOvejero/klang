@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NewArrivalModel } from '../models/new-arrivals.model';
 import { API } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api';
-import { listBithday, listNewArrivals, ListNewArrivalsQuery } from '../components/custom-queries';
+import { listNewArrivals, ListNewArrivalsQuery } from '../components/custom-queries';
 import moment from 'moment';
 import RequestError from '../common/errors/request-error';
 
@@ -29,6 +29,7 @@ export const useGetNewArrivals = (variables: object): UseGetNewArrivalsModel => 
 			})
 			//TODO Improve to return error
 			.catch(() => {});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (isLoading) {

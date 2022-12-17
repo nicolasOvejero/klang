@@ -5,13 +5,14 @@ import { ListBirthdaysQuery, listBithday } from '../components/custom-queries';
 import { BirthdayModel } from '../models/birthday.model';
 import { GraphQLResult } from '@aws-amplify/api';
 import moment from 'moment';
+import { UserModel } from '../models/user.model';
 
-export type UseGetBirthdays = {
-	birthdays: BirthdayModel[];
+export type UseGetUserBirthdays = {
+	userBirthdays: UserModel[];
 	isLoading: boolean;
 };
 
-export const useGetBirthdays = (variables: object): UseGetBirthdays => {
+export const useGetUserBirthdays = (variables: object): UseGetUserBirthdays => {
 	const [results, setResults] = useState<GraphQLResult<ListBirthdaysQuery>>({});
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +35,7 @@ export const useGetBirthdays = (variables: object): UseGetBirthdays => {
 
 	if (isLoading) {
 		return {
-			birthdays: [],
+			userBirthdays: [],
 			isLoading,
 		};
 	}
@@ -47,30 +48,48 @@ export const useGetBirthdays = (variables: object): UseGetBirthdays => {
 	const items = results.data?.listBirthdays?.items;
 	if (!items) {
 		return {
-			birthdays: [],
+			userBirthdays: [],
 			isLoading: false,
 		};
 	}
 
-	const birthdays = items.map((item) => {
-		return {
-			id: item.id,
-			date: moment(item.date).toDate(),
-			users:
-				item.users?.items?.map((user) => {
-					return {
-						id: user?.id || '',
-						lastname: user?.lastname || '',
-						firstname: user?.firstname || '',
-						image: user?.image || '',
-						mail: user?.mail || '',
-					};
-				}) || [],
-		};
-	});
+	const userBirthdays = items
+		.map((item) => {
+			return {
+				id: item.id,
+				date: moment(item.date).toDate(),
+				users:
+					item.users?.items?.map((user) => {
+						return {
+							id: user?.id || '',
+							lastname: user?.lastname || '',
+							firstname: user?.firstname || '',
+							image: user?.image || '',
+							mail: user?.mail || '',
+						};
+					}) || [],
+			};
+		})
+		.filter((date: BirthdayModel) => {
+			const mdate = moment(date?.date);
+			const dateToCompare = moment().set('date', mdate.date()).set('month', mdate.month());
+			if (moment().month() >= mdate.month()) {
+				dateToCompare.add(1, 'year');
+			}
+			return dateToCompare.isAfter(moment());
+		})
+		.flatMap((b) =>
+			b.users
+				?.map((u: UserModel) => {
+					u.birthday = moment(b.date).format('DD MMMM');
+					return u;
+				})
+				.flat()
+		)
+		.sort((a, b) => moment(a?.birthday).diff(moment(b?.birthday)));
 
 	return {
-		birthdays,
+		userBirthdays,
 		isLoading,
 	};
 };

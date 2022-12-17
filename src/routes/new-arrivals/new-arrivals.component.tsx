@@ -1,51 +1,27 @@
 import welcome from '../../assets/welcome.png';
 import moment from 'moment';
 import User from '../../components/user/user.component';
-import { useEffect, useState } from 'react';
 import Loader from '../../components/loader/loader.component';
-import RequestService from '../../common/services/new-arrivals.service';
-import RequestError from '../../common/errors/request-error';
 import { Trans, useTranslation } from 'react-i18next';
 import './new-arrivals.styls.scss';
-import { NewArrivalModel } from '../../models/new-arrivals.model';
+import { useGetNewArrivals } from '../../hooks/useGetNewArrivals';
 
 const NewArrivals: React.FC = () => {
-	const [newArrivales, setNewArrivales] = useState<NewArrivalModel[]>([]);
-	const [loading, setLoading] = useState(true);
 	const { t } = useTranslation();
 
 	const start = moment().startOf('week').format('DD MMMM');
 	const end = moment().endOf('week').format('DD MMMM');
+	const startReq = moment().startOf('week').format('YYYY-MM-DD');
+	const endReq = moment().endOf('week').format('YYYY-MM-DD');
 
-	const getEvents = async () => {
-		const startReq = moment().startOf('week').format('YYYY-MM-DD');
-		const endReq = moment().endOf('week').format('YYYY-MM-DD');
-
-		try {
-			const newArrivales = await RequestService.getNewArrivals({
-				filter: {
-					date: {
-						ge: startReq,
-						le: endReq,
-					},
-				},
-			});
-			setNewArrivales(newArrivales);
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		} finally {
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
-		}
-	};
-
-	useEffect(() => {
-		getEvents();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const { newArrivals, isLoading } = useGetNewArrivals({
+		filter: {
+			date: {
+				ge: startReq,
+				le: endReq,
+			},
+		},
+	});
 
 	return (
 		<article className='body new-arrivals'>
@@ -63,14 +39,14 @@ const NewArrivals: React.FC = () => {
 					<h3 className='calendar-title'>
 						{t('new-arrivals.from')} {start} {t('new-arrivals.to')} {end}
 					</h3>
-					{loading && (
+					{isLoading && (
 						<div className='calendar-position'>
 							<Loader></Loader>
 						</div>
 					)}
-					{!loading && newArrivales.length > 0 && (
+					{!isLoading && newArrivals.length > 0 && (
 						<ul className='list'>
-							{newArrivales.map((arrival) => {
+							{newArrivals.map((arrival) => {
 								const listItems: JSX.Element[] = [];
 								const dateString = moment(arrival.date).format('DD MMMM');
 								listItems.push(
@@ -95,7 +71,7 @@ const NewArrivals: React.FC = () => {
 							})}
 						</ul>
 					)}
-					{!loading && newArrivales.length === 0 && (
+					{!isLoading && newArrivals.length === 0 && (
 						<div className='no-new-arrivals'>
 							<Trans i18nKey='new-arrivals.no-new'></Trans>
 						</div>

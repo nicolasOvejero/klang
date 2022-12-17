@@ -1,7 +1,7 @@
 import Calendar from '../../components/calendar/calendar.component';
 import calendar from '../../assets/calendar.png';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import wine from '../../assets/wine.png';
 import winter from '../../assets/winter.png';
 import halloween from '../../assets/halloween.png';
@@ -13,7 +13,6 @@ import { selectUserReducer } from '../../store/user/user.selector';
 import Toaster from '../../components/toaster/toaster.component';
 import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
-import EventService from '../../common/services/event.service';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { ReactComponent as CalendarIcon } from '../../assets/icons/calendar-days.svg';
@@ -21,6 +20,7 @@ import { ReactComponent as ClockIcon } from '../../assets/icons/clock.svg';
 import { ReactComponent as PinIcon } from '../../assets/icons/map-pin.svg';
 import { ReactComponent as Info } from '../../assets/icons/info.svg';
 import { EventModel } from '../../models/event.model';
+import { useGetEvents } from '../../hooks/useGetEvents';
 import './event.style.scss';
 
 type EventDefaultState = {
@@ -37,16 +37,29 @@ const Event: React.FC = () => {
 	const user = useSelector(selectUserReducer);
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<EventModel>();
-	const [events, setEvents] = useState<EventModel[]>([]);
-	const [loading, setLoading] = useState(true);
 	const [eventState, setEventState] = useState<EventDefaultState>(defaultState);
 	const { t } = useTranslation();
+
+	const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+	const endOfMonth = moment().endOf('month').format('YYYY-MM-DD');
+	const { events, isLoading } = useGetEvents({
+		filter: {
+			published: {
+				eq: true,
+			},
+			date: {
+				ge: startOfMonth,
+				le: endOfMonth,
+			},
+		},
+	});
 
 	const showEventDescription = (selectedDay: EventModel) => {
 		setIsInfoOpen(true);
 		setSelectedDate(selectedDay);
 
-		const disableSubscription = !!selectedDay.participants?.find((p) => p.id === user.id) || moment(selectedDay.date).isBefore(moment());
+		const disableSubscription =
+			!!selectedDay.participants?.find((p) => p.id === user.id) || moment(selectedDay.date).isBefore(moment());
 
 		setEventState({
 			...eventState,
@@ -83,7 +96,7 @@ const Event: React.FC = () => {
 					firstname: subscription.user.firstname,
 					image: subscription.user.image,
 				});
-				setEvents([...events]);
+				// setEvents([...events]);
 
 				setEventState({
 					disableSubscription: true,
@@ -102,39 +115,6 @@ const Event: React.FC = () => {
 			}
 		}
 	};
-
-	const getEvents = async () => {
-		const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
-		const endOfMonth = moment().endOf('month').format('YYYY-MM-DD');
-
-		try {
-			const events = await EventService.getEvents({
-				filter: {
-					published: {
-						eq: true,
-					},
-					date: {
-						ge: startOfMonth,
-						le: endOfMonth,
-					},
-				},
-			});
-			setEvents(events);
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		} finally {
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
-		}
-	};
-
-	useEffect(() => {
-		getEvents();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	return (
 		<article className='body events'>
@@ -223,12 +203,12 @@ const Event: React.FC = () => {
 					)}
 					{selectedDate?.participants?.length === 0 && <p className='no-users'>{t('events.no-users')}</p>}
 				</aside>
-				{loading && (
+				{isLoading && (
 					<div className='calendar-position'>
 						<Loader></Loader>
 					</div>
 				)}
-				{!loading && (
+				{!isLoading && (
 					<Calendar
 						iconHover={calendar}
 						color='secondary'

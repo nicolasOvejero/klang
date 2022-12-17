@@ -1,43 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
 import Button from '../../../button/button.component';
 import Toaster from '../../../toaster/toaster.component';
 import { useTranslation } from 'react-i18next';
 import EventService from '../../../../common/services/event.service';
-import { EventModel } from '../../../../models/event.model';
+import { useGetEvents } from '../../../../hooks/useGetEvents';
 import './event-form-confirm.style.scss';
+import Loader from '../../../loader/loader.component';
 
 const EventFormConfirm: React.FC = () => {
-	const [events, setEvents] = useState<EventModel[]>([]);
 	const [success, setSuccess] = useState<boolean>(false);
 	const [showToaster, setShowToaster] = useState<boolean>(false);
 	const { t } = useTranslation();
-
-	const getEvents = async () => {
-		try {
-			const currentDay = moment().format('YYYY-MM-DD');
-
-			const eventsToConfirm = await EventService.getEvents({
-				filter: {
-					published: {
-						eq: false,
-					},
-					date: {
-						ge: currentDay,
-					},
-				},
-			});
-
-			setEvents(eventsToConfirm);
-		} catch (error: unknown) {
-			setSuccess(false);
-			setShowToaster(true);
-		} finally {
-			setTimeout(() => {
-				setShowToaster(false);
-			}, 2000);
-		}
-	};
+	const currentDay = moment().format('YYYY-MM-DD');
+	const { events, isLoading } = useGetEvents({
+		filter: {
+			published: {
+				eq: false,
+			},
+			date: {
+				ge: currentDay,
+			},
+		},
+	});
 
 	const handlerSubmit = async (eventId: string) => {
 		try {
@@ -51,7 +36,7 @@ const EventFormConfirm: React.FC = () => {
 			setSuccess(true);
 			setShowToaster(true);
 
-			getEvents();
+			// getEvents();
 		} catch (error: unknown) {
 			setSuccess(false);
 			setShowToaster(true);
@@ -62,10 +47,9 @@ const EventFormConfirm: React.FC = () => {
 		}
 	};
 
-	useEffect(() => {
-		getEvents();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	if (isLoading) {
+		return <Loader></Loader>;
+	}
 
 	return (
 		<div className='form-event-confirm'>
@@ -80,7 +64,7 @@ const EventFormConfirm: React.FC = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{events.map((event) => {
+					{events?.map((event) => {
 						return (
 							<tr key={event.id}>
 								<td>{event.type}</td>

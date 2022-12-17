@@ -1,6 +1,6 @@
 import { API } from 'aws-amplify';
 import { CreateBirthdayMutation } from '../../API';
-import { ListBirthdaysLightQuery, ListBirthdaysQuery, listBithday, listBithdayLight } from '../../components/custom-queries';
+import { ListBirthdaysLightQuery, listBithdayLight } from '../../components/custom-queries';
 import { createBirthday } from '../../graphql/mutations';
 import RequestError from '../errors/request-error';
 import moment from 'moment';
@@ -8,40 +8,6 @@ import { GraphQLResult } from '@aws-amplify/api';
 import { BirthdayModel } from '../../models/birthday.model';
 
 export default class BirthdayService {
-	static async getBirthdays(variables: object): Promise<BirthdayModel[]> {
-		const apiData = (await API.graphql({
-			query: listBithday,
-			variables,
-			authMode: 'AMAZON_COGNITO_USER_POOLS',
-		})) as GraphQLResult<ListBirthdaysQuery>;
-
-		if (apiData.errors) {
-			throw new RequestError('get birthdays with user', apiData.errors);
-		}
-
-		const items = apiData.data?.listBirthdays?.items;
-		if (!items) {
-			return [];
-		}
-
-		return items.map((item) => {
-			return {
-				id: item.id,
-				date: moment(item.date).toDate(),
-				users:
-					item.users?.items?.map((user) => {
-						return {
-							id: user?.id || '',
-							lastname: user?.lastname || '',
-							firstname: user?.firstname || '',
-							image: user?.image || '',
-							mail: user?.mail || '',
-						};
-					}) || [],
-			};
-		});
-	}
-
 	static async getBirthdaysLight(variables: object): Promise<{ id: string; date: string }[]> {
 		const apiData = (await API.graphql({
 			query: listBithdayLight,

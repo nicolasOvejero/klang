@@ -8,7 +8,7 @@ import RequestError from '../../common/errors/request-error';
 import UserService from '../../common/services/user.service';
 import { ReactComponent as ChevRight } from '../../assets/icons/chevron-right.svg';
 import { ReactComponent as ChevLeft } from '../../assets/icons/chevron-left.svg';
-import { useGetUserBirthdays } from '../../hooks/useGetBirthdays';
+import { useGetUserBirthdays } from '../../hooks/useGetUserBirthdays';
 import { useGetNextEvent } from '../../hooks/useGetNextEvent';
 import { useGetNewArrivals } from '../../hooks/useGetNewArrivals';
 import './home-carousel.style.scss';
@@ -21,6 +21,7 @@ const HomeCarousel: React.FC = () => {
 	const currentDay = moment().format('YYYY-MM-DD');
 	const currentMonth = moment().format('MM');
 	const nextMonth = moment().add(1, 'M').format('MM');
+	const startWeek = moment().startOf('week').format('YYYY-MM-DD');
 	const { userBirthdays, isLoading: isLoadingUser } = useGetUserBirthdays({
 		limit: 6,
 		filter: {
@@ -52,7 +53,7 @@ const HomeCarousel: React.FC = () => {
 		limit: 6,
 		filter: {
 			date: {
-				ge: currentDay,
+				ge: startWeek,
 			},
 		},
 	});

@@ -2,23 +2,28 @@ import Calendar from '../../components/calendar/calendar.component';
 import partyImage from '../../assets/party.png';
 import cake from '../../assets/cake.png';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ReactComponent as Background } from '../../assets/bg-party.svg';
 import User from '../../components/user/user.component';
 import Loader from '../../components/loader/loader.component';
-import RequestError from '../../common/errors/request-error';
-import BirthdayService from '../../common/services/birthday.service';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
-import './birthday.style.scss';
 import { BirthdayModel } from '../../models/birthday.model';
+import { useGetBirthdays } from '../../hooks/useGetBirthdays';
+import './birthday.style.scss';
 
 const Birthday: React.FC = () => {
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<BirthdayModel>();
-	const [birthdays, setBirthdays] = useState<BirthdayModel[]>([]);
-	const [loading, setLoading] = useState(true);
 	const { t } = useTranslation();
+	const currentMonth = moment().format('MM');
+	const { birthdays, isLoading } = useGetBirthdays({
+		filter: {
+			date: {
+				contains: `-${currentMonth}-`,
+			},
+		},
+	});
 
 	const showEventDescription = (selectedDay: BirthdayModel) => {
 		setIsInfoOpen(true);
@@ -29,41 +34,13 @@ const Birthday: React.FC = () => {
 		setIsInfoOpen(false);
 	};
 
-	const getBirthdays = async () => {
-		const currentMonth = moment().format('MM');
-
-		try {
-			const birthdays = await BirthdayService.getBirthdays({
-				filter: {
-					date: {
-						contains: `-${currentMonth}-`,
-					},
-				},
-			});
-			setBirthdays(birthdays);
-		} catch (error: unknown) {
-			if (error instanceof RequestError) {
-				console.error(error.errors);
-			}
-		} finally {
-			setTimeout(() => {
-				setLoading(false);
-			}, 500);
-		}
-	};
-
-	useEffect(() => {
-		getBirthdays();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	return (
 		<article className='body birthdays'>
 			<section className='title-container'>
 				<h1 className='title'>{t('birthdays.title')}</h1>
 			</section>
 			<section className='birthday-container'>
-				{!loading && (
+				{!isLoading && (
 					<Calendar
 						iconHover={cake}
 						color='primary'
@@ -71,7 +48,7 @@ const Birthday: React.FC = () => {
 						selectedDay={birthdays}
 					/>
 				)}
-				{loading && (
+				{isLoading && (
 					<div className='calendar-position'>
 						<Loader></Loader>
 					</div>
